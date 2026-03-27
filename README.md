@@ -2,7 +2,7 @@
 
 Llibreria d'utilitats Java per desenvolupament d'aplicacions multiplataforma.
 
-> Versió actual de la llibreria: **1.12**
+> Versió actual de la llibreria: **2.0**
 
 ## Classes principals:
 
