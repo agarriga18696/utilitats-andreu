@@ -4,7 +4,16 @@ Llibreria d'utilitats Java per desenvolupament d'aplicacions multiplataforma.
 
 > Versió actual de la llibreria: **2.0**
 
-## Classes principals:
+## Paquets:
+
+- **aplicacio** → conjunt de classes base per crear aplicacions de manera més eficient i estructurada
+- **utilitats** → conjunt de classes d'utilitats per fer el codi més eficient
+
+## Classes del paquet aplicacio
+
+- **VistaBase** → classe abstracta amb mètodes essencials per la classe Vista
+
+## Classes del paquet utilitats
 
 - **Aleatori** → generació de valors aleatoris
 - **Arrays** → utilitats per treballar amb arrays
