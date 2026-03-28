@@ -10,7 +10,7 @@ import utilitats.Missatges;
  * @version 1.0
  */
 
-public abstract class Controlador {
+public abstract class ControladorBase {
 
 	////////////////////////////////////////////////////
 	/// ATRIBUTS ABSTRACTES

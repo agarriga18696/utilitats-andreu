@@ -4,7 +4,7 @@ package aplicacio;
  * Classe base per crear la classe Aplicacio.
  * 
  * @author Andreu
- * @version 1.0
+ * @version 1.1
  */
 
 public abstract class AplicacioBase {
@@ -13,8 +13,8 @@ public abstract class AplicacioBase {
 	/// ATRIBUTS ABSTRACTES
 	////////////////////////////////////////////////////
 
-	protected abstract Controlador controlador();
-	protected abstract VistaBase vista();
+	protected abstract ControladorBase controlador();
+	protected abstract VistaBase vista(ControladorBase controlador);
 
 	////////////////////////////////////////////////////
 	/// MÈTODES DE LA CLASSE
@@ -24,8 +24,9 @@ public abstract class AplicacioBase {
 	 * Executa l'aplicació.
 	 */
 	public void executar() {
-		controlador().inicialitzar();
-		vista().menu();
+		ControladorBase controlador = controlador();
+		controlador.inicialitzar();
+		vista(controlador).menu();
 	}
 	
 }
