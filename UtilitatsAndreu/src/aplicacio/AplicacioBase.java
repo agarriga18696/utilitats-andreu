@@ -4,10 +4,10 @@ package aplicacio;
  * Classe base per crear la classe Aplicacio.
  * 
  * @author Andreu
- * @version 1.1
+ * @version 1.2
  */
 
-public abstract class AplicacioBase {
+public abstract class AplicacioBase implements Executable {
 
 	////////////////////////////////////////////////////
 	/// ATRIBUTS ABSTRACTES
@@ -23,10 +23,11 @@ public abstract class AplicacioBase {
 	/**
 	 * Executa l'aplicació.
 	 */
+	@Override
 	public void executar() {
 		ControladorBase controlador = controlador();
 		controlador.inicialitzar();
 		vista(controlador).menu();
 	}
-	
+
 }
