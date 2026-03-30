@@ -44,7 +44,7 @@ Afegeix la llibreria al teu projecte Java i importa les classes necessàries.
 - [X] Codi reutilitzable i modular
 - [ ] Compatibilitat total amb tots els tipus de col·leccions (en procés)
 
-## Exemples d'ús
+## Exemples d'ús de les utilitats
 
 ### Mostrar missatges
 
@@ -121,3 +121,20 @@ int numObjectes = Fitxers.comptarObjectes("dades.dat");
 Fitxers.crearFitxerSiNoExisteix("dades.dat");
 Fitxers.crearDirectoriSiNoExisteix("fitxers");
 ```
+
+## Crea aplicacions de manera senzilla
+
+### Estructura base del projecte
+
+La llibreria està pensada per treballar amb l'arquitectura MVC.
+Crea els següents paquets al teu projecte:
+- model
+- vista
+- controlador
+
+Llavors crea les següents classes al projecte:
+- App.java (paquet per defecte o crea un paquet main)
+- Controlador.java (esten de ControladorBase)
+- Vista (esten de VistaBase)
+
+Implementa els mètodes requerits.
