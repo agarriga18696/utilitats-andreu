@@ -6,7 +6,7 @@ import utilitats.Menu;
  * Classe base per crear la classe Vista.
  * 
  * @author Andreu
- * @version 1.1
+ * @version 2.0
  */
 
 public abstract class VistaBase {

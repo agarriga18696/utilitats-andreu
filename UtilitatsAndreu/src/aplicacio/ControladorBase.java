@@ -7,10 +7,10 @@ import utilitats.Missatges;
  * Classe base per crear la classe Controlador.
  * 
  * @author Andreu
- * @version 1.2
+ * @version 2.0
  */
 
-public abstract class ControladorBase implements Inicialitzable, Finalitzable {
+public abstract class ControladorBase {
 
 	////////////////////////////////////////////////////
 	/// ATRIBUTS ABSTRACTES
@@ -27,7 +27,6 @@ public abstract class ControladorBase implements Inicialitzable, Finalitzable {
 	/**
 	 * Inicialitza el directori i carrega les dades des del fitxer.
 	 */
-	@Override
 	public void inicialitzar() {
 		Fitxers.crearDirectoriSiNoExisteix(directori());
 		carregar();
@@ -36,9 +35,7 @@ public abstract class ControladorBase implements Inicialitzable, Finalitzable {
 	/**
 	 * Finalitza l'aplicació.
 	 */
-	@Override
 	public void finalitzar() {
-		Missatges.subtitol("Sortir de l'aplicació");
 		guardar();
 		Missatges.fiPrograma();
 		System.exit(0);
