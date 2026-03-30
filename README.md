@@ -11,6 +11,8 @@ Llibreria d'utilitats Java per desenvolupament d'aplicacions multiplataforma.
 
 ## Classes del paquet aplicacio
 
+- **AplicacioBase** → classe abstracta que gestiona el fluxe d'execució i de classes de l'aplicació.
+- **ControladorBase** → classe abstracta que gestiona la lògica de l'aplicació.
 - **VistaBase** → classe abstracta amb mètodes essencials per la classe Vista
 
 ## Classes del paquet utilitats
