@@ -1,14 +1,12 @@
 package utilitats;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Classe d'utilitat per treballar amb arrays.
  * 
  * @author Andreu
- * @version 1.2
+ * @version 1.3
  */
 
 public class Arrays {
