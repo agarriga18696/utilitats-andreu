@@ -1,6 +1,8 @@
 package utilitats;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe d'utilitat per treballar amb arrays.
@@ -10,6 +12,26 @@ import java.lang.reflect.Array;
  */
 
 public class Arrays {
+
+	////////////////////////////////////////////////////
+	/// OPERACIONS
+	////////////////////////////////////////////////////
+
+	/**
+	 * Genera un array de números enters aleatoris entre {@code min} i {@code max} inclosos.
+	 * 
+	 * @param quantitat Nombre d'elements a generar.
+	 * @param min Valor mínim inclòs.
+	 * @param max Valor màxim inclòs.
+	 * @return Array de números enters aleatoris.
+	 */
+	public static int[] generarAleatoris(int quantitat, int min, int max) {
+		int[] array = new int[quantitat];
+		for(int i = 0; i < quantitat; i++) {
+			array[i] = (Aleatori.enter(min, max));
+		}
+		return array;
+	}
 
 	////////////////////////////////////////////////////
 	/// BUSCAR
