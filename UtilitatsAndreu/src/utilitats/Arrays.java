@@ -30,6 +30,22 @@ public class Arrays {
 		}
 		return array;
 	}
+	
+	/**
+	 * Genera un array de números decimals aleatoris entre {@code min} i {@code max} inclosos.
+	 * 
+	 * @param quantitat Nombre d'elements a generar.
+	 * @param min Valor mínim inclòs.
+	 * @param max Valor màxim inclòs.
+	 * @return Array de números decimals aleatoris.
+	 */
+	public static double[] generarAleatoris(int quantitat, double min, double max) {
+		double[] array = new double[quantitat];
+		for(int i = 0; i < quantitat; i++) {
+			array[i] = (Aleatori.decimal(min, max));
+		}
+		return array;
+	}
 
 	////////////////////////////////////////////////////
 	/// BUSCAR
