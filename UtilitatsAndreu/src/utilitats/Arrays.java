@@ -6,7 +6,7 @@ import java.lang.reflect.Array;
  * Classe d'utilitat per treballar amb arrays.
  * 
  * @author Andreu
- * @version 1.3
+ * @version 1.4
  */
 
 public class Arrays {
