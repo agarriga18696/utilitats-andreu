@@ -6,7 +6,7 @@ import java.util.Collection;
  * Classe d'utilitat per mostrar dades estructurades per consola.
  * 
  * @author Andreu
- * @version 2.0
+ * @version 2.1
  */
 
 public class Consola {
@@ -93,7 +93,6 @@ public class Consola {
 	public static <T> void llistaNumerada(T[] elements) {
 		for(int i = 0; i < elements.length; i++) {
 			System.out.println((i+1) + ". " + elements[i]);
-			i++;
 		}
 	}
 	
@@ -113,7 +112,6 @@ public class Consola {
 	public static void llistaNumerada(int[] elements) {
 		for(int i = 0; i < elements.length; i++) {
 			System.out.println((i+1) + ". " + elements[i]);
-			i++;
 		}
 	}
 	
@@ -123,7 +121,6 @@ public class Consola {
 	public static void llistaNumerada(double[] elements) {
 		for(int i = 0; i < elements.length; i++) {
 			System.out.println((i+1) + ". " + elements[i]);
-			i++;
 		}
 	}
 	
