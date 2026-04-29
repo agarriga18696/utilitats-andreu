@@ -5,13 +5,16 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
+import java.util.stream.Collectors;
 
 /**
  * Classe d'utilitat per treballar amb Col·leccions.
  * 
  * @author Andreu
- * @version 1.7
+ * @version 2.0
  */
 
 public class Coleccions {
@@ -76,14 +79,14 @@ public class Coleccions {
 	public static <T> T maxim(Collection<T> coleccio, Comparator<T> comparador) {
 		return coleccio.stream().max(comparador).orElseThrow();
 	}
-	
+
 	/**
 	 * Retorna el valor mínim d'una col·lecció genèrica.
 	 */
 	public static <T> T minim(Collection<T> coleccio, Comparator<T> comparador) {
 		return coleccio.stream().min(comparador).orElseThrow();
 	}
-	
+
 	/**
 	 * Retorna la mitjana dels elements d'una col·lecció genèrica.
 	 */
@@ -152,34 +155,107 @@ public class Coleccions {
 		return coleccioNova;
 	}
 
-	/**
-	 * Retorna una llista amb els elements de {@code llista} majors que {@code valorObjectiu}.
-	 * 
-	 * @param llista Llista d'elements numèrics.
-	 * @param valorObjectiu Valor de referència per el filtratge.
-	 * @return Llista amb els elements majors que {@code valorObjectiu}.
-	 */
-	public static <T extends Number & Comparable<T>> List<T> obtenirNumerosMajorsQueN(Collection<T> llista, T valorObjectiu) {
-		List<T> llistaFinal = new ArrayList<>();
-		for(T n : llista) {
-			if(n.compareTo(valorObjectiu) > 0) llistaFinal.add(n);
-		}
-		return llistaFinal;
-	}
+	////////////////////////////////////////////////////
+	/// FILTRAT I CERCA
+	////////////////////////////////////////////////////
 
 	/**
-	 * Retorna una llista amb els elements de {@code llista} menors que {@code valorObjectiu}.
+	 * Retorna una nova llista amb els elements de {@code coleccio} que 
+	 * compleixen la condició del predicat.
 	 * 
-	 * @param llista Llista d'elements numèrics.
-	 * @param valorObjectiu Valor de referència per el filtratge.
-	 * @return Llista amb els elements menors que {@code valorObjectiu}.
+	 * @param coleccio Col·lecció d'elements.
+	 * @param predicat Condició que han de complir els elements.
+	 * @return Nova llista amb els elements que compleixen la condició.
 	 */
-	public static <T extends Number & Comparable<T>> List<T> obtenirNumerosMenorsQueN(Collection<T> llista, T valorObjectiu) {
-		List<T> llistaFinal = new ArrayList<>();
-		for(T n : llista) {
-			if(n.compareTo(valorObjectiu) < 0) llistaFinal.add(n);
-		}
-		return llistaFinal;
+	public static <T> List<T> filtrar(Collection<T> coleccio, Predicate<T> predicat) {
+		return coleccio.stream()
+				.filter(predicat)
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Retorna el primer element de {@code coleccio} que compleix la condició del predicat,
+	 * o {@code null} si cap element la compleix. 
+	 * 
+	 * @param coleccio Col·lecció d'elements.
+	 * @param predicat Condició que ha de complir l'element.
+	 * @return El primer element que compleix la condició, o {@code null} si no n'hi ha cap.
+	 */
+	public static <T> T primerQue(Collection<T> coleccio, Predicate<T> predicat) {
+		return coleccio.stream()
+				.filter(predicat)
+				.findFirst()
+				.orElse(null);
+	}
+	
+	/**
+	 * Retorna el nombre d'elements de {@code coleccio} que compleixen la condició del predicat.
+	 * 
+	 * @param coleccio Col·lecció d'elements.
+	 * @param predicat Condició que han de complir els elements.
+	 * @return Nombre d'elements que compleixen la condició.
+	 */
+	public static <T> long comptar(Collection<T> coleccio, Predicate<T> predicat) {
+		return coleccio.stream()
+				.filter(predicat)
+				.count();
+	}
+
+	////////////////////////////////////////////////////
+	/// COMPROVACIONS
+	////////////////////////////////////////////////////
+
+	/**
+	 * Retorna {@code true} si algun element de {@code coleccio} compleix la condició del predicat.
+	 * 
+	 * @param coleccio Col·lecció d'elements.
+	 * @param predicat Condició a comprovar.
+	 * @return {@code true} si algun element compleix la condició.
+	 */
+	public static <T> boolean existeix(Collection<T> coleccio, Predicate<T> predicat) {
+		return coleccio.stream()
+				.anyMatch(predicat);
+	}
+	
+	/**
+	 * Retorna {@code true} si tots els elements de {@code coleccio} compleixen la condició del predicat.
+	 * 
+	 * @param coleccio Col·lecció d'elements.
+	 * @param predicat Condició a comprovar.
+	 * @return {@code true} si tots els elements compleixen la condició.
+	 */
+	public static <T> boolean tots(Collection<T> coleccio, Predicate<T> predicat) {
+		return coleccio.stream()
+				.allMatch(predicat);
+	}
+	
+	/**
+	 * Retorna {@code true} si cap element de {@code coleccio} compleix la condició del predicat.
+	 * 
+	 * @param coleccio Col·lecció d'elements.
+	 * @param predicat Condició a comprovar.
+	 * @return {@code true} si cap element compleix la condició.
+	 */
+	public static <T> boolean cap(Collection<T> coleccio, Predicate<T> predicat) {
+		return coleccio.stream()
+				.noneMatch(predicat);
+	}
+
+	////////////////////////////////////////////////////
+	/// TRANSFORMACIONS
+	////////////////////////////////////////////////////
+
+	/**
+	 * Retorna una nova llista amb els elements de {@code coleccio} transformats per la funció {@code f}.
+	 * 
+	 * @param coleccio Col·lecció d'elements.
+	 * @param f Funció de transformació.
+	 * @return Nova llista amb els elements transformats.
+	 */
+	public static <T, V> List<V> transformar(Collection<T> coleccio, Function<T, V> f) {
+		return coleccio.stream()
+				.map(f)
+				.collect(Collectors.toList());
 	}
 
 }
