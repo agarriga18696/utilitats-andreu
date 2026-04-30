@@ -44,15 +44,15 @@ Afegeix la llibreria al teu projecte Java i importa les classes necessàries.
 - [X] Codi reutilitzable i modular
 - [ ] Compatibilitat total amb tots els tipus de col·leccions (en procés)
 
-## Exemples d'ús de les utilitats
+## Exemples d'ús més destacables
 
 ### Mostrar missatges
 
 ```java
 Missatges.titol("Menú principal de l'aplicació");
 Missatges.subtitol("Opció 1 del menú");
-Missatges.mostrar("Missatge normal amb salt de línia.");
-Missatges.mostrarEnLinia("Missatge normal sense salt de línia.");
+Missatges.mostrar("Missatge normal amb salt de línia."); // Equivalent a System.out.println();
+Missatges.mostrarEnLinia("Missatge normal sense salt de línia."); // Equivalent a System.out.print();
 Missatges.error("Missatge..."); // ERROR: Missatge...
 Missatges.exit("Missatge..."); // ÈXIT: Missatge...
 Missatges.avis("Missatge..."); // AVÍS: Missatge...
