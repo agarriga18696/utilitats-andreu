@@ -6,7 +6,7 @@ import utilitats.Menu;
  * Classe base per crear la classe Vista.
  * 
  * @author Andreu
- * @version 2.0
+ * @version 3.0
  */
 
 public abstract class VistaBase {
@@ -24,6 +24,15 @@ public abstract class VistaBase {
 	////////////////////////////////////////////////////
 
 	/**
+	 * Retorna el número de l'opció per sortir, que sempre és la darrera de l'array d'opcions.
+	 * 
+	 * @return El número de l'opció per sortir
+	 */
+	protected int opcioSortir() {
+		return opcions().length;
+	}
+	
+	/**
 	 * Mostra el menú principal de l'aplicació amb el títol i les opcions.
 	 * <p>
 	 * Funcions:
@@ -40,7 +49,7 @@ public abstract class VistaBase {
 		do {
 			opcio = Menu.mostrar(titol(), opcions);
 			gestionar(opcio);
-		} while(opcio != opcions.length);
+		} while(opcio != opcioSortir());
 	}
 
 }
