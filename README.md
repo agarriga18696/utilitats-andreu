@@ -2,8 +2,8 @@
 
 Llibreria d'utilitats Java per desenvolupament d'aplicacions multiplataforma.
 
-> Versió actual de la llibreria: **3.0** → 
-> [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v3.0/utilitats-andreu-3.0.jar)
+> Versió actual de la llibreria: **3.1** → 
+> [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v3.1/utilitats-andreu-3.1.jar)
 
 ## Paquets:
 
@@ -44,15 +44,15 @@ Afegeix la llibreria al teu projecte Java i importa les classes necessàries.
 - [X] Codi reutilitzable i modular
 - [ ] Compatibilitat total amb tots els tipus de col·leccions (en procés)
 
-## Exemples d'ús de les utilitats
+## Exemples d'ús més destacables
 
 ### Mostrar missatges
 
 ```java
 Missatges.titol("Menú principal de l'aplicació");
 Missatges.subtitol("Opció 1 del menú");
-Missatges.mostrar("Missatge normal amb salt de línia.");
-Missatges.mostrarEnLinia("Missatge normal sense salt de línia.");
+Missatges.mostrar("Missatge normal amb salt de línia."); // Equivalent a System.out.println();
+Missatges.mostrarEnLinia("Missatge normal sense salt de línia."); // Equivalent a System.out.print();
 Missatges.error("Missatge..."); // ERROR: Missatge...
 Missatges.exit("Missatge..."); // ÈXIT: Missatge...
 Missatges.avis("Missatge..."); // AVÍS: Missatge...
