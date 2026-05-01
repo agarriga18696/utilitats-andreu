@@ -6,7 +6,7 @@ import utilitats.Menu;
  * Classe base per crear la classe Vista.
  * 
  * @author Andreu
- * @version 3.0
+ * @version 3.1
  */
 
 public abstract class VistaBase {
@@ -47,7 +47,7 @@ public abstract class VistaBase {
 		String[] opcions = opcions();
 		int opcio;
 		do {
-			opcio = Menu.mostrar(titol(), opcions);
+			opcio = Menu.mostrar(titol(), opcioSortir(), opcions);
 			gestionar(opcio);
 		} while(opcio != opcioSortir());
 	}

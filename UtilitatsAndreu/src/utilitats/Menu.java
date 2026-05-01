@@ -5,7 +5,7 @@ package utilitats;
  * Permet crear menús principals, submenús i gestionar les opcions.
  * 
  * @author Andreu
- * @version 2.0
+ * @version 2.1
  */
 
 public class Menu {
@@ -25,6 +25,36 @@ public class Menu {
 	public static int mostrar(String titol, String... opcions) {
 		crearMenu(titol, opcions);
 		return Escriure.enterRang("Sel·lecciona una opció: ", 1, opcions.length);
+	}
+	
+	/**
+	 * Mostra un menú complet amb l'opció de sortir al 0.
+	 * 
+	 * @param titol Títol del menú.
+	 * @param opcioSortir Número de l'opció de sortir.
+	 * @param opcions Opcions del menú.
+	 * @return L'opció sel·leccionada.
+	 */
+	public static int mostrar(String titol, int opcioSortir, String... opcions) {
+		Missatges.titol(titol);
+		mostrarOpcionsAmbSortir(opcions, opcioSortir);
+		Missatges.saltLinia();
+		return Escriure.enterRang("Sel·lecciona una opció: ", 0, opcions.length - 1);
+	}
+	
+	/**
+	 * Mostra les opcions del menú amb una opció de sortir al número especificat.
+	 * 
+	 * @param opcions Opcions del menú, on l'última és la de sortir.
+	 * @param opcioSortir Número de l'opció de sortir.
+	 */
+	private static void mostrarOpcionsAmbSortir(String[] opcions, int opcioSortir) {
+		// Mostrar totes les opcions menys la darrera, que és la de sortir.
+		for(int i = 0; i < opcions.length; i++) {
+			System.out.println((i + 1) + ". " + opcions[i]);
+		}
+		// Mostrar l'opció de sortir amb el número especificat.
+		System.out.println(opcioSortir + ". " + opcions[opcions.length - 1]);
 	}
 
 	/**
