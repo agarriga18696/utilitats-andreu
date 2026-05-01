@@ -50,7 +50,7 @@ public class Menu {
 	 */
 	private static void mostrarOpcionsAmbSortir(String[] opcions, int opcioSortir) {
 		// Mostrar totes les opcions menys la darrera, que és la de sortir.
-		for(int i = 0; i < opcions.length; i++) {
+		for(int i = 0; i < opcions.length - 1; i++) {
 			System.out.println((i + 1) + ". " + opcions[i]);
 		}
 		// Mostrar l'opció de sortir amb el número especificat.
