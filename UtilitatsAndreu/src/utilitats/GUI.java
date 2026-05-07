@@ -56,11 +56,35 @@ public final class GUI {
 	}
 	
 	/**
+	 * Retorna un JPanel amb GridLayout, les files i columnes especificades i farcit amb el JComponent especificat.
+	 */
+	public static final JPanel panelGrid(int rows, int cols, JComponent jcomp) {
+		if(rows == 0 || cols == 0) return null;
+		JPanel panel = new JPanel(new GridLayout(rows, cols));
+		for(int i = 0; i < rows * cols; i++) {
+			panel.add(jcomp);
+		}
+		return panel;
+	}
+	
+	/**
 	 * Retorna un JPanel amb GridLayout i les files, columnes i gap especificats.
 	 */
 	public static final JPanel panelGrid(int rows, int cols, int hgap, int vgap) {
 		if(rows == 0 || cols == 0) return null;
 		return new JPanel(new GridLayout(rows, cols, hgap, vgap));
+	}
+	
+	/**
+	 * Retorna un JPanel amb GridLayout, les files i columnes especificades, gaps i farcit amb el JComponent especificat.
+	 */
+	public static final JPanel panelGrid(int rows, int cols, int hgap, int vgap, JComponent jcomp) {
+		if(rows == 0 || cols == 0) return null;
+		JPanel panel = new JPanel(new GridLayout(rows, cols, hgap, vgap));
+		for(int i = 0; i < rows * cols; i++) {
+			panel.add(jcomp);
+		}
+		return panel;
 	}
 
 	/*
@@ -118,30 +142,6 @@ public final class GUI {
 	public static final JButton getButton(JComponent jcomp, int n) {
 		if(!(jcomp.getComponent(n) instanceof JButton _)) return null;
 		return (JButton) jcomp.getComponent(n);
-	}
-	
-	/**
-	 * Retorna un JPanel amb GridLayout, les files i columnes especificades i farcit amb el JComponent especificat.
-	 */
-	public static final JPanel panelGridComp(int rows, int cols, JComponent jcomp) {
-		if(rows == 0 || cols == 0) return null;
-		JPanel panel = new JPanel(new GridLayout(rows, cols));
-		for(int i = 0; i < rows * cols; i++) {
-			panel.add(jcomp);
-		}
-		return panel;
-	}
-	
-	/**
-	 * Retorna un JPanel amb GridLayout, les files i columnes especificades, gaps i farcit amb el JComponent especificat.
-	 */
-	public static final JPanel panelGridComp(int rows, int cols, int hgap, int vgap, JComponent jcomp) {
-		if(rows == 0 || cols == 0) return null;
-		JPanel panel = new JPanel(new GridLayout(rows, cols, hgap, vgap));
-		for(int i = 0; i < rows * cols; i++) {
-			panel.add(jcomp);
-		}
-		return panel;
 	}
 
 }
