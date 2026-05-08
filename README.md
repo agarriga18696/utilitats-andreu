@@ -2,139 +2,178 @@
 
 Llibreria d'utilitats Java per desenvolupament d'aplicacions multiplataforma.
 
-> Versió actual de la llibreria: **4.0** → 
-> [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v4.0/utilitats-andreu-4.0.jar)
+> **Versió actual: 4.0** → [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v4.0/utilitats-andreu-4.0.jar)
 
-## Paquets:
+---
 
-- **aplicacio** → conjunt de classes base per crear aplicacions de manera més eficient i estructurada
-- **utilitats** → conjunt de classes d'utilitats per fer el codi més eficient
+### `aplicacio`
+Conjunt de classes base per a crear aplicacions MVC de manera estructurada i senzilla.
 
-## Classes del paquet aplicacio
+| Classe | Descripció |
+|---|---|
+| `AplicacioBase` | Gestiona el flux d'execució de l'aplicació |
+| `ControladorBase` | Gestiona la lògica i persistència de dades |
+| `VistaBase` | Gestiona la interfície d'usuari per consola |
 
-- **AplicacioBase** → classe abstracta que gestiona el fluxe d'execució i de classes de l'aplicació.
-- **ControladorBase** → classe abstracta que gestiona la lògica de l'aplicació.
-- **VistaBase** → classe abstracta amb mètodes essencials per la classe Vista
+### `utilitats`
+Conjunt de classes d'utilitats per fer el codi més eficient i reutilitzable.
 
-## Classes del paquet utilitats
+| Classe | Descripció |
+|---|---|
+| `Aleatori` | Generació de valors aleatoris |
+| `Arrays` | Utilitats per treballar amb arrays (cerca, filtrat, transformació, ordenació) |
+| `Cadenes` | Manipulació i validació de cadenes de text |
+| `Coleccions` | Utilitats per treballar amb col·leccions (filtrat, transformació, comprovacions) |
+| `Consola` | Mostrar dades estructurades per consola |
+| `Conversor` | Conversió entre tipus de dades |
+| `Data` | Utilitats per treballar amb dates i hores |
+| `Escriure` | Lectura de dades per consola amb validació |
+| `Fitxers` | Lectura i escriptura de fitxers de text i binaris |
+| `Formatador` | Formatació i transformació de dades |
+| `GUI` | Utilitats per a components d'interfície gràfica amb Swing |
+| `Matematiques` | Operacions matemàtiques |
+| `Menu` | Creació de menús per consola |
+| `Missatges` | Missatges estructurats per consola |
+| `SerialitzableCSV` | Interfície per convertir objectes a format CSV |
+| `Validacions` | Validació de dades (DNI, email, telèfon, rangs...) |
 
-- **Aleatori** → generació de valors aleatoris
-- **Arrays** → utilitats per treballar amb arrays
-- **Cadenes** → manipulació i validació de cadenes de text
-- **Coleccions** → utilitats per treballar amb col·leccions
-- **Consola** → utilitats per mostrar dades estructurades per consola
-- **Conversor** → convertir tipus de dades
-- **Data** → utilitats per treballar amb dates i hores
-- **Escriure** → lectura de dades per consola amb validació
-- **Fitxers** → lectura i escriptura de fitxers
-- **Formatador** → utilitats per formatar i transformar dades
-- **Matematiques** → utilitats per a operacions matemàtiques
-- **Menu** → creació de menús per consola
-- **Missatges** → mostrar missatges estructurats per consola
-- **SerialitzableCSV** → interfície que permet convertir un objecte serialitzat a format CSV
-- **Validacions** → validació de dades
+---
 
 ## Instal·lació
 
-Afegeix la llibreria al teu projecte Java i importa les classes necessàries.
+1. Descarrega el `.jar` de la [darrera versió](https://github.com/agarriga18696/utilitats-andreu/releases/download/v4.0/utilitats-andreu-4.0.jar)
+2. Afegeix-lo al classpath del teu projecte Java
+3. Importa les classes necessàries
+
+```java
+import utilitats.*;
+import aplicacio.*;
+```
+
+---
 
 ## Característiques
 
-- [X] Suport per a tipus **primitius** i **genèrics**
-- [X] Codi reutilitzable i modular
+- [x] Suport per a tipus **primitius** i **genèrics**
+- [x] Codi reutilitzable i modular
+- [x] Arquitectura **MVC** integrada
+- [x] Interfície gràfica amb **Swing**
+- [x] Operacions funcionals amb **Stream** (`Predicate`, `Function`, `Comparator`)
 - [ ] Compatibilitat total amb tots els tipus de col·leccions (en procés)
 
-## Exemples d'ús més destacables
+---
 
-### Mostrar missatges
+## Exemples d'ús
+
+### Missatges
 
 ```java
-Missatges.titol("Menú principal de l'aplicació");
-Missatges.subtitol("Opció 1 del menú");
-Missatges.mostrar("Missatge normal amb salt de línia."); // Equivalent a System.out.println();
-Missatges.mostrarEnLinia("Missatge normal sense salt de línia."); // Equivalent a System.out.print();
-Missatges.error("Missatge..."); // ERROR: Missatge...
-Missatges.exit("Missatge..."); // ÈXIT: Missatge...
-Missatges.avis("Missatge..."); // AVÍS: Missatge...
-Missatges.info("Missatge..."); // INFO: Missatge...
+Missatges.titol("Menú principal");
+Missatges.subtitol("Opció 1");
+Missatges.mostrar("Missatge normal");
+Missatges.error("Missatge d'error");    // ERROR: Missatge d'error
+Missatges.exit("Operació correcta");    // OK: Operació correcta
+Missatges.avis("Compte amb això");      // AVÍS: Compte amb això
+Missatges.info("Informació útil");      // INFO: Informació útil
 ```
 
-### Manipulació de cadenes
+### Cadenes i format
 
 ```java
-String text = Cadenes.eliminarAccents("àngel garcía");
-Missatges.mostrar(text); // angel garcia
-Missatges.mostrar(Formatador.capitalitzar(text)); // Angel garcia
-Missatges.mostrar(Formatador.capitalitzarParaules(text)); // Angel Garcia
+String text = Cadenes.eliminarAccents("àngel garcía"); // angel garcia
+Formatador.capitalitzar(text);                         // Angel garcia
+Formatador.capitalitzarParaules(text);                 // Angel Garcia
 ```
 
-### Validació de dades
+### Validació i entrada de dades
 
 ```java
-String dni = Escriure.cadena("Introdueix el teu DNI: ");
-String nom = Escriure.cadenaMinima("Introdueix el teu nom: ", 2);
-int edat = Escriure.enterPositiu("Introdueix la teva edat: ");
-String correu = Escriure.cadenaMinima("Introdueix el teu correu: ", 12);
-String telefon = Escriure.cadenaMinima("Introdueix el telèfon: ", 9);
-String genere = Escriure.cadenaOpcional("Introdueix el teu gènere (opcional): "); // pot retornar null
+int edat      = Escriure.enterPositiu("Edat: ");
+String dni    = Escriure.cadena("DNI: ");
+String correu = Escriure.cadena("Correu: ");
 
-boolean esDniValid = Validacions.esDNI(dni);
-boolean esCorreuValid = Validacions.esEmail(correu);
-boolean esTelefonValid = Validacions.esTelefon(telefon);
+Validacions.esDNI(dni);    // → true / false
+Validacions.esEmail(correu); // → true / false
+Validacions.esTelefon("666123456"); // → true / false
 ```
 
-### Col·leccions
+### Col·leccions amb Stream
 
 ```java
-Collection<Integer> coleccio1 = Coleccions.generarAleatoris(20, 1, 30); // 20 números entre 1 i 30
-Collection<Integer> coleccio2 = Coleccions.generarAleatoris(40, 30, 50); // 40 números entre 30 i 50
-Collection<Integer> coleccio3 = Coleccions.unir(coleccio1, coleccio2);
-Consola.llista(coleccio3);
+List llista = Coleccions.generarAleatoris(20, 1, 100);
+
+// Filtrar
+List parells = Coleccions.filtrar(llista, n -> n % 2 == 0);
+
+// Transformar
+List arrels = Coleccions.transformar(llista, n -> Math.sqrt(n));
+
+// Comprovar
+boolean hiHaPrimers = Coleccions.existeix(llista, Matematiques::esPrimer);
+boolean totsPositius = Coleccions.tots(llista, n -> n > 0);
+
+// Cercar i comptar
+Integer primer = Coleccions.primerQue(llista, n -> n > 50);
+long quants = Coleccions.comptar(llista, n -> n % 3 == 0);
 ```
 
 ### Fitxers
 
 ```java
-// Lectura - Text
-String dades = Fitxers.llegirTot("dades.txt");
-String[] linies = Fitxers.llegirLinies("dades.txt");
-String[][] liniesCSV = Fitxers.llegirCSV("dades.txt", ","); // el segon paràmetre indica quin tipus de separador utilitza el fitxer. També accepta fitxers amb extensió .csv
-int numLinies = Fitxers.comptarLinies("dades.txt"); // → String[] linies = new String[numLinies];
+// Text
+String contingut   = Fitxers.llegirTot("dades.txt");
+String[] linies    = Fitxers.llegirLinies("dades.txt");
+String[][] csv     = Fitxers.llegirCSV("dades.csv", ";");
+Fitxers.escriure("dades.txt", contingut, false); // false = sobreescriu
 
-// Escriptura - Text
-Fitxers.escriure("dades.txt", dades, boolean afegir);
-Fitxers.escriureLinies("dades.txt", String[] linies, boolean afegir);
-
-// Escriptura - Binaris
-Fitxers.guardarObjectesCSV("dades.csv", T[] objectes, String separador, boolean afegir);
-Fitxers.guardarObjectes("dades.dat", T[] objectes);
-Fitxers.guardarObjectes("dades.dat", Collection<T> objectes);
-Fitxers.guardarMapa("mapa.dat", Map<K, V> mapa);
-
-// Lectura - Binaris
-T[] array = Fitxers.carregarObjectes("dades.dat", Classe.class); // Ex: Persona.class
-List<T> llista = Fitxers.carregarObjectes("dades.dat");
-Map<K, V> mapa = carregarMapa("mapa.dat");
-int numObjectes = Fitxers.comptarObjectes("dades.dat");
-
-// Gestió
-Fitxers.crearFitxerSiNoExisteix("dades.dat");
-Fitxers.crearDirectoriSiNoExisteix("fitxers");
+// Binaris
+Fitxers.guardarObjectes("dades.dat", llista);
+List persones = Fitxers.carregarObjectes("dades.dat");
+Fitxers.guardarMapa("mapa.dat", mapa);
+Map mapa = Fitxers.carregarMapa("mapa.dat");
 ```
 
-## Crea aplicacions de manera senzilla
+### GUI amb Swing
 
-### Estructura base del projecte
+```java
+JFrame frame    = GUI.frame("Títol", 500, 500, null, WindowConstants.EXIT_ON_CLOSE);
+JPanel tauler   = GUI.panelGrid(3, 3, JButton::new);  // 9 botons independents
+JButton btn     = GUI.getComponent(tauler, 0, JButton.class); // botó (0,0)
+```
 
-La llibreria està pensada per treballar amb l'arquitectura MVC.
-Crea els següents paquets al teu projecte:
-- model
-- vista
-- controlador
+### Aplicació MVC
 
-Llavors crea les següents classes al projecte:
-- App.java (paquet per defecte o crea un paquet main)
-- Controlador.java (esten de ControladorBase)
-- Vista (esten de VistaBase)
+```java
+// App.java
+public class App {
+    public static void main(String[] args) {
+        new ControladorApp().executar();
+    }
+}
 
-Implementa els mètodes requerits.
+// ControladorApp.java
+public class ControladorApp extends AplicacioBase {
+    @Override
+    protected ControladorBase controlador() { return new ControladorLogica(); }
+    @Override
+    protected VistaBase vista(ControladorBase c) { return new Vista((ControladorLogica) c); }
+}
+
+// Vista.java
+public class Vista extends VistaBase {
+    @Override protected String titol() { return "La meva app"; }
+    @Override protected String[] opcions() { return new String[]{ "Opció 1", "Sortir" }; }
+    @Override protected void gestionar(int opcio) {
+        switch(opcio) {
+            case 1 -> System.out.println("Opció 1");
+            case 0 -> controlador.finalitzar();
+        }
+    }
+}
+```
+
+---
+
+## Requisits
+
+- Java **21** o superior
