@@ -2,8 +2,8 @@
 
 Llibreria d'utilitats Java per desenvolupament d'aplicacions multiplataforma.
 
-> Versió actual de la llibreria: **3.2** → 
-> [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v3.2/utilitats-andreu-3.2.jar)
+> Versió actual de la llibreria: **4.0** → 
+> [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v4.0/utilitats-andreu-4.0.jar)
 
 ## Paquets:
 
