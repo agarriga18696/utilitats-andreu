@@ -1,6 +1,7 @@
 package utilitats;
 
 import java.awt.*;
+import java.util.function.Supplier;
 
 import javax.swing.*;
 
@@ -14,7 +15,7 @@ import javax.swing.*;
 public final class GUI {
 
 	private GUI() {}
-	
+
 	/*
 	 * CONTENIDORS
 	 */
@@ -28,7 +29,7 @@ public final class GUI {
 			int height, 
 			Component c,
 			int operation) {
-		
+
 		if(width == 0 || height == 0) return null;
 
 		JFrame frame = new JFrame(title);
@@ -39,14 +40,7 @@ public final class GUI {
 
 		return frame;
 	}
-	
-	/**
-	 * Retorna un JPanel amb el Layout indicat per paràmetre.
-	 */
-	public static final JPanel panel(LayoutManager layout) {
-		return new JPanel(layout);
-	}
-	
+
 	/**
 	 * Retorna un JPanel amb GridLayout i les files i columnes especificades.
 	 */
@@ -54,19 +48,20 @@ public final class GUI {
 		if(rows == 0 || cols == 0) return null;
 		return new JPanel(new GridLayout(rows, cols));
 	}
-	
+
 	/**
-	 * Retorna un JPanel amb GridLayout, les files i columnes especificades i farcit amb el JComponent especificat.
+	 * Retorna un JPanel amb GridLayout, les files i columnes especificades 
+	 * i farcit amb els components creats pel Supplier indicat.
 	 */
-	public static final JPanel panelGrid(int rows, int cols, JComponent jcomp) {
+	public static final JPanel panelGrid(int rows, int cols, Supplier<JComponent> factory) {
 		if(rows == 0 || cols == 0) return null;
 		JPanel panel = new JPanel(new GridLayout(rows, cols));
 		for(int i = 0; i < rows * cols; i++) {
-			panel.add(jcomp);
+			panel.add(factory.get()); // Crea una instància nova cada vegada, no reutilitza la mateixa.
 		}
 		return panel;
 	}
-	
+
 	/**
 	 * Retorna un JPanel amb GridLayout i les files, columnes i gap especificats.
 	 */
@@ -74,74 +69,34 @@ public final class GUI {
 		if(rows == 0 || cols == 0) return null;
 		return new JPanel(new GridLayout(rows, cols, hgap, vgap));
 	}
-	
+
 	/**
-	 * Retorna un JPanel amb GridLayout, les files i columnes especificades, gaps i farcit amb el JComponent especificat.
+	 * Retorna un JPanel amb GridLayout, les files, columnes i gaps especificats
+	 * i farcit amb components creats pel Supplier indicat.
 	 */
-	public static final JPanel panelGrid(int rows, int cols, int hgap, int vgap, JComponent jcomp) {
+	public static final JPanel panelGrid(int rows, int cols, int hgap, int vgap, Supplier<JComponent> factory) {
 		if(rows == 0 || cols == 0) return null;
 		JPanel panel = new JPanel(new GridLayout(rows, cols, hgap, vgap));
 		for(int i = 0; i < rows * cols; i++) {
-			panel.add(jcomp);
+			panel.add(factory.get()); // Crea una instància nova cada vegada, no reutilitza la mateixa.
 		}
 		return panel;
 	}
 
 	/*
-	 * COMPONENTS
-	 */
-	
-	/**
-	 * Retorna un JLabel amb el text.
-	 */
-	public static final JLabel label(String text) {
-		return new JLabel(text);
-	}
-
-	/**
-	 * Retorna un JLabel amb el text i alineació.
-	 */
-	public static final JLabel label(String text, int horizontalAlignment) {
-		return new JLabel(text, horizontalAlignment);
-	}
-	
-	/**
-	 * Retorna un JButton amb un text.
-	 */
-	public static final JButton button(String text) {
-		return new JButton(text);
-	}
-	
-	/*
 	 * FUNCIONALITATS
 	 */
-	
+
 	/**
-	 * Afegeix un component al {@code panel} i el retorna.
+	 * Retorna el component de l'índex indicat si és del tipus especificat, 
+	 * o {@code null} si no existeix o el tipus no coincideix.
 	 */
-	public static final JPanel add(JPanel panel, Component comp) {
-		JPanel pnl = panel;
-		pnl.add(comp);
-		return pnl;
+	public static final <T extends Component> T getComponent(JComponent jcomp, int n, Class<T> type) {
+		if(n < 0 || n >= jcomp.getComponentCount()) return null;
+		Component comp = jcomp.getComponent(n);
+		if(!type.isInstance(comp)) return null;
+		return type.cast(comp);
 	}
 	
-	/**
-	 * Afegeix els components passats per paràmetre al {@code panel} i el retorna.
-	 */
-	public static final JPanel add(JPanel panel, Component... comp) {
-		JPanel pnl = panel;
-		for(Component c : comp) {
-			pnl.add(c);
-		}
-		return pnl;
-	}
-	
-	/**
-	 * Retorna un JButton de dins un JComponent.
-	 */
-	public static final JButton getButton(JComponent jcomp, int n) {
-		if(!(jcomp.getComponent(n) instanceof JButton _)) return null;
-		return (JButton) jcomp.getComponent(n);
-	}
 
 }
