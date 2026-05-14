@@ -161,12 +161,10 @@ public class ControladorApp extends AplicacioBase {
 
 // ControladorLogica.java
 public class ControladorLogica extends ControladorBase {
-    @Override
-    protected void carregar() { }
+    @Override protected void carregar() { }
     @Override
     protected String directori() { return "directoriFitxers"; }
-    @Override
-    protected void guardar() {}
+    @Override protected void guardar() { }
 }
 
 // Vista.java
