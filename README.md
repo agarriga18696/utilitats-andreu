@@ -159,6 +159,16 @@ public class ControladorApp extends AplicacioBase {
     protected VistaBase vista(ControladorBase c) { return new Vista((ControladorLogica) c); }
 }
 
+// ControladorLogica.java
+public class ControladorLogica extends ControladorBase {
+    @Override
+    protected void carregar() { }
+    @Override
+    protected String directori() { return "directoriFitxers"; }
+    @Override
+    protected void guardar() {}
+}
+
 // Vista.java
 public class Vista extends VistaBase {
     @Override protected String titol() { return "La meva app"; }
