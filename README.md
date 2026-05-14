@@ -1,4 +1,4 @@
-# Utilitats Java
+# Utilitats Andreu per a Java
 
 Llibreria d'utilitats Java per desenvolupament d'aplicacions multiplataforma.
 
