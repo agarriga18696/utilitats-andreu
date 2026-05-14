@@ -141,7 +141,7 @@ JPanel tauler   = GUI.panelGrid(3, 3, JButton::new);  // 9 botons independents
 JButton btn     = GUI.getComponent(tauler, 0, JButton.class); // botó (0,0)
 ```
 
-### Aplicació MVC
+### Aplicació MVC (consola)
 
 ```java
 // App.java
