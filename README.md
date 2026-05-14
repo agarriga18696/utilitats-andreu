@@ -7,7 +7,7 @@ Llibreria d'utilitats Java per desenvolupament d'aplicacions multiplataforma.
 ---
 
 ### `aplicacio`
-Conjunt de classes base per a crear aplicacions MVC de manera estructurada i senzilla.
+Conjunt de classes base per a crear aplicacions MVC per consola de manera estructurada i senzilla.
 
 | Classe | Descripció |
 |---|---|
