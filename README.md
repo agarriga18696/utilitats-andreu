@@ -1,4 +1,4 @@
-# Utilitats Java
+# Utilitats Andreu per a Java
 
 Llibreria d'utilitats Java per desenvolupament d'aplicacions multiplataforma.
 
@@ -7,7 +7,7 @@ Llibreria d'utilitats Java per desenvolupament d'aplicacions multiplataforma.
 ---
 
 ### `aplicacio`
-Conjunt de classes base per a crear aplicacions MVC de manera estructurada i senzilla.
+Conjunt de classes base per a crear aplicacions MVC per consola de manera estructurada i senzilla.
 
 | Classe | Descripció |
 |---|---|
@@ -141,7 +141,7 @@ JPanel tauler   = GUI.panelGrid(3, 3, JButton::new);  // 9 botons independents
 JButton btn     = GUI.getComponent(tauler, 0, JButton.class); // botó (0,0)
 ```
 
-### Aplicació MVC
+### Aplicació MVC (consola)
 
 ```java
 // App.java
@@ -157,6 +157,14 @@ public class ControladorApp extends AplicacioBase {
     protected ControladorBase controlador() { return new ControladorLogica(); }
     @Override
     protected VistaBase vista(ControladorBase c) { return new Vista((ControladorLogica) c); }
+}
+
+// ControladorLogica.java
+public class ControladorLogica extends ControladorBase {
+    @Override protected void carregar() { }
+    @Override
+    protected String directori() { return "directoriFitxers"; }
+    @Override protected void guardar() { }
 }
 
 // Vista.java
