@@ -17,7 +17,11 @@ import java.util.stream.Collectors;
  * @version 2.0
  */
 
-public class Coleccions {
+public final class Coleccions {
+ private Coleccions() {
+   /* This utility class should not be instantiated */
+ }
+
 
 	////////////////////////////////////////////////////
 	/// OPERACIONS

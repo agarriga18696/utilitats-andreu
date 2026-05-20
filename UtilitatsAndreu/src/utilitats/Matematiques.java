@@ -7,7 +7,11 @@ package utilitats;
  * @version 1.1
  */
 
-public class Matematiques {
+public final class Matematiques {
+ private Matematiques() {
+   /* This utility class should not be instantiated */
+ }
+
 
 	////////////////////////////////////////////////////
 	/// OPERACIONS BÀSIQUES

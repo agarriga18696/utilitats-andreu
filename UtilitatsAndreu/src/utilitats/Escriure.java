@@ -9,7 +9,11 @@ import java.util.Scanner;
  * @version 1.1
  */
 
-public class Escriure {
+public final class Escriure {
+ private Escriure() {
+   /* This utility class should not be instantiated */
+ }
+
 
 	private static Scanner sc = new Scanner(System.in);
 

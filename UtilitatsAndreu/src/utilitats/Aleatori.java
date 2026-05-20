@@ -9,7 +9,11 @@ import java.util.Random;
  * @version 1.0
  */
 
-public class Aleatori {
+public final class Aleatori {
+ private Aleatori() {
+   /* This utility class should not be instantiated */
+ }
+
 
 	private static final Random random = new Random();
 

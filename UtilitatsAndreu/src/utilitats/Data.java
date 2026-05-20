@@ -12,7 +12,11 @@ import java.time.format.DateTimeFormatter;
  * @version 1.1
  */
 
-public class Data {
+public final class Data {
+ private Data() {
+   /* This utility class should not be instantiated */
+ }
+
 
 	////////////////////////////////////////////////////
 	/// DATA I HORA

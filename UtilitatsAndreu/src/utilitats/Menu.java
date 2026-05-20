@@ -8,7 +8,11 @@ package utilitats;
  * @version 2.1
  */
 
-public class Menu {
+public final class Menu {
+ private Menu() {
+   /* This utility class should not be instantiated */
+ }
+
 
 	////////////////////////////////////////////////////
 	/// MÈTODES PRINCIPALS

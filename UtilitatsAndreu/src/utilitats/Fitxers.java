@@ -24,7 +24,11 @@ import java.io.FileOutputStream;
  * @version 1.6
  */
 
-public class Fitxers {
+public final class Fitxers {
+ private Fitxers() {
+   /* This utility class should not be instantiated */
+ }
+
 
 	////////////////////////////////////////////////////
 	/// FITXERS DE TEXT - LECTURA

@@ -9,7 +9,11 @@ import java.text.Normalizer;
  * @version 1.2
  */
 
-public class Cadenes {
+public final class Cadenes {
+ private Cadenes() {
+   /* This utility class should not be instantiated */
+ }
+
 
 	////////////////////////////////////////////////////
 	/// TRANSFORMACIONS

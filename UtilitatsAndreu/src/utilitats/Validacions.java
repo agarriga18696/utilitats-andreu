@@ -10,7 +10,11 @@ import java.util.regex.Pattern;
  * @version 1.2
  */
 
-public class Validacions {
+public final class Validacions {
+ private Validacions() {
+   /* This utility class should not be instantiated */
+ }
+
 
 	////////////////////////////////////////////////////
 	/// NÚMEROS

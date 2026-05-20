@@ -9,7 +9,11 @@ import java.util.Collection;
  * @version 2.1
  */
 
-public class Consola {
+public final class Consola {
+ private Consola() {
+   /* This utility class should not be instantiated */
+ }
+
 
 	////////////////////////////////////////////////////
 	/// LLISTES

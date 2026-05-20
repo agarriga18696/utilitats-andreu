@@ -7,7 +7,11 @@ package utilitats;
  * @version 1.1
  */
 
-public class Conversor {
+public final class Conversor {
+ private Conversor() {
+   /* This utility class should not be instantiated */
+ }
+
 
 	/**
 	 * Converteix una cadena a enter.

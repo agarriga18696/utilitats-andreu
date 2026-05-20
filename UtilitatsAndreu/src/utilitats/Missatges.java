@@ -7,7 +7,10 @@ package utilitats;
  * @version 1.1
  */
 
-public class Missatges {
+public final class Missatges {
+ private Missatges() {
+   /* This utility class should not be instantiated */
+ }
 
 	private static final String SALT = "\n";
 	private static final int REPETICIONS = 50;

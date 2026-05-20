@@ -7,7 +7,11 @@ package utilitats;
  * @version 1.1
  */
 
-public class Formatador {
+public final class Formatador {
+ private Formatador() {
+   /* This utility class should not be instantiated */
+ }
+
 
 	////////////////////////////////////////////////////
 	/// NÚMEROS

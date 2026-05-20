@@ -13,8 +13,9 @@ import javax.swing.*;
  */
 
 public final class GUI {
-
-	private GUI() {}
+ private GUI() {
+   /* This utility class should not be instantiated */
+ }
 
 	/*
 	 * CONTENIDORS

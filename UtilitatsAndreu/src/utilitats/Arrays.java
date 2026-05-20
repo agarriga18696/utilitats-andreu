@@ -12,7 +12,11 @@ import java.util.function.Predicate;
  * @version 2.0
  */
 
-public class Arrays {
+public final class Arrays {
+ private Arrays() {
+   /* This utility class should not be instantiated */
+ }
+
 
 	////////////////////////////////////////////////////
 	/// OPERACIONS
