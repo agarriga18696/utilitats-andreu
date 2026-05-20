@@ -21,7 +21,7 @@ import java.io.FileOutputStream;
  * Classe d'utilitat per treballar amb fitxers de text i binaris.
  * 
  * @author Andreu
- * @version 1.5
+ * @version 1.6
  */
 
 public class Fitxers {
@@ -240,8 +240,10 @@ public class Fitxers {
 		// Comptar quants objectes té el fitxer:
 		int numObjectes = comptarObjectes(ruta);
 		// Crear l'array amb la mida correcta:
+		if(numObjectes <= 0) {
+			return (T[]) Array.newInstance(classe, 0);
+		}
 		T[] array = (T[]) Array.newInstance(classe, numObjectes);
-		if(numObjectes <= 0) return array;
 		// Llegir els objectes i guardar-los a l'array:
 		File fitxer = new File(ruta);
 		if(!fitxer.exists()) return array;
@@ -254,8 +256,9 @@ public class Fitxers {
 					break;
 				}
 			}
-		} catch(IOException | ClassNotFoundException e) {
+		} catch(IOException | ClassNotFoundException | ClassCastException e) {
 			Missatges.error("No s'ha pogut llegir el fitxer: " + ruta);
+			return (T[]) Array.newInstance(classe, 0);
 		}
 		return array;
 	}
