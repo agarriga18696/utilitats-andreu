@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -18,7 +19,7 @@ import javax.swing.SwingConstants;
  * Classe d'utilitat per crear components Swing comuns.
  * 
  * @author Andreu
- * @version 1.0
+ * @version 1.1
  */
 public final class ComponentsSwing {
 
@@ -128,6 +129,17 @@ public final class ComponentsSwing {
 	public static JTextField campText(int columnes) {
 		return new JTextField(columnes);
 	}
+	
+	/**
+	 * Retorna un {@code JTextArea} amb el nombre de files i columnes indicat.
+	 * 
+	 * @param files Nombre de files.
+	 * @param columnes Nombre de columnes.
+	 * @return Text Area creat.
+	 */
+	public static JTextArea areaText(int files, int columnes) {
+	    return new JTextArea(files, columnes);
+	}
 
 	//-------------------------------
 	// CHECKBOX
@@ -155,16 +167,6 @@ public final class ComponentsSwing {
 	 * @return Combo box creat amb els items indicats.
 	 */
 	public static <T> JComboBox<T> comboBox(T[] items) {
-		return new JComboBox<>(items);
-	}
-
-	/**
-	 * Retorna un {@code JComboBox} amb els items indicats.
-	 * 
-	 * @param items Array de strings que es mostraran al combo box.
-	 * @return Combo box creat amb els items indicats.
-	 */
-	public static JComboBox<String> comboBox(String... items) {
 		return new JComboBox<>(items);
 	}
 

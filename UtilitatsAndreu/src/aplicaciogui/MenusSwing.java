@@ -13,7 +13,7 @@ import javax.swing.KeyStroke;
  * Classe d'utilitat per crear i configurar menús Swing.
  * 
  * @author Andreu
- * @version 1.0
+ * @version 1.1
  */
 public final class MenusSwing {
 
@@ -69,7 +69,7 @@ public final class MenusSwing {
 	 * @param text Text de l'item de menú.
 	 * @return Item de menú creat.
 	 */
-	public static JMenuItem itemMenu(String text) {
+	public static JMenuItem item(String text) {
 		return new JMenuItem(text);
 	}
 
