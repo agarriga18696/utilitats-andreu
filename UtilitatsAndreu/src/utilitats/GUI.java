@@ -20,11 +20,15 @@ import aplicaciogui.PanellsSwing;
  * 
  * @author Andreu
  * @version 1.0
+ * 
+ * @deprecated Des de la versió 4.3. Utilitza les classes específiques del paquet
+ * 				{@code aplicaciogui} en lloc d'aquesta façana.
  */
+@Deprecated(since = "4.3", forRemoval = false)
 public final class GUI {
 
 	private GUI() {
-		/*
+		/*º
 		 * Classe d'utilitat no instanciable.
 		 */
 	}
