@@ -16,9 +16,9 @@ public final class Validacions {
  }
 
 
-	////////////////////////////////////////////////////
-	/// NÚMEROS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// NÚMEROS
+	//-------------------------------
 
 	/**
 	 * Comprova si una cadena és un número enter vàlid.
@@ -74,9 +74,9 @@ public final class Validacions {
 		return valor >= min && valor <= max;
 	}
 
-	////////////////////////////////////////////////////
-	/// EMAIL
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// EMAIL
+	//-------------------------------
 
 	// Patró per detectar una adreça electrònica vàlida.
 	// -> 1r bloc [\\w._%+\\-]: conté lletres, dígits, guions baixos, punts, subratllats, percentatges, més, guions.
@@ -93,9 +93,9 @@ public final class Validacions {
 		return EMAIL_PATTERN.matcher(valor.strip()).matches();
 	}
 
-	////////////////////////////////////////////////////
-	/// TELÈFON
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// TELÈFON
+	//-------------------------------
 
 	/**
 	 * Comprova si una cadena és un telèfon espanyol vàlid de 9 dígits.
@@ -108,9 +108,9 @@ public final class Validacions {
 		return valor.strip().matches("[679]\\d{8}");
 	}
 
-	////////////////////////////////////////////////////
-	/// DNI
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// DNI
+	//-------------------------------
 
 	private static final String LLETRES_DNI = "TRWAGMYFPDXBNJZSQVHLCKE";
 

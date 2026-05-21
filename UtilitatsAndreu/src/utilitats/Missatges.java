@@ -15,9 +15,9 @@ public final class Missatges {
 	private static final String SALT = "\n";
 	private static final int REPETICIONS = 50;
 
-	////////////////////////////////////////////////////
-	/// MISSATGES ESTÀNDARD
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// MISSATGES ESTÀNDARD
+	//-------------------------------
 
 	/**
 	 * Mostra un missatge simple per consola.
@@ -61,9 +61,9 @@ public final class Missatges {
 		System.out.println(SALT + "INFO: " + missatge + SALT);
 	}
 
-	////////////////////////////////////////////////////
-	/// TÍTOLS I SEPARADORS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// TÍTOLS I SEPARADORS
+	//-------------------------------
 
 	/**
 	 * Mostra un títol de secció amb separadors.
@@ -123,9 +123,9 @@ public final class Missatges {
 		System.out.println();
 	}
 
-	////////////////////////////////////////////////////
-	/// MISSATGES DE PROGRAMA COMUNS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// MISSATGES DE PROGRAMA COMUNS
+	//-------------------------------
 
 	/**
 	 * Mostra el missatge de fi de programa.

@@ -18,9 +18,9 @@ public final class Arrays {
  }
 
 
-	////////////////////////////////////////////////////
-	/// OPERACIONS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// OPERACIONS
+	//-------------------------------
 
 	/**
 	 * Genera un array de números enters aleatoris entre {@code min} i {@code max} inclosos.
@@ -54,9 +54,9 @@ public final class Arrays {
 		return array;
 	}
 
-	////////////////////////////////////////////////////
-	/// BUSCAR
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// BUSCAR
+	//-------------------------------
 
 	/**
 	 * Cerca un número enter en un array de manera lineal.
@@ -130,9 +130,9 @@ public final class Arrays {
 		return cercar(array, valor) != -1;
 	}
 
-	////////////////////////////////////////////////////
-	/// MANIPULACIÓ
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// MANIPULACIÓ
+	//-------------------------------
 
 	/**
 	 * Afegeix un element al final d'un array i retorna el nou array.
@@ -208,9 +208,9 @@ public final class Arrays {
 		return nouArray;
 	}
 
-	////////////////////////////////////////////////////
-	/// ESTADÍSTICA
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// ESTADÍSTICA
+	//-------------------------------
 
 	/**
 	 * Retorna el valor màxim d'un array d'enters.
@@ -294,9 +294,9 @@ public final class Arrays {
 		return (double) suma(array) / array.length;
 	}
 
-	////////////////////////////////////////////////////
-	/// VALIDACIONS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// VALIDACIONS
+	//-------------------------------
 
 	/**
 	 * Comprova si un array d'objectes genèrics està buit.
@@ -326,9 +326,9 @@ public final class Arrays {
 		return index >= 0 && index < longitud;
 	}
 
-	////////////////////////////////////////////////////
-	/// FILTRAT I CERCA
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// FILTRAT I CERCA
+	//-------------------------------
 
 	/**
 	 * Retorna un nou array amb els elements de {@code array} que compleixen la condició del predicat.
@@ -371,9 +371,9 @@ public final class Arrays {
 				.count();
 	}
 
-	////////////////////////////////////////////////////
-	/// COMPROVACIONS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// COMPROVACIONS
+	//-------------------------------
 
 	/**
 	 * Retorna {@code true} si algun element de {@code array} compleix la condició del predicat.
@@ -411,9 +411,9 @@ public final class Arrays {
 				.noneMatch(predicat);
 	}
 
-	////////////////////////////////////////////////////
-	/// TRANSFORMACIONS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// TRANSFORMACIONS
+	//-------------------------------
 
 	/**
 	 * Retorna un nou array amb els elements de {@code array} transformats per la funció {@code f}.
@@ -429,9 +429,9 @@ public final class Arrays {
 				.toArray(n -> java.util.Arrays.copyOf(resultat, n));
 	}
 
-	////////////////////////////////////////////////////
-	/// ORDENACIÓ
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// ORDENACIÓ
+	//-------------------------------
 
 	/**
 	 * Retorna un nou array amb els elements de {@code array} ordenats segons el comparador.

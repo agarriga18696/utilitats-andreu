@@ -14,9 +14,9 @@ public final class Menu {
  }
 
 
-	////////////////////////////////////////////////////
-	/// MÈTODES PRINCIPALS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// MÈTODES PRINCIPALS
+	//-------------------------------
 
 	/**
 	 * Mostra un menú complet i retorna l'opció sel·leccionada.
@@ -74,9 +74,9 @@ public final class Menu {
 		return Escriure.enter("Sel·lecciona una opció: ");
 	}
 
-	////////////////////////////////////////////////////
-	/// CONSTRUCCIÓ DEL MENÚ
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// CONSTRUCCIÓ DEL MENÚ
+	//-------------------------------
 
 	/**
 	 * Construeix i imprimeix el menú per pantalla.
@@ -98,9 +98,9 @@ public final class Menu {
 		}
 	}
 
-	////////////////////////////////////////////////////
-	/// SUBMENÚS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// SUBMENÚS
+	//-------------------------------
 
 	/**
 	 * Mostra un submenú amb subtítol i retorna l'opció sel·leccionada.
@@ -116,9 +116,9 @@ public final class Menu {
 		return Escriure.enterRang("Sel·lecciona una opció: ", 1, opcions.length);
 	}
 
-	////////////////////////////////////////////////////
-	/// UTILITATS DE MENÚ
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// UTILITATS DE MENÚ
+	//-------------------------------
 
 	/**
 	 * Comprova si una opció sel·leccionada correspon a l'opció de sortir.

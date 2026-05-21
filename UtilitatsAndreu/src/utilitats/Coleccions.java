@@ -23,9 +23,9 @@ public final class Coleccions {
  }
 
 
-	////////////////////////////////////////////////////
-	/// OPERACIONS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// OPERACIONS
+	//-------------------------------
 
 	/**
 	 * Retorna la suma de tots els elements d'una col·lecció de números.
@@ -73,9 +73,9 @@ public final class Coleccions {
 		return coleccio;
 	}
 
-	////////////////////////////////////////////////////
-	/// ESTADÍSTICA
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// ESTADÍSTICA
+	//-------------------------------
 
 	/**
 	 * Retorna el valor màxim d'una col·lecció genèrica.
@@ -98,9 +98,9 @@ public final class Coleccions {
 		return coleccio.stream().mapToDouble(selector).average().orElse(0);
 	}
 
-	////////////////////////////////////////////////////
-	/// MANIPULACIÓ
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// MANIPULACIÓ
+	//-------------------------------
 
 	/**
 	 * Elimina totes les ocurrències de {@code element} d'una llista 
@@ -159,9 +159,9 @@ public final class Coleccions {
 		return coleccioNova;
 	}
 
-	////////////////////////////////////////////////////
-	/// FILTRAT I CERCA
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// FILTRAT I CERCA
+	//-------------------------------
 
 	/**
 	 * Retorna una nova llista amb els elements de {@code coleccio} que 
@@ -205,9 +205,9 @@ public final class Coleccions {
 				.count();
 	}
 
-	////////////////////////////////////////////////////
-	/// COMPROVACIONS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// COMPROVACIONS
+	//-------------------------------
 
 	/**
 	 * Retorna {@code true} si algun element de {@code coleccio} compleix la condició del predicat.
@@ -245,9 +245,9 @@ public final class Coleccions {
 				.noneMatch(predicat);
 	}
 
-	////////////////////////////////////////////////////
-	/// TRANSFORMACIONS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// TRANSFORMACIONS
+	//-------------------------------
 
 	/**
 	 * Retorna una nova llista amb els elements de {@code coleccio} transformats per la funció {@code f}.

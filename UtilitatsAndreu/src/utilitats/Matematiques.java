@@ -13,9 +13,9 @@ public final class Matematiques {
  }
 
 
-	////////////////////////////////////////////////////
-	/// OPERACIONS BÀSIQUES
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// OPERACIONS BÀSIQUES
+	//-------------------------------
 
 	/**
 	 * Comprova si un número és parell.
@@ -44,9 +44,9 @@ public final class Matematiques {
 		return true;
 	}
 
-	////////////////////////////////////////////////////
-	/// CANVIS DE BASE
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// CANVIS DE BASE
+	//-------------------------------
 
 	/**
 	 * Converteix un número decimal a binari i el retorna a String.

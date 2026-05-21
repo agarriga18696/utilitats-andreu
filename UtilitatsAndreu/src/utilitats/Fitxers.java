@@ -30,9 +30,9 @@ public final class Fitxers {
  }
 
 
-	////////////////////////////////////////////////////
-	/// FITXERS DE TEXT - LECTURA
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// FITXERS DE TEXT - LECTURA
+	//-------------------------------
 
 	/**
 	 * Llegeix tot el contingut d'un fitxer de text i el retorna com a String.
@@ -113,9 +113,9 @@ public final class Fitxers {
 		}
 	}
 
-	////////////////////////////////////////////////////
-	/// FITXERS DE TEXT - ESCRIPTURA
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// FITXERS DE TEXT - ESCRIPTURA
+	//-------------------------------
 
 	/**
 	 * Escriu o sobreescriu un text en un fitxer de text.
@@ -173,9 +173,9 @@ public final class Fitxers {
 		return escriureLinies(ruta, linies, afegir);
 	}
 
-	////////////////////////////////////////////////////
-	/// FITXERS BINARIS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// FITXERS BINARIS
+	//-------------------------------
 
 	/**
 	 * Escriu un array d'objectes serialitzables en un fitxer binari.
@@ -335,9 +335,9 @@ public final class Fitxers {
 		return comptador;
 	}
 
-	////////////////////////////////////////////////////
-	/// GESTIÓ DE FITXERS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// GESTIÓ DE FITXERS
+	//-------------------------------
 
 	/**
 	 * Comprova si un fitxer existeix.

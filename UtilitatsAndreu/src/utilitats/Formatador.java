@@ -13,9 +13,9 @@ public final class Formatador {
  }
 
 
-	////////////////////////////////////////////////////
-	/// NÚMEROS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// NÚMEROS
+	//-------------------------------
 
 	/**
 	 * Formata un decimal amb el nombre de decimals indicat.
@@ -24,9 +24,9 @@ public final class Formatador {
 		return String.format("%." + decimals + "f", valor);
 	}
 
-	////////////////////////////////////////////////////
-	/// CADENES
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// CADENES
+	//-------------------------------
 
 	/**
 	 * Converteix una cadena a majúscules.

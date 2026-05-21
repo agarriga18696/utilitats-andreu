@@ -18,9 +18,9 @@ public final class Data {
  }
 
 
-	////////////////////////////////////////////////////
-	/// DATA I HORA
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// DATA I HORA
+	//-------------------------------
 
 	/**
 	 * Retorna la data actual en format "dd/MM/yyyy".
@@ -64,9 +64,9 @@ public final class Data {
 		return LocalDate.now().getDayOfMonth();
 	}
 
-	////////////////////////////////////////////////////
-	/// CONVERSIONS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// CONVERSIONS
+	//-------------------------------
 
 	/**
 	 * Converteix una cadena en format "dd/MM/yyyy" a LocalDate.
@@ -90,9 +90,9 @@ public final class Data {
 		return data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 	}
 	
-	////////////////////////////////////////////////////
-	/// OPERACIONS AMB DATES
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// OPERACIONS AMB DATES
+	//-------------------------------
 
 	/**
 	 * Calcula l'edat a partir de la data de naixement.
@@ -101,9 +101,9 @@ public final class Data {
 		return Period.between(dataNaixement, LocalDate.now()).getYears();
 	}
 
-	////////////////////////////////////////////////////
-	/// VALIDACIONS
-	////////////////////////////////////////////////////
+	//-------------------------------
+	// VALIDACIONS
+	//-------------------------------
 
 	/**
 	 * Comprova si s'ha arribat a la majoria d'edat per la data de naixement.
