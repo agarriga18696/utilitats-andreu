@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -52,6 +53,23 @@ public final class ComponentsSwing {
 		Objects.requireNonNull(accio, "L'acció no pot ser null.");
 
 		JButton boto = new JButton(text);
+		boto.addActionListener(_ -> accio.run());
+
+		return boto;
+	}
+	
+	/**
+	 * Retorna un {@code JButton} amb text, icona i acció.
+	 * 
+	 * @param text Text del botó.
+	 * @param icona Icona del botó.
+	 * @param accio Acció a executar quan es faci clic al botó.
+	 * @return Botó creat amb icona i acció associada.
+	 */
+	public static JButton boto(String text, Icon icona, Runnable accio) {
+		Objects.requireNonNull(accio, "L'acció no pot ser null.");
+
+		JButton boto = new JButton(text, icona);
 		boto.addActionListener(_ -> accio.run());
 
 		return boto;
