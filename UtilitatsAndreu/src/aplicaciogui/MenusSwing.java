@@ -13,7 +13,7 @@ import javax.swing.KeyStroke;
  * Classe d'utilitat per crear i configurar menús Swing.
  * 
  * @author Andreu
- * @version 1.1
+ * @version 1.2
  */
 public final class MenusSwing {
 
