@@ -45,6 +45,32 @@ public final class MenusSwing {
 	public static JMenu menu(String text) {
 		return new JMenu(text);
 	}
+	
+	/**
+	 * Retorna un {@code JMenu} amb el text indicat i un mnemònic.
+	 * 
+	 * @param text Text del menú.
+	 * @param mnemonic Mnemònic de teclat del menú.
+	 * @return Menú creat amb icona.
+	 */
+	public static JMenu menu(String text, int mnemonic) {
+		JMenu menu = new JMenu(text);
+		menu.setMnemonic(mnemonic);
+		return menu;
+	}
+	
+	/**
+	 * Retorna un {@code JMenu} amb el text indicat i un mnemònic.
+	 * 
+	 * @param text Text del menú.
+	 * @param mnemonic Mnemònic de teclat del menú.
+	 * @return Menú creat amb icona.
+	 */
+	public static JMenu menu(String text, char mnemonic) {
+		JMenu menu = new JMenu(text);
+		menu.setMnemonic(mnemonic);
+		return menu;
+	}
 
 	/**
 	 * Retorna un {@code JMenu} amb el text indicat i una icona.
@@ -56,6 +82,36 @@ public final class MenusSwing {
 	public static JMenu menu(String text, Icon icona) {
 		JMenu menu = new JMenu(text);
 		menu.setIcon(icona);
+		return menu;
+	}
+	
+	/**
+	 * Retorna un {@code JMenu} amb el text indicat, una icona i un mnemònic.
+	 * 
+	 * @param text Text del menú.
+	 * @param icona Icona del menú.
+	 * @param mnemonic Mnemònic de teclat del menú.
+	 * @return Menú creat amb icona.
+	 */
+	public static JMenu menu(String text, Icon icona, int mnemonic) {
+		JMenu menu = new JMenu(text);
+		menu.setIcon(icona);
+		menu.setMnemonic(mnemonic);
+		return menu;
+	}
+	
+	/**
+	 * Retorna un {@code JMenu} amb el text indicat, una icona i un mnemònic.
+	 * 
+	 * @param text Text del menú.
+	 * @param icona Icona del menú.
+	 * @param mnemonic Mnemònic de teclat del menú.
+	 * @return Menú creat amb icona.
+	 */
+	public static JMenu menu(String text, Icon icona, char mnemonic) {
+		JMenu menu = new JMenu(text);
+		menu.setIcon(icona);
+		menu.setMnemonic(mnemonic);
 		return menu;
 	}
 
