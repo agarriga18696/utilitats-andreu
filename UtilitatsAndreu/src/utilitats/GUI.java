@@ -1,4 +1,4 @@
-package aplicaciogui;
+package utilitats;
 
 import java.awt.Component;
 import java.util.function.Supplier;
@@ -6,6 +6,9 @@ import java.util.function.Supplier;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import aplicaciogui.FinestresSwing;
+import aplicaciogui.PanellsSwing;
 
 /**
  * Façana de compatibilitat per a utilitats Swing antigues.
