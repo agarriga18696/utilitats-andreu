@@ -28,7 +28,7 @@ import aplicaciogui.PanellsSwing;
 public final class GUI {
 
 	private GUI() {
-		/*º
+		/*
 		 * Classe d'utilitat no instanciable.
 		 */
 	}
