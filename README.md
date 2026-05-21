@@ -1,10 +1,12 @@
 # Utilitats Andreu per a Java
 
-Llibreria d'utilitats Java per desenvolupament d'aplicacions multiplataforma.
+Llibreria d'utilitats Java per al desenvolupament d'aplicacions multiplataforma.
 
-> **Versió actual: 4.0** → [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v4.0/utilitats-andreu-4.0.jar)
+> **Versió actual: 4.3** → [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v4.3/utilitats-andreu-4.3.jar)
 
 ---
+
+## Paquets
 
 ### `aplicacio`
 Conjunt de classes base per a crear aplicacions MVC per consola de manera estructurada i senzilla.
@@ -14,6 +16,22 @@ Conjunt de classes base per a crear aplicacions MVC per consola de manera estruc
 | `AplicacioBase` | Gestiona el flux d'execució de l'aplicació |
 | `ControladorBase` | Gestiona la lògica i persistència de dades |
 | `VistaBase` | Gestiona la interfície d'usuari per consola |
+
+### `aplicaciogui`
+Conjunt de classes base i utilitats per a crear aplicacions gràfiques amb Swing de manera modular i estructurada.
+
+| Classe | Descripció |
+|---|---|
+| `AplicacioGuiBase` | Classe base abstracta per a aplicacions Swing. Garanteix l'execució a l'EDT |
+| `ComponentsSwing` | Creació de components comuns: botons, etiquetes, camps de text, combos... |
+| `DialegsSwing` | Diàlegs informatius, d'avís, error, confirmació i text llarg |
+| `FinestresSwing` | Creació de finestres `JFrame` |
+| `IconesSwing` | Motor genèric de càrrega d'icones amb caché interna |
+| `IconesPaquetSwing` | Càrrega d'icones organitzades per paquets dins la llibreria |
+| `IconesPredeterminadesSwing` | Catàleg d'icones predeterminades per a accions habituals |
+| `LookAndFeelSwing` | Aplicació de temes visuals (sistema, Metal, Nimbus...) |
+| `MenusSwing` | Creació de barres de menú, menús, opcions i dreceres de teclat |
+| `PanellsSwing` | Creació de panells amb layouts habituals i marges |
 
 ### `utilitats`
 Conjunt de classes d'utilitats per fer el codi més eficient i reutilitzable.
@@ -30,7 +48,7 @@ Conjunt de classes d'utilitats per fer el codi més eficient i reutilitzable.
 | `Escriure` | Lectura de dades per consola amb validació |
 | `Fitxers` | Lectura i escriptura de fitxers de text i binaris |
 | `Formatador` | Formatació i transformació de dades |
-| `GUI` | Utilitats per a components d'interfície gràfica amb Swing |
+| `GUI` | Utilitats per a components d'interfície gràfica amb Swing *(retrocompatibilitat)* |
 | `Matematiques` | Operacions matemàtiques |
 | `Menu` | Creació de menús per consola |
 | `Missatges` | Missatges estructurats per consola |
@@ -41,13 +59,14 @@ Conjunt de classes d'utilitats per fer el codi més eficient i reutilitzable.
 
 ## Instal·lació
 
-1. Descarrega el `.jar` de la [darrera versió](https://github.com/agarriga18696/utilitats-andreu/releases/download/v4.0/utilitats-andreu-4.0.jar)
+1. Descarrega el `.jar` de la [darrera versió](https://github.com/agarriga18696/utilitats-andreu/releases/download/v4.3/utilitats-andreu-4.3.jar)
 2. Afegeix-lo al classpath del teu projecte Java
 3. Importa les classes necessàries
 
 ```java
 import utilitats.*;
 import aplicacio.*;
+import aplicaciogui.*;
 ```
 
 ---
@@ -56,9 +75,10 @@ import aplicacio.*;
 
 - [x] Suport per a tipus **primitius** i **genèrics**
 - [x] Codi reutilitzable i modular
-- [x] Arquitectura **MVC** integrada
-- [x] Interfície gràfica amb **Swing**
+- [x] Arquitectura **MVC** integrada per a aplicacions de consola
+- [x] Interfície gràfica amb **Swing** via paquet `aplicaciogui`
 - [x] Operacions funcionals amb **Stream** (`Predicate`, `Function`, `Comparator`)
+- [x] Sistema d'icones amb caché i catàleg predeterminat
 - [ ] Compatibilitat total amb tots els tipus de col·leccions (en procés)
 
 ---
@@ -92,53 +112,78 @@ int edat      = Escriure.enterPositiu("Edat: ");
 String dni    = Escriure.cadena("DNI: ");
 String correu = Escriure.cadena("Correu: ");
 
-Validacions.esDNI(dni);    // → true / false
-Validacions.esEmail(correu); // → true / false
+Validacions.esDNI(dni);             // → true / false
+Validacions.esEmail(correu);        // → true / false
 Validacions.esTelefon("666123456"); // → true / false
 ```
 
 ### Col·leccions amb Stream
 
 ```java
-List llista = Coleccions.generarAleatoris(20, 1, 100);
+List<Integer> llista = Coleccions.generarAleatoris(20, 1, 100);
 
 // Filtrar
-List parells = Coleccions.filtrar(llista, n -> n % 2 == 0);
+List<Integer> parells = Coleccions.filtrar(llista, n -> n % 2 == 0);
 
 // Transformar
-List arrels = Coleccions.transformar(llista, n -> Math.sqrt(n));
+List<Double> arrels = Coleccions.transformar(llista, n -> Math.sqrt(n));
 
 // Comprovar
-boolean hiHaPrimers = Coleccions.existeix(llista, Matematiques::esPrimer);
+boolean hiHaPrimers  = Coleccions.existeix(llista, Matematiques::esPrimer);
 boolean totsPositius = Coleccions.tots(llista, n -> n > 0);
 
 // Cercar i comptar
 Integer primer = Coleccions.primerQue(llista, n -> n > 50);
-long quants = Coleccions.comptar(llista, n -> n % 3 == 0);
+long quants    = Coleccions.comptar(llista, n -> n % 3 == 0);
 ```
 
 ### Fitxers
 
 ```java
 // Text
-String contingut   = Fitxers.llegirTot("dades.txt");
-String[] linies    = Fitxers.llegirLinies("dades.txt");
-String[][] csv     = Fitxers.llegirCSV("dades.csv", ";");
+String contingut = Fitxers.llegirTot("dades.txt");
+String[] linies  = Fitxers.llegirLinies("dades.txt");
+String[][] csv   = Fitxers.llegirCSV("dades.csv", ";");
 Fitxers.escriure("dades.txt", contingut, false); // false = sobreescriu
 
 // Binaris
 Fitxers.guardarObjectes("dades.dat", llista);
-List persones = Fitxers.carregarObjectes("dades.dat");
+List<Persona> persones = Fitxers.carregarObjectes("dades.dat");
 Fitxers.guardarMapa("mapa.dat", mapa);
-Map mapa = Fitxers.carregarMapa("mapa.dat");
+Map<String, Persona> mapa = Fitxers.carregarMapa("mapa.dat");
 ```
 
-### GUI amb Swing
+### GUI amb Swing — `aplicaciogui`
 
 ```java
-JFrame frame    = GUI.frame("Títol", 500, 500, null, WindowConstants.EXIT_ON_CLOSE);
-JPanel tauler   = GUI.panelGrid(3, 3, JButton::new);  // 9 botons independents
-JButton btn     = GUI.getComponent(tauler, 0, JButton.class); // botó (0,0)
+// Aplicació Swing bàsica
+public class LaMevaApp extends AplicacioGuiBase {
+    @Override
+    protected void inicialitzar() {
+        LookAndFeelSwing.aplicarSistema();
+
+        JFrame frame = FinestresSwing.frame("La meva app", 600, 400, null, WindowConstants.EXIT_ON_CLOSE);
+        JPanel panel = PanellsSwing.panelAmbMarge(new BorderLayout(), 10);
+
+        JMenuBar barra   = MenusSwing.barraMenu();
+        JMenu menuFitxer = MenusSwing.menu("Fitxer");
+
+        menuFitxer.add(MenusSwing.item(
+            "Sortir",
+            IconesPredeterminadesSwing.carregar(IconesPredeterminadesSwing.SORTIR),
+            () -> frame.dispose()
+        ));
+
+        barra.add(menuFitxer);
+        panel.add(ComponentsSwing.etiquetaCentrada("Benvingut"), BorderLayout.CENTER);
+
+        frame.setJMenuBar(barra);
+        frame.setContentPane(panel);
+        frame.setVisible(true);
+    }
+}
+
+new LaMevaApp().executar();
 ```
 
 ### Aplicació MVC (consola)
@@ -161,9 +206,8 @@ public class ControladorApp extends AplicacioBase {
 
 // ControladorLogica.java
 public class ControladorLogica extends ControladorBase {
+    @Override protected String directori() { return "directoriFitxers"; }
     @Override protected void carregar() { }
-    @Override
-    protected String directori() { return "directoriFitxers"; }
     @Override protected void guardar() { }
 }
 
