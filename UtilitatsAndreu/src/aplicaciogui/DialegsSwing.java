@@ -18,7 +18,7 @@ import javax.swing.SwingUtilities;
  * Classe d'utilitat per mostrar diàlegs Swing.
  * 
  * @author Andreu
- * @version 1.0
+ * @version 1.1
  */
 public final class DialegsSwing {
 
@@ -81,7 +81,7 @@ public final class DialegsSwing {
 	}
 
 	/**
-	 * Mostra un diàleg de confirmació.
+	 * Mostra un diàleg de confirmació amb les opcions "Sí" i "No".
 	 * 
 	 * @param pare Component pare del diàleg.
 	 * @param titol Títol del diàleg.
@@ -89,12 +89,21 @@ public final class DialegsSwing {
 	 * @return {@code true} si l'usuari prem Sí.
 	 */
 	public static boolean confirmar(Component pare, String titol, String missatge) {
-		int resposta = JOptionPane.showConfirmDialog(
+		
+		Object[] opcions = {
+				"Sí",
+				"No"
+		};
+		
+		int resposta = JOptionPane.showOptionDialog(
 				pare,
 				missatge,
 				titol,
 				JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				opcions,
+				opcions[0]
 				);
 
 		return resposta == JOptionPane.YES_OPTION;
