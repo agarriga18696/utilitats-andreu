@@ -2,10 +2,13 @@ package aplicaciogui;
 
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -28,6 +31,8 @@ public final class LookAndFeelSwing {
 	//-------------------------------
 
 	private static final Logger LOGGER = Logger.getLogger(LookAndFeelSwing.class.getName());
+	
+	private static final Map<String, Boolean> CACHE_COMPATIBILITAT = new HashMap<>();
 
 	//-------------------------------
 	// CONSTANTS LOOK AND FEEL
@@ -165,12 +170,9 @@ public final class LookAndFeelSwing {
 
 	/**
 	 * Comprova si un Look and Feel es pot aplicar realment.
-	 * <p>
-	 * Aquesta comprovació és més estricta que {@code estaInstallat(...)}, perquè
-	 * alguns Look and Feel poden existir però no ser compatibles amb el sistema actual.
 	 * 
 	 * @param nomClasse Nom complet de la classe del Look and Feel.
-	 * @return {@code true} si es pot instanciar i és compatible.
+	 * @return {@code true} si es pot aplicar correctament.
 	 */
 	public static boolean esCompatible(String nomClasse) {
 
@@ -178,19 +180,32 @@ public final class LookAndFeelSwing {
 			return false;
 		}
 
+		if(CACHE_COMPATIBILITAT.containsKey(nomClasse)) {
+			return CACHE_COMPATIBILITAT.get(nomClasse);
+		}
+
+		LookAndFeel lookAndFeelActual = UIManager.getLookAndFeel();
+		boolean compatible;
+
 		try {
-			Class<?> classe = Class.forName(nomClasse);
-			Object instancia = classe.getDeclaredConstructor().newInstance();
-
-			if(instancia instanceof javax.swing.LookAndFeel laf) {
-				return laf.isSupportedLookAndFeel();
-			}
-
-			return false;
+			UIManager.setLookAndFeel(nomClasse);
+			compatible = true;
 
 		} catch(Exception e) {
-			return false;
+			compatible = false;
+
+		} finally {
+			if(lookAndFeelActual != null) {
+				try {
+					UIManager.setLookAndFeel(lookAndFeelActual);
+				} catch(Exception e) {
+					LOGGER.log(Level.WARNING, "No s'ha pogut restaurar el Look and Feel anterior.", e);
+				}
+			}
 		}
+
+		CACHE_COMPATIBILITAT.put(nomClasse, compatible);
+		return compatible;
 	}
 
 	/**
