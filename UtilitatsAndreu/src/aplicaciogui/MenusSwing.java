@@ -13,7 +13,7 @@ import javax.swing.KeyStroke;
  * Classe d'utilitat per crear i configurar menús Swing.
  * 
  * @author Andreu
- * @version 1.2
+ * @version 1.3
  */
 public final class MenusSwing {
 
@@ -193,6 +193,24 @@ public final class MenusSwing {
 		Objects.requireNonNull(accio, "L'acció no pot ser null.");
 
 		JRadioButtonMenuItem item = new JRadioButtonMenuItem(text, seleccionat);
+		item.addActionListener(_ -> accio.run());
+
+		return item;
+	}
+	
+	/**
+	 * Retorna un {@code JRadioButtonMenuItem} amb una icona.
+	 * 
+	 * @param text Text de l'opció.
+	 * @param icona Icona de l'opció.
+	 * @param seleccionat Indica si l'opció està seleccionada inicialment.
+	 * @param accio Acció que s'executarà en seleccionar l'opció.
+	 * @return Opció de menú de tipus radio creada.
+	 */
+	public static JRadioButtonMenuItem radioItem(String text, Icon icona, boolean seleccionat, Runnable accio) {
+		Objects.requireNonNull(accio, "L'acció no pot ser null.");
+
+		JRadioButtonMenuItem item = new JRadioButtonMenuItem(text, icona, seleccionat);
 		item.addActionListener(_ -> accio.run());
 
 		return item;
