@@ -115,6 +115,16 @@ public final class ComponentsSwing {
 	public static JLabel etiquetaCentrada(String text) {
 		return new JLabel(text, SwingConstants.CENTER);
 	}
+	
+	/**
+	 * Retorna un {@code JLabel} amb el text indicat i alineat al final de la línia.
+	 * 
+	 * @param text Text de l'etiqueta.
+	 * @return Etiqueta creada amb alineació al final.
+	 */
+	public static JLabel etiquetaDreta(String text) {
+		return new JLabel(text, SwingConstants.TRAILING);
+	}
 
 	//-------------------------------
 	// CAMPS DE TEXT
