@@ -160,12 +160,19 @@ public final class IconesPredeterminadesSwing {
 	public static final String ASSISTENT = "wand.png";
 
 	//-------------------------------
-	// S.O.
+	// TEMES / SISTEMES
 	//-------------------------------
-
+	
 	public static final String WINDOWS = "windows.png";
 	public static final String LINUX = "animal-penguin.png";
 	public static final String MACOS = "mac-os.png";
+
+	public static final String TEMA_JAVA = TEMA;
+	public static final String TEMA_EXTERN = NOU_TEXT;
+
+	public static final String TEMA_WINDOWS = WINDOWS;
+	public static final String TEMA_MAC_OS = MACOS;
+	public static final String TEMA_LINUX = LINUX;
 
 	//-------------------------------
 	// BASE DE DADES
