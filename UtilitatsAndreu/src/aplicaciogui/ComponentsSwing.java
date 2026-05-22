@@ -8,6 +8,7 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -19,7 +20,7 @@ import javax.swing.SwingConstants;
  * Classe d'utilitat per crear components Swing comuns.
  * 
  * @author Andreu
- * @version 1.2
+ * @version 1.3
  */
 public final class ComponentsSwing {
 
@@ -104,6 +105,21 @@ public final class ComponentsSwing {
 	 */
 	public static JLabel etiqueta(String text) {
 		return new JLabel(text);
+	}
+	
+	/**
+	 * Retorna un {@code JLabel} vinculat a un component i amb mnemònic.
+	 * 
+	 * @param text Text de l'etiqueta.
+	 * @param component Component associat a l'etiqueta.
+	 * @param mnemonic Tecla mnemònica.
+	 * @return Etiqueta configurada.
+	 */
+	public static JLabel etiquetaPer(String text, JComponent component, int mnemonic) {
+		JLabel etiqueta = etiqueta(text);
+		etiqueta.setLabelFor(component);
+		etiqueta.setDisplayedMnemonic(mnemonic);
+		return etiqueta;
 	}
 
 	/**

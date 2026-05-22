@@ -137,6 +137,9 @@ public final class IconesPredeterminadesSwing {
 	//-------------------------------
 
 	public static final String USUARI = "user.png";
+	public static final String USUARI_ELIMINAR = "user--minus.png";
+	public static final String USUARI_AFEGIR = "user--plus.png";
+	public static final String USUARI_EDITAR = "user--pencil.png";
 	public static final String USUARIS = "users.png";
 	public static final String ADRECES = "address-book.png";
 	public static final String CLAU = "key.png";
