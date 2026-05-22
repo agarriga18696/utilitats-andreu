@@ -19,7 +19,7 @@ import javax.swing.SwingConstants;
  * Classe d'utilitat per crear components Swing comuns.
  * 
  * @author Andreu
- * @version 1.1
+ * @version 1.2
  */
 public final class ComponentsSwing {
 
