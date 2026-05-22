@@ -9,7 +9,7 @@ import javax.swing.Icon;
  * còmodes per carregar-les des dels recursos interns de la llibreria.
  * 
  * @author Andreu
- * @version 1.0
+ * @version 1.1
  */
 public final class IconesPredeterminadesSwing {
 
@@ -22,7 +22,7 @@ public final class IconesPredeterminadesSwing {
 	//-------------------------------
 	// ACCIONS PRINCIPALS
 	//-------------------------------
-	
+
 	public static final String INICI = "home.png";
 	public static final String NOU = "new.png";
 	public static final String NOU_TEXT = "new-text.png";
@@ -62,7 +62,7 @@ public final class IconesPredeterminadesSwing {
 	public static final String DOCUMENT_EXCEL = "document-excel.png";
 	public static final String DOCUMENT_WORD = "document-word.png";
 	public static final String DOCUMENT_CODI = "document-code.png";
-	
+
 	//-------------------------------
 	// LLIBRES
 	//-------------------------------
@@ -89,7 +89,7 @@ public final class IconesPredeterminadesSwing {
 	public static final String TEMA = "palette-medium.png";
 	public static final String PREFERENCIES = "gear.png";
 	public static final String IDIOMES = "locale.png";
-	
+
 	//-------------------------------
 	// ESTATS I MISSATGES
 	//-------------------------------
@@ -103,7 +103,7 @@ public final class IconesPredeterminadesSwing {
 	//-------------------------------
 
 	public static final String ESTADISTIQUES = "chart.png";
-	
+
 	public static final String MEDALLA_BRONZE = "medal-bronze.png";
 	public static final String MEDALLA_PLATA = "medal-silver.png";
 	public static final String MEDALLA_OR = "medal.png";
@@ -111,7 +111,7 @@ public final class IconesPredeterminadesSwing {
 	public static final String TROFEU_BRONZE = "trophy-bronze.png";
 	public static final String TROFEU_PLATA = "trophy-silver.png";
 	public static final String TROFEU_OR = "trophy.png";
-	
+
 	//-------------------------------
 	// AJUDA I INFORMACIÓ
 	//-------------------------------
@@ -158,6 +158,14 @@ public final class IconesPredeterminadesSwing {
 	public static final String SCRIPT = "script.png";
 	public static final String RAPID = "lightning.png";
 	public static final String ASSISTENT = "wand.png";
+
+	//-------------------------------
+	// S.O.
+	//-------------------------------
+
+	public static final String WINDOWS = "windows.png";
+	public static final String LINUX = "animal-penguin.png";
+	public static final String MACOS = "mac-os.png";
 
 	//-------------------------------
 	// BASE DE DADES
@@ -208,18 +216,14 @@ public final class IconesPredeterminadesSwing {
 	public static final String NUVOL = "application-cloud.png";
 	public static final String ORDINADOR_NUVOL = "computer-cloud.png";
 	public static final String SERVIDOR_NUVOL = "server-cloud.png";
-	
+
 	//-------------------------------
 	// ALTRES
 	//-------------------------------
 
 	public static final String COR = "heart.png";
 	public static final String JOC = "game.png";
-	public static final String BANDERA = "flag.png";
-	public static final String RELLOTGE_ARENA = "hourglass.png";
 
-
-	
 	//-------------------------------
 	// MÈTODES DE LA CLASSE
 	//-------------------------------
