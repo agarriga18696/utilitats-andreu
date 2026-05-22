@@ -2,7 +2,7 @@
 
 Llibreria d'utilitats Java per al desenvolupament d'aplicacions multiplataforma.
 
-> **Versió actual: 4.6** → [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v4.6/utilitats-andreu-4.6.jar)
+> **Versió actual: 4.7** → [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v4.7/utilitats-andreu-4.7.jar)
 
 ---
 
@@ -59,7 +59,7 @@ Conjunt de classes d'utilitats per fer el codi més eficient i reutilitzable.
 
 ## Instal·lació
 
-1. Descarrega el `.jar` de la [darrera versió](https://github.com/agarriga18696/utilitats-andreu/releases/download/v4.6/utilitats-andreu-4.6.jar)
+1. Descarrega el `.jar` de la [darrera versió](https://github.com/agarriga18696/utilitats-andreu/releases/download/v4.7/utilitats-andreu-4.7.jar)
 2. Afegeix-lo al classpath del teu projecte Java
 3. Importa les classes necessàries
 
