@@ -33,8 +33,8 @@ public final class ModelTaulaSwing<T> extends AbstractTableModel {
 	// ATRIBUTS
 	//-------------------------------
 
-	private List<T> dades;
-	private final List<ColumnaSwing<T>> columnes;
+	private transient List<T> dades;
+	private final transient List<ColumnaSwing<T>> columnes;
 
 	//-------------------------------
 	// CONSTRUCTOR
