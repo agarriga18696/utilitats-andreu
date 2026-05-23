@@ -17,7 +17,7 @@ import javax.swing.UIManager;
  * Classe d'utilitat per aplicar Look and Feel en aplicacions Swing.
  * 
  * @author Andreu
- * @version 1.4
+ * @version 1.5
  */
 public final class LookAndFeelSwing {
 
@@ -207,12 +207,33 @@ public final class LookAndFeelSwing {
 
 	/**
 	 * Comprovació real de compatibilitat sense aplicar el Look and Feel ni tocar {@link UIManager}.
+	 * <p>
+	 * La comprovació es fa en dos passos. Primer consulta {@link UIManager#getInstalledLookAndFeels()},
+	 * que és l'API oficial de Swing per determinar quins LAF estan disponibles al sistema actual
+	 * (per exemple, Windows i Windows Classic només apareixen en Windows). Si el LAF hi és,
+	 * es considera compatible directament sense cap instanciació per reflexió.
+	 * <p>
+	 * Si no hi és a la llista instal·lada (per exemple, un LAF de tercers), es recorre a
+	 * instanciar la classe via reflexió i consultar {@link LookAndFeel#isSupportedLookAndFeel()}.
+	 * En aquest segon pas es capturen tant {@link ReflectiveOperationException} com
+	 * {@link RuntimeException} (per cobrir {@code InaccessibleObjectException} de Java 9+)
+	 * i {@link LinkageError}.
 	 *
 	 * @param nomClasse Nom complet de la classe del Look and Feel.
-	 * @return {@code true} si la classe es pot carregar, és un {@link LookAndFeel} i està suportat.
+	 * @return {@code true} si el LAF és compatible amb el sistema actual.
 	 */
 	private static boolean comprovarCompatibilitat(String nomClasse) {
 
+		// Primer: consultar la llista oficial de LAFs instal·lats per Swing.
+		// Aquests estan garantits com a disponibles al sistema sense necessitat de reflexió.
+		for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+			if(info.getClassName().equals(nomClasse)) {
+				return true;
+			}
+		}
+
+		// Segon: per LAFs no instal·lats per defecte (p. ex. de tercers),
+		// intentar instanciar-los i consultar isSupportedLookAndFeel().
 		try {
 			Class<?> classe = Class.forName(nomClasse);
 
@@ -223,10 +244,11 @@ public final class LookAndFeelSwing {
 			LookAndFeel instancia = (LookAndFeel) classe.getDeclaredConstructor().newInstance();
 			return instancia.isSupportedLookAndFeel();
 
-		} catch(ClassNotFoundException e) {
+		} catch(ClassNotFoundException _) {
 			return false;
 
-		} catch(ReflectiveOperationException | LinkageError e) {
+		} catch(ReflectiveOperationException | RuntimeException | LinkageError e) {
+			// RuntimeException cobreix InaccessibleObjectException (Java 9+) i similars
 			LOGGER.log(Level.FINE, e, () -> "No s'ha pogut comprovar la compatibilitat de: " + nomClasse);
 			return false;
 		}
