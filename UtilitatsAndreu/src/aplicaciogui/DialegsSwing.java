@@ -6,15 +6,20 @@ import java.awt.Window;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
 
+import java.io.File;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Classe d'utilitat per mostrar diàlegs Swing.
@@ -23,7 +28,7 @@ import javax.swing.SwingUtilities;
  * es fa des de l'EDT, es redirigeix automàticament amb {@link EdtSwing#executar(Runnable)}.
  *
  * @author Andreu
- * @version 1.2
+ * @version 1.3
  */
 public final class DialegsSwing {
 
@@ -184,6 +189,184 @@ public final class DialegsSwing {
 
 		dialeg.add(pnlBotons, BorderLayout.SOUTH);
 		dialeg.setVisible(true);
+	}
+
+	//-------------------------------
+	// SELECTORS DE FITXER
+	//-------------------------------
+
+	/**
+	 * Mostra un diàleg per triar on guardar un fitxer (sense filtre d'extensió).
+	 *
+	 * @param pare Component pare del diàleg.
+	 * @return Fitxer triat, o {@link Optional#empty()} si l'usuari cancel·la.
+	 */
+	public static Optional<File> triarFitxerGuardar(Component pare) {
+		return triarFitxerGuardar(pare, null, null, null);
+	}
+
+	/**
+	 * Mostra un diàleg per triar on guardar un fitxer amb filtre per extensió.
+	 * La descripció del filtre es genera automàticament a partir de l'extensió.
+	 *
+	 * @param pare Component pare del diàleg.
+	 * @param extensio Extensió del fitxer sense punt (p. ex. {@code "txt"}).
+	 * @return Fitxer triat, o {@link Optional#empty()} si l'usuari cancel·la.
+	 */
+	public static Optional<File> triarFitxerGuardar(Component pare, String extensio) {
+		String descripcio = (extensio != null && !extensio.isBlank())
+				? "Fitxers " + extensio.toUpperCase()
+				: null;
+		return triarFitxerGuardar(pare, descripcio, extensio, null);
+	}
+
+	/**
+	 * Mostra un diàleg per triar on guardar un fitxer amb filtre per extensió i descripció.
+	 *
+	 * @param pare Component pare del diàleg.
+	 * @param descripcio Descripció del filtre (p. ex. {@code "Fitxers de text"}).
+	 * @param extensio Extensió del fitxer sense punt (p. ex. {@code "txt"}).
+	 * @return Fitxer triat, o {@link Optional#empty()} si l'usuari cancel·la.
+	 */
+	public static Optional<File> triarFitxerGuardar(Component pare, String descripcio, String extensio) {
+		return triarFitxerGuardar(pare, descripcio, extensio, null);
+	}
+
+	/**
+	 * Mostra un diàleg per triar on guardar un fitxer.
+	 * <p>
+	 * Si {@code extensio} no és nul·la i el nom de fitxer triat no acaba amb ella,
+	 * s'afegeix automàticament.
+	 *
+	 * @param pare Component pare del diàleg.
+	 * @param descripcio Descripció del filtre, o {@code null} per a cap filtre.
+	 * @param extensio Extensió del fitxer sense punt (p. ex. {@code "txt"}), o {@code null} per a cap filtre.
+	 * @param nomDefecte Nom de fitxer preseleccionat, o {@code null} per a cap.
+	 * @return Fitxer triat, o {@link Optional#empty()} si l'usuari cancel·la.
+	 */
+	public static Optional<File> triarFitxerGuardar(
+			Component pare,
+			String descripcio,
+			String extensio,
+			String nomDefecte
+			) {
+
+		AtomicReference<File> resultat = new AtomicReference<>();
+
+		EdtSwing.executar(() -> {
+
+			JFileChooser selector = crearSelector(descripcio, extensio, nomDefecte);
+
+			int opcio = selector.showSaveDialog(pare);
+
+			if(opcio == JFileChooser.APPROVE_OPTION) {
+				File fitxer = selector.getSelectedFile();
+				if(extensio != null && !extensio.isBlank()) {
+					fitxer = assegurarExtensio(fitxer, extensio);
+				}
+				resultat.set(fitxer);
+			}
+		});
+
+		return Optional.ofNullable(resultat.get());
+	}
+
+	/**
+	 * Mostra un diàleg per triar un fitxer a carregar (sense filtre d'extensió).
+	 *
+	 * @param pare Component pare del diàleg.
+	 * @return Fitxer triat, o {@link Optional#empty()} si l'usuari cancel·la.
+	 */
+	public static Optional<File> triarFitxerCarregar(Component pare) {
+		return triarFitxerCarregar(pare, null, null);
+	}
+
+	/**
+	 * Mostra un diàleg per triar un fitxer a carregar amb filtre per extensió.
+	 * La descripció del filtre es genera automàticament a partir de l'extensió.
+	 *
+	 * @param pare Component pare del diàleg.
+	 * @param extensio Extensió del fitxer sense punt (p. ex. {@code "txt"}).
+	 * @return Fitxer triat, o {@link Optional#empty()} si l'usuari cancel·la.
+	 */
+	public static Optional<File> triarFitxerCarregar(Component pare, String extensio) {
+		String descripcio = (extensio != null && !extensio.isBlank())
+				? "Fitxers " + extensio.toUpperCase()
+				: null;
+		return triarFitxerCarregar(pare, descripcio, extensio);
+	}
+
+	/**
+	 * Mostra un diàleg per triar un fitxer a carregar amb filtre per extensió i descripció.
+	 *
+	 * @param pare Component pare del diàleg.
+	 * @param descripcio Descripció del filtre (p. ex. {@code "Fitxers de text"}).
+	 * @param extensio Extensió del fitxer sense punt (p. ex. {@code "txt"}).
+	 * @return Fitxer triat, o {@link Optional#empty()} si l'usuari cancel·la.
+	 */
+	public static Optional<File> triarFitxerCarregar(Component pare, String descripcio, String extensio) {
+
+		AtomicReference<File> resultat = new AtomicReference<>();
+
+		EdtSwing.executar(() -> {
+
+			JFileChooser selector = crearSelector(descripcio, extensio, null);
+
+			int opcio = selector.showOpenDialog(pare);
+
+			if(opcio == JFileChooser.APPROVE_OPTION) {
+				resultat.set(selector.getSelectedFile());
+			}
+		});
+
+		return Optional.ofNullable(resultat.get());
+	}
+
+	//-------------------------------
+	// MÈTODES PRIVATS
+	//-------------------------------
+
+	/**
+	 * Crea un {@link JFileChooser} configurat amb el filtre i el nom de fitxer indicats.
+	 *
+	 * @param descripcio Descripció del filtre, o {@code null} per a cap filtre.
+	 * @param extensio Extensió del fitxer sense punt, o {@code null} per a cap filtre.
+	 * @param nomDefecte Nom de fitxer preseleccionat, o {@code null} per a cap.
+	 * @return {@link JFileChooser} configurat.
+	 */
+	private static JFileChooser crearSelector(String descripcio, String extensio, String nomDefecte) {
+
+		JFileChooser selector = new JFileChooser();
+
+		if(descripcio != null && !descripcio.isBlank()
+				&& extensio != null && !extensio.isBlank()) {
+			selector.setFileFilter(new FileNameExtensionFilter(descripcio, extensio));
+		}
+
+		if(nomDefecte != null && !nomDefecte.isBlank()) {
+			selector.setSelectedFile(new File(nomDefecte));
+		}
+
+		return selector;
+	}
+
+	/**
+	 * Assegura que el fitxer acabarà amb l'extensió indicada.
+	 * Si el nom del fitxer ja acaba amb l'extensió (insensible a majúscules), es retorna tal qual.
+	 *
+	 * @param fitxer Fitxer a comprovar.
+	 * @param extensio Extensió sense punt (p. ex. {@code "txt"}).
+	 * @return Fitxer amb l'extensió afegida si cal.
+	 */
+	private static File assegurarExtensio(File fitxer, String extensio) {
+
+		String nom = fitxer.getName();
+
+		if(!nom.toLowerCase().endsWith("." + extensio.toLowerCase())) {
+			return new File(fitxer.getParentFile(), nom + "." + extensio);
+		}
+
+		return fitxer;
 	}
 
 }
