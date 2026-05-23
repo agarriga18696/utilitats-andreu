@@ -6,7 +6,7 @@ Requereix **Java 21** o superior.
 
 ---
 
-**Versió actual: `5.1.0`** → [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v5.1.0/utilitats-andreu-5.1.0.jar)
+**Versió actual: `5.1.1`** → [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v5.1.1/utilitats-andreu-5.1.1.jar)
 
 ---
 
