@@ -2,8 +2,8 @@ package aplicaciogui;
 
 import java.awt.Image;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
  * Classe d'utilitat per carregar icones des dels recursos del projecte.
  * 
  * @author Andreu
- * @version 1.0
+ * @version 1.1
  */
 public final class IconesSwing {
 
@@ -23,7 +23,7 @@ public final class IconesSwing {
 
 	private static final Logger LOGGER = Logger.getLogger(IconesSwing.class.getName());
 	private static final int MIDA_ICONA = 16;
-	private static final Map<String, Icon> CACHE = new HashMap<>();
+	private static final Map<String, Icon> CACHE = new ConcurrentHashMap<>();
 
 	private IconesSwing() {
 		/*

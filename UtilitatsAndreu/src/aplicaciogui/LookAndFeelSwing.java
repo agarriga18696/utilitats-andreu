@@ -2,9 +2,9 @@ package aplicaciogui;
 
 import java.awt.Component;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,7 +16,7 @@ import javax.swing.UIManager;
  * Classe d'utilitat per aplicar Look and Feel en aplicacions Swing.
  * 
  * @author Andreu
- * @version 1.1
+ * @version 1.2
  */
 public final class LookAndFeelSwing {
 
@@ -32,7 +32,7 @@ public final class LookAndFeelSwing {
 
 	private static final Logger LOGGER = Logger.getLogger(LookAndFeelSwing.class.getName());
 	
-	private static final Map<String, Boolean> CACHE_COMPATIBILITAT = new HashMap<>();
+	private static final Map<String, Boolean> CACHE_COMPATIBILITAT = new ConcurrentHashMap<>();
 
 	//-------------------------------
 	// CONSTANTS LOOK AND FEEL

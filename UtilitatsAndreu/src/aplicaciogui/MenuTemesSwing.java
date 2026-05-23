@@ -14,7 +14,7 @@ import javax.swing.JRadioButtonMenuItem;
  * Classe d'utilitat per crear menús de selecció de Look and Feel.
  * 
  * @author Andreu
- * @version 1.0
+ * @version 1.1
  */
 public final class MenuTemesSwing {
 
@@ -35,7 +35,7 @@ public final class MenuTemesSwing {
 	 * @return Menú de temes creat.
 	 */
 	public static JMenu crearMenuTemes(Component componentActualitzar) {
-		return crearMenuTemes(componentActualitzar, _ -> {});
+		return crearMenuTemes(componentActualitzar, nomTema -> {});
 	}
 
 	/**
