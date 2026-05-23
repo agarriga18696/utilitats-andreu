@@ -1,7 +1,6 @@
 package aplicaciogui;
 
 import java.awt.Component;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +17,7 @@ import javax.swing.UIManager;
  * Classe d'utilitat per aplicar Look and Feel en aplicacions Swing.
  * 
  * @author Andreu
- * @version 1.3
+ * @version 1.4
  */
 public final class LookAndFeelSwing {
 
@@ -126,7 +125,7 @@ public final class LookAndFeelSwing {
 
 		AtomicBoolean resultat = new AtomicBoolean(false);
 
-		executarEnEdt(() -> {
+		EdtSwing.executar(() -> {
 			try {
 				UIManager.setLookAndFeel(nomClasse);
 				resultat.set(true);
@@ -153,43 +152,11 @@ public final class LookAndFeelSwing {
 			return;
 		}
 
-		executarEnEdt(() -> {
+		EdtSwing.executar(() -> {
 			SwingUtilities.updateComponentTreeUI(component);
 			component.revalidate();
 			component.repaint();
 		});
-	}
-
-	//-------------------------------
-	// HELPERS EDT
-	//-------------------------------
-
-	/**
-	 * Executa una tasca al fil d'esdeveniments (EDT) de manera síncrona.
-	 * <p>
-	 * Si la crida ja és a l'EDT s'executa directament. En cas contrari, es delega a
-	 * {@link SwingUtilities#invokeAndWait} perquè el flux de crida pugui confiar
-	 * que la tasca ha acabat abans de continuar.
-	 *
-	 * @param tasca Tasca a executar a l'EDT.
-	 */
-	private static void executarEnEdt(Runnable tasca) {
-
-		if(SwingUtilities.isEventDispatchThread()) {
-			tasca.run();
-			return;
-		}
-
-		try {
-			SwingUtilities.invokeAndWait(tasca);
-
-		} catch(InterruptedException e) {
-			Thread.currentThread().interrupt();
-			LOGGER.log(Level.WARNING, e, () -> "Fil interromput esperant l'EDT.");
-
-		} catch(InvocationTargetException e) {
-			LOGGER.log(Level.WARNING, e.getCause(), () -> "Excepció dins la tasca executada a l'EDT.");
-		}
 	}
 
 	//-------------------------------

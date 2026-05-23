@@ -6,6 +6,8 @@ import java.awt.Window;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -16,9 +18,12 @@ import javax.swing.SwingUtilities;
 
 /**
  * Classe d'utilitat per mostrar diàlegs Swing.
- * 
+ * <p>
+ * Tots els mètodes són segurs per cridar des de qualsevol fil: si la crida no
+ * es fa des de l'EDT, es redirigeix automàticament amb {@link EdtSwing#executar(Runnable)}.
+ *
  * @author Andreu
- * @version 1.1
+ * @version 1.2
  */
 public final class DialegsSwing {
 
@@ -34,79 +39,86 @@ public final class DialegsSwing {
 
 	/**
 	 * Mostra un missatge informatiu.
-	 * 
+	 *
 	 * @param pare Component pare del diàleg.
 	 * @param titol Títol del diàleg.
 	 * @param missatge Missatge a mostrar.
 	 */
 	public static void info(Component pare, String titol, String missatge) {
-		JOptionPane.showMessageDialog(
+		EdtSwing.executar(() -> JOptionPane.showMessageDialog(
 				pare,
 				missatge,
 				titol,
 				JOptionPane.INFORMATION_MESSAGE
-				);
+				));
 	}
 
 	/**
 	 * Mostra un missatge d'avís.
-	 * 
+	 *
 	 * @param pare Component pare del diàleg.
 	 * @param titol Títol del diàleg.
 	 * @param missatge Missatge a mostrar.
 	 */
 	public static void avis(Component pare, String titol, String missatge) {
-		JOptionPane.showMessageDialog(
+		EdtSwing.executar(() -> JOptionPane.showMessageDialog(
 				pare,
 				missatge,
 				titol,
 				JOptionPane.WARNING_MESSAGE
-				);
+				));
 	}
 
 	/**
 	 * Mostra un missatge d'error.
-	 * 
+	 *
 	 * @param pare Component pare del diàleg.
 	 * @param titol Títol del diàleg.
 	 * @param missatge Missatge a mostrar.
 	 */
 	public static void error(Component pare, String titol, String missatge) {
-		JOptionPane.showMessageDialog(
+		EdtSwing.executar(() -> JOptionPane.showMessageDialog(
 				pare,
 				missatge,
 				titol,
 				JOptionPane.ERROR_MESSAGE
-				);
+				));
 	}
 
 	/**
 	 * Mostra un diàleg de confirmació amb les opcions "Sí" i "No".
-	 * 
+	 *
 	 * @param pare Component pare del diàleg.
 	 * @param titol Títol del diàleg.
 	 * @param missatge Missatge de confirmació.
 	 * @return {@code true} si l'usuari prem Sí.
 	 */
 	public static boolean confirmar(Component pare, String titol, String missatge) {
-		
-		Object[] opcions = {
-				"Sí",
-				"No"
-		};
-		
-		int resposta = JOptionPane.showOptionDialog(
-				pare,
-				missatge,
-				titol,
-				JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE,
-				null,
-				opcions,
-				opcions[0]
-				);
 
-		return resposta == JOptionPane.YES_OPTION;
+		AtomicBoolean resultat = new AtomicBoolean(false);
+
+		EdtSwing.executar(() -> {
+
+			Object[] opcions = {
+					"Sí",
+					"No"
+			};
+
+			int resposta = JOptionPane.showOptionDialog(
+					pare,
+					missatge,
+					titol,
+					JOptionPane.YES_NO_OPTION,
+					JOptionPane.QUESTION_MESSAGE,
+					null,
+					opcions,
+					opcions[0]
+					);
+
+			resultat.set(resposta == JOptionPane.YES_OPTION);
+		});
+
+		return resultat.get();
 	}
 
 	//-------------------------------
@@ -115,7 +127,13 @@ public final class DialegsSwing {
 
 	/**
 	 * Mostra una finestra modal amb text llarg i scroll.
-	 * 
+	 * <p>
+	 * La construcció i la visualització del diàleg es fan a l'EDT. Si la crida
+	 * es fa des d'un altre fil, es redirigeix automàticament amb
+	 * {@link EdtSwing#executar(Runnable)}. Com que el diàleg és modal,
+	 * {@code setVisible(true)} bloqueja l'EDT fins que l'usuari el tanca,
+	 * i el fil cridant (si és diferent de l'EDT) també queda bloquejat.
+	 *
 	 * @param pare Component pare del diàleg.
 	 * @param titol Títol del diàleg.
 	 * @param contingut Text a mostrar.
@@ -123,6 +141,14 @@ public final class DialegsSwing {
 	 * @param altura Altura del diàleg.
 	 */
 	public static void textLlarg(Component pare, String titol, String contingut, int amplada, int altura) {
+
+		EdtSwing.executar(() -> mostrarTextLlarg(pare, titol, contingut, amplada, altura));
+	}
+
+	/**
+	 * Construcció i visualització real del diàleg, sempre invocada a l'EDT.
+	 */
+	private static void mostrarTextLlarg(Component pare, String titol, String contingut, int amplada, int altura) {
 
 		Window finestraPare = null;
 
