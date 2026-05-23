@@ -18,7 +18,7 @@ import javax.swing.ImageIcon;
  * semàntiques que identifiquen les icones per concepte en lloc de per nom de fitxer.
  *
  * @author Andreu
- * @version 2.0
+ * @version 2.1
  */
 public final class IconesSwing {
 
@@ -188,7 +188,7 @@ public final class IconesSwing {
 	public static final String MACOS   = "mac-os.png";
 
 	/* Àlies semàntics per a les icones dels temes de Look and Feel. */
-	public static final String TEMA_JAVA    = TEMA;
+	public static final String TEMA_JAVA    = "cup.png";
 	public static final String TEMA_EXTERN  = NOU_TEXT;
 	public static final String TEMA_WINDOWS = WINDOWS;
 	public static final String TEMA_MAC_OS  = MACOS;

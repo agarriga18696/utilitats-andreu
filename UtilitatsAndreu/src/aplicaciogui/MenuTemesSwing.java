@@ -34,6 +34,7 @@ public final class MenuTemesSwing {
 	 * @param componentActualitzar Component principal que s'actualitzarà visualment.
 	 * @return Menú de temes creat.
 	 */
+	@SuppressWarnings("unused")
 	public static JMenu crearMenuTemes(Component componentActualitzar) {
 		return crearMenuTemes(componentActualitzar, nomTema -> {});
 	}
