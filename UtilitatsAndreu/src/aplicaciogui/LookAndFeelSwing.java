@@ -1,10 +1,12 @@
 package aplicaciogui;
 
 import java.awt.Component;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,7 +18,7 @@ import javax.swing.UIManager;
  * Classe d'utilitat per aplicar Look and Feel en aplicacions Swing.
  * 
  * @author Andreu
- * @version 1.2
+ * @version 1.3
  */
 public final class LookAndFeelSwing {
 
@@ -107,7 +109,12 @@ public final class LookAndFeelSwing {
 
 	/**
 	 * Aplica un Look and Feel a partir del nom complet de la classe.
-	 * 
+	 * <p>
+	 * Aquesta operació muta {@link UIManager} i, segons el contracte de Swing,
+	 * ha d'executar-se al fil d'esdeveniments (EDT). Si la crida es fa des d'un
+	 * altre fil, es redirigeix automàticament a l'EDT amb {@link SwingUtilities#invokeAndWait}
+	 * perquè el cridant pugui confiar en el valor retornat.
+	 *
 	 * @param nomClasse Nom complet de la classe del Look and Feel.
 	 * @return {@code true} si s'ha aplicat correctament.
 	 */
@@ -117,19 +124,27 @@ public final class LookAndFeelSwing {
 			return false;
 		}
 
-		try {
-			UIManager.setLookAndFeel(nomClasse);
-			return true;
+		AtomicBoolean resultat = new AtomicBoolean(false);
 
-		} catch(Exception e) {
-			LOGGER.log(Level.WARNING, "No s'ha pogut aplicar el Look and Feel: " + nomClasse, e);
-			return false;
-		}
+		executarEnEdt(() -> {
+			try {
+				UIManager.setLookAndFeel(nomClasse);
+				resultat.set(true);
+
+			} catch(Exception e) {
+				LOGGER.log(Level.WARNING, e, () -> "No s'ha pogut aplicar el Look and Feel: " + nomClasse);
+				resultat.set(false);
+			}
+		});
+
+		return resultat.get();
 	}
 
 	/**
 	 * Actualitza visualment un component i tots els seus fills després de canviar el Look and Feel.
-	 * 
+	 * <p>
+	 * Totes les operacions Swing es redirigeixen a l'EDT si la crida es fa des d'un altre fil.
+	 *
 	 * @param component Component principal a actualitzar.
 	 */
 	public static void actualitzar(Component component) {
@@ -138,9 +153,43 @@ public final class LookAndFeelSwing {
 			return;
 		}
 
-		SwingUtilities.updateComponentTreeUI(component);
-		component.revalidate();
-		component.repaint();
+		executarEnEdt(() -> {
+			SwingUtilities.updateComponentTreeUI(component);
+			component.revalidate();
+			component.repaint();
+		});
+	}
+
+	//-------------------------------
+	// HELPERS EDT
+	//-------------------------------
+
+	/**
+	 * Executa una tasca al fil d'esdeveniments (EDT) de manera síncrona.
+	 * <p>
+	 * Si la crida ja és a l'EDT s'executa directament. En cas contrari, es delega a
+	 * {@link SwingUtilities#invokeAndWait} perquè el flux de crida pugui confiar
+	 * que la tasca ha acabat abans de continuar.
+	 *
+	 * @param tasca Tasca a executar a l'EDT.
+	 */
+	private static void executarEnEdt(Runnable tasca) {
+
+		if(SwingUtilities.isEventDispatchThread()) {
+			tasca.run();
+			return;
+		}
+
+		try {
+			SwingUtilities.invokeAndWait(tasca);
+
+		} catch(InterruptedException e) {
+			Thread.currentThread().interrupt();
+			LOGGER.log(Level.WARNING, e, () -> "Fil interromput esperant l'EDT.");
+
+		} catch(InvocationTargetException e) {
+			LOGGER.log(Level.WARNING, e.getCause(), () -> "Excepció dins la tasca executada a l'EDT.");
+		}
 	}
 
 	//-------------------------------
@@ -169,10 +218,16 @@ public final class LookAndFeelSwing {
 	}
 
 	/**
-	 * Comprova si un Look and Feel es pot aplicar realment.
-	 * 
+	 * Comprova si un Look and Feel es pot aplicar al sistema actual.
+	 * <p>
+	 * A diferència de versions anteriors, aquesta comprovació <b>no aplica</b> el Look and Feel:
+	 * instancia la classe via reflexió i consulta {@link LookAndFeel#isSupportedLookAndFeel()},
+	 * evitant qualsevol parpelleig visual o mutació de l'estat global de {@link UIManager}.
+	 * <p>
+	 * El resultat es memoritza al cache de manera atòmica amb {@code computeIfAbsent}.
+	 *
 	 * @param nomClasse Nom complet de la classe del Look and Feel.
-	 * @return {@code true} si es pot aplicar correctament.
+	 * @return {@code true} si la classe existeix, és un {@link LookAndFeel} i està suportat.
 	 */
 	public static boolean esCompatible(String nomClasse) {
 
@@ -180,32 +235,34 @@ public final class LookAndFeelSwing {
 			return false;
 		}
 
-		if(CACHE_COMPATIBILITAT.containsKey(nomClasse)) {
-			return CACHE_COMPATIBILITAT.get(nomClasse);
-		}
+		return CACHE_COMPATIBILITAT.computeIfAbsent(nomClasse, LookAndFeelSwing::comprovarCompatibilitat);
+	}
 
-		LookAndFeel lookAndFeelActual = UIManager.getLookAndFeel();
-		boolean compatible;
+	/**
+	 * Comprovació real de compatibilitat sense aplicar el Look and Feel ni tocar {@link UIManager}.
+	 *
+	 * @param nomClasse Nom complet de la classe del Look and Feel.
+	 * @return {@code true} si la classe es pot carregar, és un {@link LookAndFeel} i està suportat.
+	 */
+	private static boolean comprovarCompatibilitat(String nomClasse) {
 
 		try {
-			UIManager.setLookAndFeel(nomClasse);
-			compatible = true;
+			Class<?> classe = Class.forName(nomClasse);
 
-		} catch(Exception e) {
-			compatible = false;
-
-		} finally {
-			if(lookAndFeelActual != null) {
-				try {
-					UIManager.setLookAndFeel(lookAndFeelActual);
-				} catch(Exception e) {
-					LOGGER.log(Level.WARNING, "No s'ha pogut restaurar el Look and Feel anterior.", e);
-				}
+			if(!LookAndFeel.class.isAssignableFrom(classe)) {
+				return false;
 			}
-		}
 
-		CACHE_COMPATIBILITAT.put(nomClasse, compatible);
-		return compatible;
+			LookAndFeel instancia = (LookAndFeel) classe.getDeclaredConstructor().newInstance();
+			return instancia.isSupportedLookAndFeel();
+
+		} catch(ClassNotFoundException e) {
+			return false;
+
+		} catch(ReflectiveOperationException | LinkageError e) {
+			LOGGER.log(Level.FINE, e, () -> "No s'ha pogut comprovar la compatibilitat de: " + nomClasse);
+			return false;
+		}
 	}
 
 	/**

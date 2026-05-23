@@ -84,7 +84,7 @@ public final class IconesSwing {
 		URL url = classeBase.getResource(rutaNormalitzada + nomFitxer);
 
 		if(url == null) {
-			LOGGER.log(Level.WARNING, "No s'ha trobat la icona: " + rutaNormalitzada + nomFitxer);
+			LOGGER.log(Level.WARNING, () -> "No s'ha trobat la icona: " + rutaNormalitzada + nomFitxer);
 			return null;
 		}
 
