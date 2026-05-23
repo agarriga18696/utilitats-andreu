@@ -151,6 +151,9 @@ public final class TaulesSwing {
 	/**
 	 * Assigna una amplada preferida a una columna.
 	 * L'usuari pot continuar redimensionant-la arrossegant la capçalera.
+	 * <p>
+	 * Activa {@link JTable#AUTO_RESIZE_OFF} perquè el mode d'auto-redimensionat
+	 * per defecte de {@link JTable} sobreescriuria les amplades assignades.
 	 *
 	 * @param taula Taula sobre la qual s'aplica el canvi.
 	 * @param indicColumna Índex de la columna (ordre de la vista).
@@ -158,6 +161,7 @@ public final class TaulesSwing {
 	 */
 	public static void setAmplada(JTable taula, int indicColumna, int amplada) {
 		Objects.requireNonNull(taula, "La taula no pot ser null.");
+		taula.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		taula.getColumnModel().getColumn(indicColumna).setPreferredWidth(amplada);
 	}
 
