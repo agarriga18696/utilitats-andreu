@@ -4,7 +4,7 @@ package aplicaciogui;
  * Catàleg generat automàticament amb totes les icones Fugue incloses a la llibreria.
  * <p>
  * Aquesta classe només conté constants amb noms de fitxer. Les icones es carreguen
- * sota demanda mitjançant {@link IconesPaquetSwing}.
+ * sota demanda mitjançant {@link IconesSwing}.
  *
  * @author Andreu
  * @version 1.0

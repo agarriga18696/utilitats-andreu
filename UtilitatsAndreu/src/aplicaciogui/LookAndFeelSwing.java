@@ -310,49 +310,49 @@ public final class LookAndFeelSwing {
 				new TemaLookAndFeelSwing(
 						"Sistema",
 						SISTEMA,
-						IconesPredeterminadesSwing.TEMA_JAVA,
+						IconesSwing.TEMA_JAVA,
 						false
 						),
 				new TemaLookAndFeelSwing(
 						"Nimbus",
 						NIMBUS,
-						IconesPredeterminadesSwing.TEMA_JAVA,
+						IconesSwing.TEMA_JAVA,
 						false
 						),
 				new TemaLookAndFeelSwing(
 						"Metal",
 						METAL,
-						IconesPredeterminadesSwing.TEMA_JAVA,
+						IconesSwing.TEMA_JAVA,
 						false
 						),
 				new TemaLookAndFeelSwing(
 						"Motif",
 						MOTIF,
-						IconesPredeterminadesSwing.TEMA_LINUX,
+						IconesSwing.TEMA_LINUX,
 						false
 						),
 				new TemaLookAndFeelSwing(
 						"GTK",
 						GTK,
-						IconesPredeterminadesSwing.TEMA_LINUX,
+						IconesSwing.TEMA_LINUX,
 						false
 						),
 				new TemaLookAndFeelSwing(
 						"Windows",
 						WINDOWS,
-						IconesPredeterminadesSwing.TEMA_WINDOWS,
+						IconesSwing.TEMA_WINDOWS,
 						false
 						),
 				new TemaLookAndFeelSwing(
 						"Windows Classic",
 						WINDOWS_CLASSIC,
-						IconesPredeterminadesSwing.TEMA_WINDOWS,
+						IconesSwing.TEMA_WINDOWS,
 						false
 						),
 				new TemaLookAndFeelSwing(
 						"macOS",
 						MAC_OS,
-						IconesPredeterminadesSwing.TEMA_MAC_OS,
+						IconesSwing.TEMA_MAC_OS,
 						false
 						)
 				);

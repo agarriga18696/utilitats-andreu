@@ -78,7 +78,7 @@ public final class MenuTemesSwing {
 
 		JMenu mnuTemes = MenusSwing.menu(
 				"Temes",
-				IconesPredeterminadesSwing.carregar(IconesPredeterminadesSwing.TEMES),
+				IconesSwing.carregar(IconesSwing.TEMES),
 				KeyEvent.VK_T
 				);
 
@@ -97,7 +97,7 @@ public final class MenuTemesSwing {
 					() -> aplicarTema(componentActualitzar, tema, accioTemaAplicat)
 					);
 
-			item.setIcon(IconesPredeterminadesSwing.carregar(tema.icona()));
+			item.setIcon(IconesSwing.carregar(tema.icona()));
 			item.setEnabled(compatible);
 
 			grupTemes.add(item);
