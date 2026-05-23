@@ -1,11 +1,14 @@
 package aplicaciogui;
 
+import java.awt.Component;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  * Classe d'utilitat per crear i gestionar taules Swing genèriques.
@@ -99,6 +102,81 @@ public final class TaulesSwing {
 	 */
 	public static <T> JTable taula(List<T> dades, List<ColumnaSwing<T>> columnes) {
 		return taula(model(dades, columnes));
+	}
+
+	//-------------------------------
+	// AMPLADES DE COLUMNA
+	//-------------------------------
+
+	/**
+	 * Ajusta l'amplada de cada columna al contingut més ample que conté,
+	 * tenint en compte tant la capçalera com totes les cel·les.
+	 * <p>
+	 * Activa {@link JTable#AUTO_RESIZE_OFF} perquè les amplades calculades
+	 * no siguin sobreescrites pel mode d'auto-redimensionat.
+	 * Cridar aquest mètode un cop les dades ja siguin a la taula.
+	 *
+	 * @param taula Taula sobre la qual s'aplica l'ajust.
+	 */
+	public static void ajustarAmpladesAContingut(JTable taula) {
+		Objects.requireNonNull(taula, "La taula no pot ser null.");
+
+		taula.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+		for(int col = 0; col < taula.getColumnCount(); col++) {
+
+			TableColumn columna = taula.getColumnModel().getColumn(col);
+
+			/* Amplada de la capçalera. */
+			TableCellRenderer headerRenderer = columna.getHeaderRenderer();
+			if(headerRenderer == null) {
+				headerRenderer = taula.getTableHeader().getDefaultRenderer();
+			}
+			Component headerComp = headerRenderer.getTableCellRendererComponent(
+					taula, columna.getHeaderValue(), false, false, 0, col);
+
+			int maxAmplada = headerComp.getPreferredSize().width + 10;
+
+			/* Amplada màxima de les cel·les. */
+			for(int fila = 0; fila < taula.getRowCount(); fila++) {
+				TableCellRenderer renderer = taula.getCellRenderer(fila, col);
+				Component comp = taula.prepareRenderer(renderer, fila, col);
+				maxAmplada = Math.max(maxAmplada, comp.getPreferredSize().width + 10);
+			}
+
+			columna.setPreferredWidth(maxAmplada);
+		}
+	}
+
+	/**
+	 * Assigna una amplada preferida a una columna.
+	 * L'usuari pot continuar redimensionant-la arrossegant la capçalera.
+	 *
+	 * @param taula Taula sobre la qual s'aplica el canvi.
+	 * @param indicColumna Índex de la columna (ordre de la vista).
+	 * @param amplada Amplada en píxels.
+	 */
+	public static void setAmplada(JTable taula, int indicColumna, int amplada) {
+		Objects.requireNonNull(taula, "La taula no pot ser null.");
+		taula.getColumnModel().getColumn(indicColumna).setPreferredWidth(amplada);
+	}
+
+	/**
+	 * Assigna una amplada fixa a una columna.
+	 * L'usuari no pot redimensionar-la.
+	 *
+	 * @param taula Taula sobre la qual s'aplica el canvi.
+	 * @param indicColumna Índex de la columna (ordre de la vista).
+	 * @param amplada Amplada en píxels.
+	 */
+	public static void setAmpladaFixa(JTable taula, int indicColumna, int amplada) {
+		Objects.requireNonNull(taula, "La taula no pot ser null.");
+
+		TableColumn columna = taula.getColumnModel().getColumn(indicColumna);
+		columna.setMinWidth(amplada);
+		columna.setMaxWidth(amplada);
+		columna.setWidth(amplada);
+		columna.setResizable(false);
 	}
 
 	//-------------------------------
