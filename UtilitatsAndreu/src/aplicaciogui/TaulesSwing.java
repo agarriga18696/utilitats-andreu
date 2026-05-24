@@ -18,20 +18,20 @@ import javax.swing.table.TableColumn;
  * <p>
  * Exemple d'ús:
  * <pre>
- *     List&lt;ColumnaSwing&lt;Producte&gt;&gt; columnes = List.of(
- *         new ColumnaSwing&lt;&gt;("ID",    Producte::getId),
- *         new ColumnaSwing&lt;&gt;("Nom",   Producte::getNom),
- *         new ColumnaSwing&lt;&gt;("Preu",  Producte::getPreu)
- *     );
+ * 		List&lt;ColumnaSwing&lt;Producte&gt;&gt; columnes = List.of(
+ *			new ColumnaSwing&lt;&gt;("ID",    Producte::getId),
+ *			new ColumnaSwing&lt;&gt;("Nom",   Producte::getNom),
+ *			new ColumnaSwing&lt;&gt;("Preu",  Producte::getPreu)
+ *		);
  *
- *     ModelTaulaSwing&lt;Producte&gt; model = TaulesSwing.model(productes, columnes);
- *     JTable taula = TaulesSwing.taula(model);
+ *		ModelTaulaSwing&lt;Producte&gt; model = TaulesSwing.model(productes, columnes);
+ *		JTable taula = TaulesSwing.taula(model);
  *
- *     // Quan calgui actualitzar les dades:
- *     model.actualitzar(novesLlista);
+ *		// Quan calgui actualitzar les dades:
+ *		model.actualitzar(novesLlista);
  *
- *     // Per obtenir l'element seleccionat:
- *     Optional&lt;Producte&gt; seleccionat = TaulesSwing.getFilaSeleccionada(taula);
+ * 		// Per obtenir l'element seleccionat:
+ *		Optional&lt;Producte&gt; seleccionat = TaulesSwing.getFilaSeleccionada(taula);
  * </pre>
  *
  * @author Andreu
@@ -201,6 +201,7 @@ public final class TaulesSwing {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> Optional<T> getFilaSeleccionada(JTable taula) {
+		
 		Objects.requireNonNull(taula, "La taula no pot ser null.");
 
 		int filaVista = taula.getSelectedRow();
