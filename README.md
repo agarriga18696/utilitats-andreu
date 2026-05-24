@@ -16,7 +16,7 @@ No requereix de cap llibreria ni dependència externa.
 ## Descàrrega :arrow_down:
 
 > [!NOTE]
-> :paperclip: **Versió actual: `5.1.1`** → [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v5.1.1/utilitats-andreu-5.1.1.jar)
+> :paperclip: **Versió actual: `5.1.3`** → [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v5.1.3/utilitats-andreu-5.1.3.jar)
 
 ---
 
