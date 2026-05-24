@@ -30,7 +30,7 @@ import utilitats.Arrays;
  * es fa des de l'EDT, es redirigeix automàticament amb {@link EdtSwing#executar(Runnable)}.
  *
  * @author Andreu
- * @version 1.5
+ * @version 1.6
  */
 public final class DialegsSwing {
 
@@ -287,7 +287,7 @@ public final class DialegsSwing {
 	//-------------------------------
 	// SELECTOR D'OPCIONS
 	//-------------------------------
-	
+
 	/**
 	 * Mostra un diàleg de selecció amb un desplegable d'opcions.
 	 * 
@@ -298,13 +298,16 @@ public final class DialegsSwing {
 	 * @return Opció seleccionada per l'usuari, o {@link Optional#empty()} si cancel·la o l'array és buit.
 	 */
 	public static Optional<String> seleccionar(Component pare, String titol, String missatge, String[] opcions) {
-		
+
 		AtomicReference<String> resultat = new AtomicReference<>();
-		
+
 		if(Arrays.esBuit(opcions)) {
 			return Optional.empty();
 		}
-		
+
+		/*
+		 * Executar l'acció en un fil paralel.
+		 */
 		EdtSwing.executar(() -> {
 			String resposta = (String) JOptionPane.showInputDialog(
 					pare,
@@ -317,7 +320,7 @@ public final class DialegsSwing {
 					);
 			resultat.set(resposta);
 		});
-		
+
 		return Optional.ofNullable(resultat.get());
 	}
 
@@ -344,12 +347,7 @@ public final class DialegsSwing {
 	 * @return Fitxer triat, o {@link Optional#empty()} si l'usuari cancel·la.
 	 */
 	public static Optional<File> triarFitxerGuardar(Component pare, String extensio) {
-
-		String descripcio = (extensio != null && !extensio.isBlank())
-				? "Fitxers " + extensio.toUpperCase()
-				: null;
-
-		return triarFitxerGuardar(pare, descripcio, extensio, null);
+		return triarFitxerGuardar(pare, generarDescripcio(extensio), extensio, null);
 	}
 
 	/**
@@ -445,12 +443,7 @@ public final class DialegsSwing {
 	 * @return Fitxer triat, o {@link Optional#empty()} si l'usuari cancel·la.
 	 */
 	public static Optional<File> triarFitxerCarregar(Component pare, String extensio) {
-
-		String descripcio = (extensio != null && !extensio.isBlank())
-				? "Fitxers " + extensio.toUpperCase()
-				: null;
-
-		return triarFitxerCarregar(pare, descripcio, extensio);
+		return triarFitxerCarregar(pare, generarDescripcio(extensio), extensio);
 	}
 
 	/**
@@ -471,6 +464,60 @@ public final class DialegsSwing {
 		EdtSwing.executar(() -> {
 
 			JFileChooser selector = crearSelector(descripcio, extensio, null);
+
+			int opcio = selector.showOpenDialog(pare);
+
+			if(opcio == JFileChooser.APPROVE_OPTION) {
+				resultat.set(selector.getSelectedFile());
+			}
+		});
+
+		return Optional.ofNullable(resultat.get());
+	}
+
+	//-------------------------------
+	// SELECTORS DE DIRECTORI
+	//-------------------------------
+
+	/**
+	 * Mostra un diàleg per triar un directori.
+	 *
+	 * @param pare Component pare del diàleg.
+	 * @return Directori triat, o {@link Optional#empty()} si l'usuari cancel·la.
+	 */
+	public static Optional<File> triarDirectori(Component pare) {
+		return triarDirectori(pare, null);
+	}
+
+	/**
+	 * Mostra un diàleg per triar un directori amb un directori inicial preseleccionat.
+	 *
+	 * @param pare Component pare del diàleg.
+	 * @param directoriInici Directori on s'obre el selector, o {@code null} per al directori per defecte.
+	 * @return Directori triat, o {@link Optional#empty()} si l'usuari cancel·la.
+	 */
+	public static Optional<File> triarDirectori(Component pare, File directoriInici) {
+
+		AtomicReference<File> resultat = new AtomicReference<>();
+
+		/*
+		 * Executar l'acció en un fil paralel.
+		 */
+		EdtSwing.executar(() -> {
+
+			JFileChooser selector = new JFileChooser();
+
+			/*
+			 * Només permetre directoris.
+			 */
+			selector.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+			/*
+			 * Definir el directori inicial, en cas que s'hagi especificat.
+			 */
+			if(directoriInici != null && directoriInici.exists()) {
+				selector.setCurrentDirectory(directoriInici);
+			}
 
 			int opcio = selector.showOpenDialog(pare);
 
@@ -538,6 +585,18 @@ public final class DialegsSwing {
 		}
 
 		return fitxer;
+	}
+
+	/**
+	 * Genera la descripció automàtica del filtre a partir de l'extensió.
+	 *
+	 * @param extensio Extensió sense punt, o {@code null}.
+	 * @return Descripció del filtre, o {@code null} si l'extensió és nul·la o buida.
+	 */
+	private static String generarDescripcio(String extensio) {
+		return (extensio != null && !extensio.isBlank())
+				? "Fitxers *." + extensio.toLowerCase()
+				: null;
 	}
 
 }
