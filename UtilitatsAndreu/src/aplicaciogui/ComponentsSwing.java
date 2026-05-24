@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -20,7 +21,7 @@ import javax.swing.SwingConstants;
  * Classe d'utilitat per crear components Swing comuns.
  * 
  * @author Andreu
- * @version 1.3
+ * @version 1.4
  */
 public final class ComponentsSwing {
 
@@ -59,7 +60,7 @@ public final class ComponentsSwing {
 
 		return boto;
 	}
-	
+
 	/**
 	 * Retorna un {@code JButton} amb text, icona i acció.
 	 * 
@@ -106,7 +107,7 @@ public final class ComponentsSwing {
 	public static JLabel etiqueta(String text) {
 		return new JLabel(text);
 	}
-	
+
 	/**
 	 * Retorna un {@code JLabel} vinculat a un component i amb mnemònic.
 	 * 
@@ -131,7 +132,7 @@ public final class ComponentsSwing {
 	public static JLabel etiquetaCentrada(String text) {
 		return new JLabel(text, SwingConstants.CENTER);
 	}
-	
+
 	/**
 	 * Retorna un {@code JLabel} amb el text indicat i alineat al final de la línia.
 	 * 
@@ -155,7 +156,27 @@ public final class ComponentsSwing {
 	public static JTextField campText(int columnes) {
 		return new JTextField(columnes);
 	}
-	
+
+	//-------------------------------
+	// CAMP DE CONTRASSENYA
+	//-------------------------------
+
+	/**
+	 * Retorna un {@code JPasswordField} amb el nombre de columnes indicat.
+	 * <p>
+	 * Per obtenir la contrasenya usa {@link JPasswordField#getPassword()},
+	 * que retorna un {@code char[]}. Un cop usada, buida l'array amb:
+	 * <pre>
+	 * 		Arrays.fill(pwd, '\0');
+	 * </pre>
+	 *
+	 * @param columnes Nombre de columnes del camp.
+	 * @return Camp de contrasenya creat.
+	 */
+	public static JPasswordField campContrassenya(int columnes) {
+		return new JPasswordField(columnes);
+	}
+
 	/**
 	 * Retorna un {@code JTextArea} amb el nombre de files i columnes indicat.
 	 * 
@@ -164,7 +185,7 @@ public final class ComponentsSwing {
 	 * @return Text Area creat.
 	 */
 	public static JTextArea areaText(int files, int columnes) {
-	    return new JTextArea(files, columnes);
+		return new JTextArea(files, columnes);
 	}
 
 	//-------------------------------
@@ -199,7 +220,7 @@ public final class ComponentsSwing {
 	//-------------------------------
 	// JLIST
 	//-------------------------------
-	
+
 	/**
 	 * Retorna una {@code JList} genèrica buida.
 	 * 
@@ -209,7 +230,7 @@ public final class ComponentsSwing {
 	public static <T> JList<T> llista() {
 		return new JList<>();
 	}
-	
+
 	/**
 	 * Retorna una {@code JList} genèrica amb els elements indicats.
 	 * 
@@ -220,7 +241,7 @@ public final class ComponentsSwing {
 	public static <T> JList<T> llista(T[] elements) {
 		return new JList<>(elements);
 	}
-	
+
 	//-------------------------------
 	// SCROLL
 	//-------------------------------
