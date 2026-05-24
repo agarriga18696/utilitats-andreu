@@ -21,6 +21,8 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import utilitats.Arrays;
+
 /**
  * Classe d'utilitat per mostrar diàlegs Swing.
  * <p>
@@ -279,6 +281,43 @@ public final class DialegsSwing {
 			resultat.set(resposta);
 		});
 
+		return Optional.ofNullable(resultat.get());
+	}
+
+	//-------------------------------
+	// SELECTOR D'OPCIONS
+	//-------------------------------
+	
+	/**
+	 * Mostra un diàleg de selecció amb un desplegable d'opcions.
+	 * 
+	 * @param pare Component pare del diàleg.
+	 * @param titol Títol del diàleg.
+	 * @param missatge Missatge a mostrar.
+	 * @param opcions Array d'opcions a mostrar al desplegable.
+	 * @return Opció seleccionada per l'usuari, o {@link Optional#empty()} si cancel·la o l'array és buit.
+	 */
+	public static Optional<String> seleccionar(Component pare, String titol, String missatge, String[] opcions) {
+		
+		AtomicReference<String> resultat = new AtomicReference<>();
+		
+		if(Arrays.esBuit(opcions)) {
+			return Optional.empty();
+		}
+		
+		EdtSwing.executar(() -> {
+			String resposta = (String) JOptionPane.showInputDialog(
+					pare,
+					missatge,
+					titol,
+					JOptionPane.QUESTION_MESSAGE,
+					null,
+					opcions, // array d'opcions (desplegable)
+					opcions[0] // opció seleccionada per defecte
+					);
+			resultat.set(resposta);
+		});
+		
 		return Optional.ofNullable(resultat.get());
 	}
 
