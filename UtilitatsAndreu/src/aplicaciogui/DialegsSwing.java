@@ -30,7 +30,7 @@ import utilitats.Arrays;
  * es fa des de l'EDT, es redirigeix automàticament amb {@link EdtSwing#executar(Runnable)}.
  *
  * @author Andreu
- * @version 1.6
+ * @version 1.7
  */
 public final class DialegsSwing {
 
@@ -369,7 +369,7 @@ public final class DialegsSwing {
 	 * s'afegeix automàticament.
 	 * <p>
 	 * Si el fitxer ja existeix, es demana confirmació abans de sobreescriure'l.
-	 * 
+	 *
 	 * @param pare Component pare del diàleg.
 	 * @param descripcio Descripció del filtre, o {@code null} per a cap filtre.
 	 * @param extensio Extensió del fitxer sense punt (p. ex. {@code "txt"}), o {@code null} per a cap filtre.
@@ -382,15 +382,41 @@ public final class DialegsSwing {
 			String extensio,
 			String nomDefecte
 			) {
+		return triarFitxerGuardar(pare, descripcio, extensio, nomDefecte, null);
+	}
+
+	/**
+	 * Mostra un diàleg per triar on guardar un fitxer, amb directori inicial.
+	 * <p>
+	 * Si {@code extensio} no és nul·la i el nom de fitxer triat no acaba amb ella,
+	 * s'afegeix automàticament.
+	 * <p>
+	 * Si el fitxer ja existeix, es demana confirmació abans de sobreescriure'l.
+	 *
+	 * @param pare Component pare del diàleg.
+	 * @param descripcio Descripció del filtre, o {@code null} per a cap filtre.
+	 * @param extensio Extensió del fitxer sense punt (p. ex. {@code "txt"}), o {@code null} per a cap filtre.
+	 * @param nomDefecte Nom de fitxer preseleccionat, o {@code null} per a cap.
+	 * @param directoriInici Directori on s'obre el selector, o {@code null} per al directori per defecte.
+	 * @return Fitxer triat, o {@link Optional#empty()} si l'usuari cancel·la.
+	 */
+	public static Optional<File> triarFitxerGuardar(
+			Component pare,
+			String descripcio,
+			String extensio,
+			String nomDefecte,
+			File directoriInici
+			) {
 
 		AtomicReference<File> resultat = new AtomicReference<>();
 
-		/*
-		 * Executar l'acció en un fil paralel.
-		 */
 		EdtSwing.executar(() -> {
 
 			JFileChooser selector = crearSelector(descripcio, extensio, nomDefecte);
+
+			if(directoriInici != null && directoriInici.exists()) {
+				selector.setCurrentDirectory(directoriInici);
+			}
 
 			int opcio = selector.showSaveDialog(pare);
 
@@ -405,7 +431,7 @@ public final class DialegsSwing {
 				 */
 				if(fitxer.exists()) {
 					int resposta = JOptionPane.showConfirmDialog(
-							pare, 
+							pare,
 							"El fitxer \"" + fitxer.getName() + "\" ja existeix.\nVols sobreescriure'l?",
 							"Confirmar sobreescriptura",
 							JOptionPane.YES_NO_OPTION,
@@ -455,15 +481,34 @@ public final class DialegsSwing {
 	 * @return Fitxer triat, o {@link Optional#empty()} si l'usuari cancel·la.
 	 */
 	public static Optional<File> triarFitxerCarregar(Component pare, String descripcio, String extensio) {
+		return triarFitxerCarregar(pare, descripcio, extensio, null);
+	}
+
+	/**
+	 * Mostra un diàleg per triar un fitxer a carregar amb filtre per extensió, descripció i directori inicial.
+	 *
+	 * @param pare Component pare del diàleg.
+	 * @param descripcio Descripció del filtre (p. ex. {@code "Fitxers de text"}), o {@code null} per a cap filtre.
+	 * @param extensio Extensió del fitxer sense punt (p. ex. {@code "txt"}), o {@code null} per a cap filtre.
+	 * @param directoriInici Directori on s'obre el selector, o {@code null} per al directori per defecte.
+	 * @return Fitxer triat, o {@link Optional#empty()} si l'usuari cancel·la.
+	 */
+	public static Optional<File> triarFitxerCarregar(
+			Component pare,
+			String descripcio,
+			String extensio,
+			File directoriInici
+			) {
 
 		AtomicReference<File> resultat = new AtomicReference<>();
 
-		/*
-		 * Executar l'acció en un fil paralel.
-		 */
 		EdtSwing.executar(() -> {
 
 			JFileChooser selector = crearSelector(descripcio, extensio, null);
+
+			if(directoriInici != null && directoriInici.exists()) {
+				selector.setCurrentDirectory(directoriInici);
+			}
 
 			int opcio = selector.showOpenDialog(pare);
 
