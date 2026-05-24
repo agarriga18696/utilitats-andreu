@@ -413,6 +413,7 @@ public final class DialegsSwing {
 		EdtSwing.executar(() -> {
 
 			JFileChooser selector = crearSelector(descripcio, extensio, nomDefecte);
+			selector.setDialogTitle("Guardar fitxer");
 
 			if(directoriInici != null && directoriInici.exists()) {
 				selector.setCurrentDirectory(directoriInici);
@@ -505,6 +506,7 @@ public final class DialegsSwing {
 		EdtSwing.executar(() -> {
 
 			JFileChooser selector = crearSelector(descripcio, extensio, null);
+			selector.setDialogTitle("Obrir fitxer");
 
 			if(directoriInici != null && directoriInici.exists()) {
 				selector.setCurrentDirectory(directoriInici);
