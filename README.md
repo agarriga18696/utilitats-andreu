@@ -1,22 +1,22 @@
-# Llibreria d'utilitats Andreu
+# Llibreria d'utilitats Andreu :hammer_and_wrench: :coffee:
 
 Llibreria Java per crear **aplicacions de consola i aplicacions gràfiques Swing** de manera ràpida, estructurada i professional.
 
 ---
 
-## Requisits
+## Requisits :memo:
 
 No requereix de cap llibreria ni dependència externa.
 
 > [!IMPORTANT]
-> Requereix **Java 21** o superior.
+> :paperclip: Requereix **Java 21** o superior.
 
 ---
 
-## Descàrrega
+## Descàrrega :arrow_down:
 
 > [!NOTE]
-> **Versió actual: `5.1.1`** → [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v5.1.1/utilitats-andreu-5.1.1.jar)
+> :paperclip: **Versió actual: `5.1.1`** → [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v5.1.1/utilitats-andreu-5.1.1.jar)
 
 ---
 
@@ -83,7 +83,7 @@ Classe abstracta que gestiona el menú principal de l'aplicació per consola.
 | `gestionar(int opcio)` | Gestiona l'opció triada per l'usuari. **Override obligatori.** |
 
 > [!TIP]
-> L'opció de sortir sempre és l'última de l'array d'opcions. El mètode `opcioSortir()` retorna automàticament el seu número, i `menu()` gestiona el bucle fins que l'usuari la tria.
+> :paperclip: L'opció de sortir sempre és l'última de l'array d'opcions. El mètode `opcioSortir()` retorna automàticament el seu número, i `menu()` gestiona el bucle fins que l'usuari la tria.
 
 #### Exemple d'implementació
 
@@ -168,7 +168,7 @@ new MevaAplicacio().executar();
 ```
 
 > [!TIP]
-> Usa sempre `executarAmbLookAndFeel(LookAndFeelSwing.SISTEMA)` per obtenir l'aparença nativa del sistema operatiu. Reserva `executar()` per a prototips ràpids.
+> :paperclip: Usa sempre `executarAmbLookAndFeel(LookAndFeelSwing.SISTEMA)` per obtenir l'aparença nativa del sistema operatiu. Reserva `executar()` per a prototips ràpids.
 
 #### Exemple d'implementació
 
@@ -228,7 +228,7 @@ TasquesSwing.executarAmbBarraProgres(
 ```
 
 > [!TIP]
-> Usa `executarAmbBarraProgres` per a operacions que poden durar més d'un segon (càrrega de fitxers grans, consultes a base de dades). Per a operacions ràpides com guardar, `executarEnFons` és suficient.
+> :paperclip: Usa `executarAmbBarraProgres` per a operacions que poden durar més d'un segon (càrrega de fitxers grans, consultes a base de dades). Per a operacions ràpides com guardar, `executarEnFons` és suficient.
 
 ---
 
@@ -377,7 +377,7 @@ DialegsSwing.triarFitxerCarregar(frame, "Fitxers binaris", "dat");
 ```
 
 > [!TIP]
-> Encadena `ifPresent` per executar l'acció només si l'usuari ha triat un fitxer:
+> :paperclip: Encadena `ifPresent` per executar l'acció només si l'usuari ha triat un fitxer:
 > ```java
 > DialegsSwing.triarFitxerGuardar(frame, "txt")
 >     .ifPresent(f -> gestor.guardarText(f));
@@ -434,10 +434,10 @@ TaulesSwing.ajustarAmpladesAContingut(taula);
 ```
 
 > [!TIP]
-> Crida `ajustarAmpladesAContingut` **després** de carregar les dades, no en la inicialització, perquè mesura les cel·les amb el contingut real.
+> :paperclip: Crida `ajustarAmpladesAContingut` **després** de carregar les dades, no en la inicialització, perquè mesura les cel·les amb el contingut real.
 
 > [!NOTE]
-> `getFilaSeleccionada` usa `convertRowIndexToModel` internament, de manera que funciona correctament quan l'usuari ha ordenat la taula per qualsevol columna.
+> :paperclip: `getFilaSeleccionada` usa `convertRowIndexToModel` internament, de manera que funciona correctament quan l'usuari ha ordenat la taula per qualsevol columna.
 
 ---
 
@@ -522,6 +522,6 @@ public final class MevaAplicacio extends AplicacioGuiBase {
 
 ---
 
-## Autor
+## Autor :technologist:
 
 Andreu Garriga Cendán
