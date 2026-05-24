@@ -28,7 +28,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * es fa des de l'EDT, es redirigeix automàticament amb {@link EdtSwing#executar(Runnable)}.
  *
  * @author Andreu
- * @version 1.4
+ * @version 1.5
  */
 public final class DialegsSwing {
 
@@ -51,6 +51,9 @@ public final class DialegsSwing {
 	 */
 	public static void info(Component pare, String titol, String missatge) {
 
+		/*
+		 * Executar l'acció en un fil paralel.
+		 */
 		EdtSwing.executar(() -> JOptionPane.showMessageDialog(
 				pare,
 				missatge,
@@ -68,6 +71,9 @@ public final class DialegsSwing {
 	 */
 	public static void avis(Component pare, String titol, String missatge) {
 
+		/*
+		 * Executar l'acció en un fil paralel.
+		 */
 		EdtSwing.executar(() -> JOptionPane.showMessageDialog(
 				pare,
 				missatge,
@@ -85,6 +91,9 @@ public final class DialegsSwing {
 	 */
 	public static void error(Component pare, String titol, String missatge) {
 
+		/*
+		 * Executar l'acció en un fil paralel.
+		 */
 		EdtSwing.executar(() -> JOptionPane.showMessageDialog(
 				pare,
 				missatge,
@@ -105,8 +114,14 @@ public final class DialegsSwing {
 
 		AtomicBoolean resultat = new AtomicBoolean(false);
 
+		/*
+		 * Executar l'acció en un fil paralel.
+		 */
 		EdtSwing.executar(() -> {
 
+			/*
+			 * Canviar el nom de les opcions.
+			 */
 			Object[] opcions = {
 					"Sí",
 					"No"
@@ -150,6 +165,9 @@ public final class DialegsSwing {
 	 */
 	public static void textLlarg(Component pare, String titol, String contingut, int amplada, int altura) {
 
+		/*
+		 * Executar l'acció en un fil paralel.
+		 */
 		EdtSwing.executar(() -> mostrarTextLlarg(
 				pare, 
 				titol, 
@@ -216,6 +234,9 @@ public final class DialegsSwing {
 
 		AtomicReference<String> resultat = new AtomicReference<>();
 
+		/*
+		 * Executar l'acció en un fil paralel.
+		 */
 		EdtSwing.executar(() -> {
 			String resposta = JOptionPane.showInputDialog(
 					pare,
@@ -242,6 +263,9 @@ public final class DialegsSwing {
 
 		AtomicReference<String> resultat = new AtomicReference<>();
 
+		/*
+		 * Executar l'acció en un fil paralel.
+		 */
 		EdtSwing.executar(() -> {
 			String resposta = (String) JOptionPane.showInputDialog(
 					pare,
@@ -306,7 +330,9 @@ public final class DialegsSwing {
 	 * <p>
 	 * Si {@code extensio} no és nul·la i el nom de fitxer triat no acaba amb ella,
 	 * s'afegeix automàticament.
-	 *
+	 * <p>
+	 * Si el fitxer ja existeix, es demana confirmació abans de sobreescriure'l.
+	 * 
 	 * @param pare Component pare del diàleg.
 	 * @param descripcio Descripció del filtre, o {@code null} per a cap filtre.
 	 * @param extensio Extensió del fitxer sense punt (p. ex. {@code "txt"}), o {@code null} per a cap filtre.
@@ -322,6 +348,9 @@ public final class DialegsSwing {
 
 		AtomicReference<File> resultat = new AtomicReference<>();
 
+		/*
+		 * Executar l'acció en un fil paralel.
+		 */
 		EdtSwing.executar(() -> {
 
 			JFileChooser selector = crearSelector(descripcio, extensio, nomDefecte);
@@ -333,6 +362,24 @@ public final class DialegsSwing {
 				if(extensio != null && !extensio.isBlank()) {
 					fitxer = assegurarExtensio(fitxer, extensio);
 				}
+
+				/*
+				 * Confirmar sobreescriptura.
+				 */
+				if(fitxer.exists()) {
+					int resposta = JOptionPane.showConfirmDialog(
+							pare, 
+							"El fitxer \"" + fitxer.getName() + "\" ja existeix.\nVols sobreescriure'l?",
+							"Confirmar sobreescriptura",
+							JOptionPane.YES_NO_OPTION,
+							JOptionPane.WARNING_MESSAGE
+							);
+
+					if(resposta != JOptionPane.YES_OPTION) {
+						return;
+					}
+				}
+
 				resultat.set(fitxer);
 			}
 		});
@@ -379,6 +426,9 @@ public final class DialegsSwing {
 
 		AtomicReference<File> resultat = new AtomicReference<>();
 
+		/*
+		 * Executar l'acció en un fil paralel.
+		 */
 		EdtSwing.executar(() -> {
 
 			JFileChooser selector = crearSelector(descripcio, extensio, null);
@@ -411,11 +461,22 @@ public final class DialegsSwing {
 
 		if(descripcio != null && !descripcio.isBlank()
 				&& extensio != null && !extensio.isBlank()) {
+			/*
+			 * Deshabilitar la llista per mostrar més extensions d'arxius
+			 * que no sigui la especificada per paràmetre.
+			 */
+			selector.removeChoosableFileFilter(selector.getAcceptAllFileFilter());
 			selector.setFileFilter(new FileNameExtensionFilter(descripcio, extensio));
 		}
 
+		/*
+		 * Aplicar l'extensió indicada per paràmetre.
+		 */
 		if(nomDefecte != null && !nomDefecte.isBlank()) {
-			selector.setSelectedFile(new File(nomDefecte));
+			String nomAmbExtensio = (extensio != null && !extensio.isBlank())
+					? nomDefecte + "." + extensio
+							: nomDefecte;
+			selector.setSelectedFile(new File(nomAmbExtensio));
 		}
 
 		return selector;
