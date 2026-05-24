@@ -81,6 +81,16 @@ public final class FinestresSwing {
 			this.componentRelatiu = component;
 			return this;
 		}
+		
+		/**
+		 * Centra la finestra automàticament.
+		 *
+		 * @return Aquest builder.
+		 */
+		public FrameBuilder centrada() {
+			this.componentRelatiu = null;
+			return this;
+		}
 
 		/**
 		 * Fa la finestra no redimensionable.
