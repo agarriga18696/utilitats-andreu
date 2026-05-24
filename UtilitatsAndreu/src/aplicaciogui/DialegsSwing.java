@@ -28,7 +28,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * es fa des de l'EDT, es redirigeix automàticament amb {@link EdtSwing#executar(Runnable)}.
  *
  * @author Andreu
- * @version 1.3
+ * @version 1.4
  */
 public final class DialegsSwing {
 
@@ -50,6 +50,7 @@ public final class DialegsSwing {
 	 * @param missatge Missatge a mostrar.
 	 */
 	public static void info(Component pare, String titol, String missatge) {
+
 		EdtSwing.executar(() -> JOptionPane.showMessageDialog(
 				pare,
 				missatge,
@@ -66,6 +67,7 @@ public final class DialegsSwing {
 	 * @param missatge Missatge a mostrar.
 	 */
 	public static void avis(Component pare, String titol, String missatge) {
+
 		EdtSwing.executar(() -> JOptionPane.showMessageDialog(
 				pare,
 				missatge,
@@ -82,6 +84,7 @@ public final class DialegsSwing {
 	 * @param missatge Missatge a mostrar.
 	 */
 	public static void error(Component pare, String titol, String missatge) {
+
 		EdtSwing.executar(() -> JOptionPane.showMessageDialog(
 				pare,
 				missatge,
@@ -147,7 +150,13 @@ public final class DialegsSwing {
 	 */
 	public static void textLlarg(Component pare, String titol, String contingut, int amplada, int altura) {
 
-		EdtSwing.executar(() -> mostrarTextLlarg(pare, titol, contingut, amplada, altura));
+		EdtSwing.executar(() -> mostrarTextLlarg(
+				pare, 
+				titol, 
+				contingut, 
+				amplada, 
+				altura)
+				);
 	}
 
 	/**
@@ -192,6 +201,64 @@ public final class DialegsSwing {
 	}
 
 	//-------------------------------
+	// DIÀLEGS D'ENTRADA
+	//-------------------------------
+
+	/**
+	 * Mostra un diàleg d'entrada de text.
+	 *
+	 * @param pare Component pare del diàleg.
+	 * @param titol Títol del diàleg.
+	 * @param missatge Missatge a mostrar.
+	 * @return Text introduït per l'usuari, o {@link Optional#empty()} si cancel·la.
+	 */
+	public static Optional<String> input(Component pare, String titol, String missatge) {
+
+		AtomicReference<String> resultat = new AtomicReference<>();
+
+		EdtSwing.executar(() -> {
+			String resposta = JOptionPane.showInputDialog(
+					pare,
+					missatge,
+					titol,
+					JOptionPane.QUESTION_MESSAGE
+					);
+			resultat.set(resposta);
+		});
+
+		return Optional.ofNullable(resultat.get());
+	}
+
+	/**
+	 * Mostra un diàleg d'entrada de text amb un valor per defecte preescrit.
+	 *
+	 * @param pare Component pare del diàleg.
+	 * @param titol Títol del diàleg.
+	 * @param missatge Missatge a mostrar.
+	 * @param valorDefecte Text preescrit al camp d'entrada.
+	 * @return Text introduït per l'usuari, o {@link Optional#empty()} si cancel·la.
+	 */
+	public static Optional<String> input(Component pare, String titol, String missatge, String valorDefecte) {
+
+		AtomicReference<String> resultat = new AtomicReference<>();
+
+		EdtSwing.executar(() -> {
+			String resposta = (String) JOptionPane.showInputDialog(
+					pare,
+					missatge,
+					titol,
+					JOptionPane.QUESTION_MESSAGE,
+					null,
+					null,
+					valorDefecte
+					);
+			resultat.set(resposta);
+		});
+
+		return Optional.ofNullable(resultat.get());
+	}
+
+	//-------------------------------
 	// SELECTORS DE FITXER
 	//-------------------------------
 
@@ -214,9 +281,11 @@ public final class DialegsSwing {
 	 * @return Fitxer triat, o {@link Optional#empty()} si l'usuari cancel·la.
 	 */
 	public static Optional<File> triarFitxerGuardar(Component pare, String extensio) {
+
 		String descripcio = (extensio != null && !extensio.isBlank())
 				? "Fitxers " + extensio.toUpperCase()
 				: null;
+
 		return triarFitxerGuardar(pare, descripcio, extensio, null);
 	}
 
@@ -290,9 +359,11 @@ public final class DialegsSwing {
 	 * @return Fitxer triat, o {@link Optional#empty()} si l'usuari cancel·la.
 	 */
 	public static Optional<File> triarFitxerCarregar(Component pare, String extensio) {
+
 		String descripcio = (extensio != null && !extensio.isBlank())
 				? "Fitxers " + extensio.toUpperCase()
 				: null;
+
 		return triarFitxerCarregar(pare, descripcio, extensio);
 	}
 
