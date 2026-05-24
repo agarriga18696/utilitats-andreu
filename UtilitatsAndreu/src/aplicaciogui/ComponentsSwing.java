@@ -173,7 +173,7 @@ public final class ComponentsSwing {
 	 * @param columnes Nombre de columnes del camp.
 	 * @return Camp de contrasenya creat.
 	 */
-	public static JPasswordField campContrassenya(int columnes) {
+	public static JPasswordField campContrasenya(int columnes) {
 		return new JPasswordField(columnes);
 	}
 
