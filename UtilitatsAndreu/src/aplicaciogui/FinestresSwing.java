@@ -2,7 +2,9 @@ package aplicaciogui;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.util.Objects;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -10,7 +12,7 @@ import javax.swing.WindowConstants;
  * Classe d'utilitat per crear i configurar finestres Swing.
  * 
  * @author Andreu
- * @version 1.1
+ * @version 1.2
  */
 public final class FinestresSwing {
 
@@ -81,7 +83,7 @@ public final class FinestresSwing {
 			this.componentRelatiu = component;
 			return this;
 		}
-		
+
 		/**
 		 * Centra la finestra automàticament.
 		 *
@@ -184,7 +186,7 @@ public final class FinestresSwing {
 
 	/**
 	 * Retorna un {@code JFrame} bàsic centrat a la pantalla.
-	 * 
+	 *
 	 * @param titol Títol de la finestra.
 	 * @param amplada Amplada de la finestra.
 	 * @param altura Altura de la finestra.
@@ -192,6 +194,27 @@ public final class FinestresSwing {
 	 */
 	public static JFrame frame(String titol, int amplada, int altura) {
 		return frame(titol, amplada, altura, null, WindowConstants.EXIT_ON_CLOSE);
+	}
+
+	//-------------------------------
+	// CONFIGURACIÓ DE LA FINESTRA
+	//-------------------------------
+
+	/**
+	 * Estableix el botó per defecte de la finestra.
+	 * <p>
+	 * El botó per defecte és activat automàticament quan l'usuari prem {@code Enter},
+	 * sempre que cap altre component no consumeixi la tecla (per exemple, una
+	 * {@code JTextArea} o un {@code JComboBox} obert).
+	 *
+	 * @param finestra Finestra a configurar.
+	 * @param boto Botó que actuarà com a botó per defecte.
+	 * @throws NullPointerException si {@code finestra} o {@code boto} són {@code null}.
+	 */
+	public static void botoPerDefecte(JFrame finestra, JButton boto) {
+		Objects.requireNonNull(finestra, "finestra no pot ser null");
+		Objects.requireNonNull(boto, "boto no pot ser null");
+		finestra.getRootPane().setDefaultButton(boto);
 	}
 
 }
