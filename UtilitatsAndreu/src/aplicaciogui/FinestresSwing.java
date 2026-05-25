@@ -2,6 +2,8 @@ package aplicaciogui;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.util.List;
 import java.util.Objects;
 
 import javax.swing.ImageIcon;
@@ -13,7 +15,7 @@ import javax.swing.WindowConstants;
  * Classe d'utilitat per crear i configurar finestres Swing.
  * 
  * @author Andreu
- * @version 1.3
+ * @version 1.4
  */
 public final class FinestresSwing {
 
@@ -44,6 +46,7 @@ public final class FinestresSwing {
 		private int operacioTancament = WindowConstants.EXIT_ON_CLOSE;
 		private boolean redimensionable = true;
 		private ImageIcon icona = null;
+		private List<Image> icones = null;
 
 		private FrameBuilder(String titol) {
 			this.titol = titol;
@@ -131,6 +134,21 @@ public final class FinestresSwing {
 		}
 
 		/**
+		 * Estableix la llista d'icones de la finestra a diverses mides.
+		 * <p>
+		 * El sistema operatiu tria automàticament la mida més adequada per a
+		 * cada context (barra de títol, barra de tasques, Alt+Tab...).
+		 * Si la llista és {@code null} o buida, s'ignora.
+		 *
+		 * @param icones Llista d'imatges de la icona a diverses mides.
+		 * @return Aquest builder.
+		 */
+		public FrameBuilder icones(List<Image> icones) {
+			this.icones = icones;
+			return this;
+		}
+
+		/**
 		 * Construeix i retorna el {@link JFrame} configurat.
 		 *
 		 * @return Finestra configurada.
@@ -151,8 +169,10 @@ public final class FinestresSwing {
 			if(midaMinima != null) {
 				frame.setMinimumSize(midaMinima);
 			}
-
-			if(icona != null && icona.getImage() != null) {
+			
+			if(icones != null && !icones.isEmpty()) {
+				frame.setIconImages(icones);
+			} else if(icona != null && icona.getImage() != null) {
 				frame.setIconImage(icona.getImage());
 			}
 
