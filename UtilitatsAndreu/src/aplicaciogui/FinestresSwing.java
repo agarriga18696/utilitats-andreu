@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.util.Objects;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -12,7 +13,7 @@ import javax.swing.WindowConstants;
  * Classe d'utilitat per crear i configurar finestres Swing.
  * 
  * @author Andreu
- * @version 1.2
+ * @version 1.3
  */
 public final class FinestresSwing {
 
@@ -42,6 +43,7 @@ public final class FinestresSwing {
 		private Component componentRelatiu = null;
 		private int operacioTancament = WindowConstants.EXIT_ON_CLOSE;
 		private boolean redimensionable = true;
+		private ImageIcon icona = null;
 
 		private FrameBuilder(String titol) {
 			this.titol = titol;
@@ -51,7 +53,7 @@ public final class FinestresSwing {
 		 * Estableix la mida de la finestra.
 		 *
 		 * @param amplada Amplada en píxels.
-		 * @param altura Altura en píxels.
+		 * @param altura  Altura en píxels.
 		 * @return Aquest builder.
 		 */
 		public FrameBuilder mida(int amplada, int altura) {
@@ -64,7 +66,7 @@ public final class FinestresSwing {
 		 * Estableix la mida mínima de la finestra.
 		 *
 		 * @param amplada Amplada mínima en píxels.
-		 * @param altura Altura mínima en píxels.
+		 * @param altura  Altura mínima en píxels.
 		 * @return Aquest builder.
 		 */
 		public FrameBuilder midaMinima(int amplada, int altura) {
@@ -85,7 +87,7 @@ public final class FinestresSwing {
 		}
 
 		/**
-		 * Centra la finestra automàticament.
+		 * Centra la finestra automàticament a la pantalla.
 		 *
 		 * @return Aquest builder.
 		 */
@@ -116,6 +118,19 @@ public final class FinestresSwing {
 		}
 
 		/**
+		 * Estableix la icona de la finestra.
+		 * <p>
+		 * Si {@code icona} és {@code null} o la imatge no s'ha pogut carregar, s'ignora.
+		 *
+		 * @param icona Icona a aplicar.
+		 * @return Aquest builder.
+		 */
+		public FrameBuilder icona(ImageIcon icona) {
+			this.icona = icona;
+			return this;
+		}
+
+		/**
 		 * Construeix i retorna el {@link JFrame} configurat.
 		 *
 		 * @return Finestra configurada.
@@ -135,6 +150,10 @@ public final class FinestresSwing {
 
 			if(midaMinima != null) {
 				frame.setMinimumSize(midaMinima);
+			}
+
+			if(icona != null && icona.getImage() != null) {
+				frame.setIconImage(icona.getImage());
 			}
 
 			return frame;
@@ -157,6 +176,42 @@ public final class FinestresSwing {
 
 	/**
 	 * Retorna un {@code JFrame} configurat amb els paràmetres indicats.
+	 *
+	 * @param titol Títol de la finestra.
+	 * @param amplada Amplada de la finestra.
+	 * @param altura Altura de la finestra.
+	 * @param componentRelatiu Component respecte al qual es centrarà la finestra.
+	 * 						   Si és {@code null}, es centra a la pantalla.
+	 * @param operacioTancament Operació de tancament del {@code JFrame}.
+	 * @param icona Icona de la finestra. Si és {@code null}, s'usa la icona per defecte.
+	 * @return Finestra configurada.
+	 */
+	public static JFrame frame(
+			String titol,
+			int amplada,
+			int altura,
+			Component componentRelatiu,
+			int operacioTancament,
+			ImageIcon icona) {
+
+		if(amplada <= 0 || altura <= 0) {
+			throw new IllegalArgumentException("L'amplada i l'altura han de ser positives.");
+		}
+
+		JFrame frame = new JFrame(titol);
+		frame.setSize(amplada, altura);
+		frame.setLocationRelativeTo(componentRelatiu);
+		frame.setDefaultCloseOperation(operacioTancament);
+
+		if(icona != null && icona.getImage() != null) {
+			frame.setIconImage(icona.getImage());
+		}
+
+		return frame;
+	}
+
+	/**
+	 * Retorna un {@code JFrame} configurat amb els paràmetres indicats.
 	 * 
 	 * @param titol Títol de la finestra.
 	 * @param amplada Amplada de la finestra.
@@ -172,16 +227,7 @@ public final class FinestresSwing {
 			Component componentRelatiu, 
 			int operacioTancament) {
 
-		if(amplada <= 0 || altura <= 0) {
-			throw new IllegalArgumentException("L'amplada i l'altura han de ser positives.");
-		}
-
-		JFrame frame = new JFrame(titol);
-		frame.setSize(amplada, altura);
-		frame.setLocationRelativeTo(componentRelatiu);
-		frame.setDefaultCloseOperation(operacioTancament);
-
-		return frame;
+		return frame(titol, amplada, altura, componentRelatiu, operacioTancament, null);
 	}
 
 	/**
