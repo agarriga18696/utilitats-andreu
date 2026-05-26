@@ -33,6 +33,9 @@ public final class IconesSwing {
 	/* Ruta interna de les icones Fugue dins el .jar de la llibreria. */
 	private static final String RUTA_ICONES_INTERNES = "/aplicaciogui/recursos/icones/fugue/";
 
+	/* Ruta interna de les icones FatCow dins el .jar de la llibreria. */
+	private static final String RUTA_ICONES_FATCOW = "/aplicaciogui/recursos/icones/fatcow/";
+
 	private IconesSwing() {
 		/*
 		 * Classe d'utilitat no instanciable.
@@ -277,6 +280,33 @@ public final class IconesSwing {
 	 */
 	public static Icon carregar(String nomFitxer, int mida) {
 		return carregar(IconesSwing.class, RUTA_ICONES_INTERNES, nomFitxer, mida);
+	}
+
+	//-------------------------------
+	// CÀRREGA RÀPIDA — ICONES INTERNES (paquet FatCow)
+	//-------------------------------
+
+	/**
+	 * Carrega una icona del paquet FatCow intern de la llibreria, amb la mida per defecte.
+	 * <p>
+	 * El nom de fitxer ha de ser una constant de {@link IconesFatCow}.
+	 *
+	 * @param nomFitxer Nom del fitxer de la icona.
+	 * @return Icona carregada, o {@code null} si no existeix.
+	 */
+	public static Icon carregarFatCow(String nomFitxer) {
+		return carregar(IconesSwing.class, RUTA_ICONES_FATCOW, nomFitxer);
+	}
+
+	/**
+	 * Carrega una icona del paquet FatCow intern de la llibreria, amb la mida indicada.
+	 *
+	 * @param nomFitxer Nom del fitxer de la icona.
+	 * @param mida Mida de la icona en píxels.
+	 * @return Icona carregada, o {@code null} si no existeix.
+	 */
+	public static Icon carregarFatCow(String nomFitxer, int mida) {
+		return carregar(IconesSwing.class, RUTA_ICONES_FATCOW, nomFitxer, mida);
 	}
 
 	//-------------------------------
