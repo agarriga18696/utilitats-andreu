@@ -79,6 +79,43 @@ public final class ComponentsSwing {
 	}
 
 	/**
+	 * Retorna un {@code JButton} amb text, mnemònic i acció.
+	 *
+	 * @param text     Text del botó.
+	 * @param mnemonic Codi de tecla mnemònica (p. ex. {@link java.awt.event.KeyEvent#VK_J}).
+	 * @param accio    Acció a executar quan es faci clic al botó.
+	 * @return Botó creat amb mnemònic i acció associada.
+	 */
+	public static JButton boto(String text, int mnemonic, Runnable accio) {
+		Objects.requireNonNull(accio, "L'acció no pot ser null.");
+
+		JButton boto = new JButton(text);
+		boto.setMnemonic(mnemonic);
+		boto.addActionListener(_ -> accio.run());
+
+		return boto;
+	}
+
+	/**
+	 * Retorna un {@code JButton} amb text, icona, mnemònic i acció.
+	 *
+	 * @param text     Text del botó.
+	 * @param icona    Icona del botó.
+	 * @param mnemonic Codi de tecla mnemònica (p. ex. {@link java.awt.event.KeyEvent#VK_J}).
+	 * @param accio    Acció a executar quan es faci clic al botó.
+	 * @return Botó creat amb icona, mnemònic i acció associada.
+	 */
+	public static JButton boto(String text, Icon icona, int mnemonic, Runnable accio) {
+		Objects.requireNonNull(accio, "L'acció no pot ser null.");
+
+		JButton boto = new JButton(text, icona);
+		boto.setMnemonic(mnemonic);
+		boto.addActionListener(_ -> accio.run());
+
+		return boto;
+	}
+
+	/**
 	 * Retorna un {@code JButton} amb el text indicat i una acció associada a l'esdeveniment de clic.
 	 * 
 	 * @param text Text del botó.

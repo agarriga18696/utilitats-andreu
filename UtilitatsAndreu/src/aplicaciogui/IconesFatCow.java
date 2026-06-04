@@ -1723,6 +1723,7 @@ public final class IconesFatCow {
 	public static final String KEY_D = "key_d.png";
 	public static final String KEY_DELETE = "key_delete.png";
 	public static final String KEY_E = "key_e.png";
+	public static final String KEY_ENTER = "key_enter.png";
 	public static final String KEY_ESCAPE = "key_escape.png";
 	public static final String KEY_F = "key_f.png";
 	public static final String KEY_G = "key_g.png";

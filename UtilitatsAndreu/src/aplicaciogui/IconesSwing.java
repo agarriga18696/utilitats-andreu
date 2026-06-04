@@ -1,12 +1,17 @@
 package aplicaciogui;
 
-import java.awt.Image;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -36,6 +41,12 @@ public final class IconesSwing {
 	/* Ruta interna de les icones FatCow dins el .jar de la llibreria. */
 	private static final String RUTA_ICONES_FATCOW = "/aplicaciogui/recursos/icones/fatcow/";
 
+	/* Ruta interna de les icones de banderes dins el .jar de la llibreria. */
+	private static final String RUTA_ICONES_BANDERES = "/aplicaciogui/recursos/icones/flagicons/";
+
+	/* Ruta interna de les icones de joc (Game Icons, 512×512) dins el .jar. */
+	private static final String RUTA_ICONES_GAME = "/aplicaciogui/recursos/icones/game/";
+
 	private IconesSwing() {
 		/*
 		 * Classe d'utilitat no instanciable.
@@ -46,105 +57,105 @@ public final class IconesSwing {
 	// CONSTANTS SEMÀNTIQUES — ACCIONS PRINCIPALS
 	//-------------------------------
 
-	public static final String INICI       = "home.png";
-	public static final String NOU         = "new.png";
-	public static final String NOU_TEXT    = "new-text.png";
-	public static final String GUARDAR     = "disk.png";
-	public static final String CARREGAR    = "folder-horizontal-open.png";
-	public static final String SORTIR      = "door-open-out.png";
+	public static final String INICI = "home.png";
+	public static final String NOU = "new.png";
+	public static final String NOU_TEXT = "new-text.png";
+	public static final String GUARDAR = "disk.png";
+	public static final String CARREGAR = "folder-horizontal-open.png";
+	public static final String SORTIR = "door-open-out.png";
 	public static final String PANTALLA_COMPLETA = "arrow-out.png";
 
 	//-------------------------------
 	// CONSTANTS SEMÀNTIQUES — CRUD
 	//-------------------------------
 
-	public static final String AFEGIR      = "plus.png";
-	public static final String TREURE      = "minus.png";
-	public static final String ELIMINAR    = "bin.png";
-	public static final String EDITAR      = "pencil.png";
-	public static final String CERCAR      = "magnifier.png";
+	public static final String AFEGIR = "plus.png";
+	public static final String TREURE = "minus.png";
+	public static final String ELIMINAR = "bin.png";
+	public static final String EDITAR = "pencil.png";
+	public static final String CERCAR = "magnifier.png";
 	public static final String ACTUALITZAR = "arrow-circle.png";
 
 	//-------------------------------
 	// CONSTANTS SEMÀNTIQUES — FITXERS I DOCUMENTS
 	//-------------------------------
 
-	public static final String OBRIR        = "folder-open.png";
-	public static final String GUARDAR_COM  = "disk--pencil.png";
-	public static final String IMPRIMIR     = "printer.png";
-	public static final String COPIAR       = "document-copy.png";
-	public static final String ENGANXAR     = "clipboard-paste.png";
-	public static final String RETALLAR     = "scissors.png";
-	public static final String NETEJAR      = "eraser.png";
-	public static final String IMPORTAR     = "document-import.png";
-	public static final String EXPORTAR     = "document-export.png";
+	public static final String OBRIR = "folder-open.png";
+	public static final String GUARDAR_COM = "disk--pencil.png";
+	public static final String IMPRIMIR = "printer.png";
+	public static final String COPIAR = "document-copy.png";
+	public static final String ENGANXAR = "clipboard-paste.png";
+	public static final String RETALLAR = "scissors.png";
+	public static final String NETEJAR = "eraser.png";
+	public static final String IMPORTAR = "document-import.png";
+	public static final String EXPORTAR = "document-export.png";
 
-	public static final String DOCUMENT        = "document.png";
+	public static final String DOCUMENT = "document.png";
 	public static final String DOCUMENT_BINARI = "document-binary.png";
-	public static final String DOCUMENT_PDF    = "document-pdf.png";
-	public static final String DOCUMENT_EXCEL  = "document-excel.png";
-	public static final String DOCUMENT_WORD   = "document-word.png";
-	public static final String DOCUMENT_CODI   = "document-code.png";
+	public static final String DOCUMENT_PDF = "document-pdf.png";
+	public static final String DOCUMENT_EXCEL = "document-excel.png";
+	public static final String DOCUMENT_WORD = "document-word.png";
+	public static final String DOCUMENT_CODI = "document-code.png";
 
 	//-------------------------------
 	// CONSTANTS SEMÀNTIQUES — LLIBRES
 	//-------------------------------
 
-	public static final String LLIBRE          = "book.png";
-	public static final String LLIBRE_AFEGIR   = "book--plus.png";
+	public static final String LLIBRE = "book.png";
+	public static final String LLIBRE_AFEGIR = "book--plus.png";
 	public static final String LLIBRE_ELIMINAR = "book--minus.png";
-	public static final String MANUAL          = "book-question.png";
+	public static final String MANUAL = "book-question.png";
 
 	//-------------------------------
 	// CONSTANTS SEMÀNTIQUES — DADES I VISUALITZACIÓ
 	//-------------------------------
 
-	public static final String FILTRAR    = "funnel.png";
-	public static final String ORDENAR    = "sort.png";
-	public static final String TAULA      = "table.png";
-	public static final String LLISTA     = "application-list.png";
-	public static final String VEURE      = "eye.png";
-	public static final String INFORME    = "report.png";
+	public static final String FILTRAR = "funnel.png";
+	public static final String ORDENAR = "sort.png";
+	public static final String TAULA = "table.png";
+	public static final String LLISTA = "application-list.png";
+	public static final String VEURE = "eye.png";
+	public static final String INFORME = "report.png";
 	public static final String PROPIETATS = "property.png";
-	public static final String VISTA      = "monitor.png";
-	public static final String RESOLUCIO  = "monitor-medium.png";
-	public static final String TEMES      = "palette.png";
-	public static final String TEMA       = "palette-medium.png";
+	public static final String VISTA = "monitor.png";
+	public static final String RESOLUCIO = "monitor-medium.png";
+	public static final String TEMES = "palette.png";
+	public static final String TEMA = "palette-medium.png";
 	public static final String PREFERENCIES = "gear.png";
-	public static final String IDIOMES    = "locale.png";
+	public static final String IDIOMES = "locale.png";
 
 	//-------------------------------
 	// CONSTANTS SEMÀNTIQUES — ESTATS I MISSATGES
 	//-------------------------------
 
-	public static final String OK    = "tick.png";
+	public static final String OK = "tick.png";
 	public static final String ERROR = "cross.png";
-	public static final String AVIS  = "exclamation.png";
+	public static final String AVIS = "exclamation.png";
 
 	//-------------------------------
 	// CONSTANTS SEMÀNTIQUES — ESTADÍSTIQUES I ASSOLIMENTS
 	//-------------------------------
 
-	public static final String ESTADISTIQUES  = "chart.png";
+	public static final String ESTADISTIQUES = "chart.png";
 
 	public static final String MEDALLA_BRONZE = "medal-bronze.png";
-	public static final String MEDALLA_PLATA  = "medal-silver.png";
-	public static final String MEDALLA_OR     = "medal.png";
+	public static final String MEDALLA_PLATA = "medal-silver.png";
+	public static final String MEDALLA_OR = "medal.png";
 
-	public static final String TROFEU_BRONZE  = "trophy-bronze.png";
-	public static final String TROFEU_PLATA   = "trophy-silver.png";
-	public static final String TROFEU_OR      = "trophy.png";
+	public static final String TROFEU_BRONZE = "trophy-bronze.png";
+	public static final String TROFEU_PLATA = "trophy-silver.png";
+	public static final String TROFEU_OR = "trophy.png";
 
 	//-------------------------------
 	// CONSTANTS SEMÀNTIQUES — AJUDA I INFORMACIÓ
 	//-------------------------------
 
-	public static final String AJUDA          = "lifebuoy.png";
-	public static final String INFORMACIO     = "information.png";
-	public static final String INTERROGACIO   = "question.png";
-	public static final String BUG            = "bug.png";
-	public static final String FEEDBACK       = "megaphone.png";
-	public static final String COMPARTIR      = "share.png";
+	public static final String AJUDA = "lifebuoy.png";
+	public static final String INFORMACIO = "information.png";
+	public static final String INTERROGACIO = "question.png";
+	public static final String BUG = "bug.png";
+	public static final String FEEDBACK = "megaphone.png";
+	public static final String COMPARTIR = "share.png";
 	public static final String COMPARTIR_GLOBAL = "globe-share.png";
 
 	//-------------------------------
@@ -152,81 +163,81 @@ public final class IconesSwing {
 	//-------------------------------
 
 	public static final String CALENDARI = "calendar.png";
-	public static final String RELLOTGE  = "clock.png";
-	public static final String ALARMA    = "alarm-clock.png";
+	public static final String RELLOTGE = "clock.png";
+	public static final String ALARMA = "alarm-clock.png";
 
 	//-------------------------------
 	// CONSTANTS SEMÀNTIQUES — USUARIS I SEGURETAT
 	//-------------------------------
 
-	public static final String USUARI          = "user.png";
+	public static final String USUARI = "user.png";
 	public static final String USUARI_ELIMINAR = "user--minus.png";
-	public static final String USUARI_AFEGIR   = "user--plus.png";
-	public static final String USUARI_EDITAR   = "user--pencil.png";
-	public static final String USUARIS         = "users.png";
-	public static final String ADRECES         = "address-book.png";
-	public static final String CLAU            = "key.png";
-	public static final String BLOQUEJAR       = "lock.png";
-	public static final String DESBLOQUEJAR    = "lock-unlock.png";
-	public static final String SEGURETAT       = "shield.png";
+	public static final String USUARI_AFEGIR = "user--plus.png";
+	public static final String USUARI_EDITAR = "user--pencil.png";
+	public static final String USUARIS = "users.png";
+	public static final String ADRECES = "address-book.png";
+	public static final String CLAU = "key.png";
+	public static final String BLOQUEJAR = "lock.png";
+	public static final String DESBLOQUEJAR = "lock-unlock.png";
+	public static final String SEGURETAT = "shield.png";
 
 	//-------------------------------
 	// CONSTANTS SEMÀNTIQUES — SISTEMA I EINES
 	//-------------------------------
 
-	public static final String APLICACIO        = "application.png";
+	public static final String APLICACIO = "application.png";
 	public static final String APLICACIO_AFEGIR = "application-plus.png";
-	public static final String EINES            = "wrench.png";
-	public static final String MANTENIMENT      = "hammer.png";
-	public static final String SCRIPT           = "script.png";
-	public static final String RAPID            = "lightning.png";
-	public static final String ASSISTENT        = "wand.png";
+	public static final String EINES = "wrench.png";
+	public static final String MANTENIMENT = "hammer.png";
+	public static final String SCRIPT = "script.png";
+	public static final String RAPID = "lightning.png";
+	public static final String ASSISTENT = "wand.png";
 
 	//-------------------------------
 	// CONSTANTS SEMÀNTIQUES — TEMES / SISTEMES OPERATIUS
 	//-------------------------------
 
 	public static final String WINDOWS = "windows.png";
-	public static final String LINUX   = "animal-penguin.png";
-	public static final String MACOS   = "mac-os.png";
+	public static final String LINUX = "animal-penguin.png";
+	public static final String MACOS = "mac-os.png";
 
 	/* Àlies semàntics per a les icones dels temes de Look and Feel. */
-	public static final String TEMA_JAVA    = "cup.png";
-	public static final String TEMA_EXTERN  = NOU_TEXT;
+	public static final String TEMA_JAVA = "cup.png";
+	public static final String TEMA_EXTERN = NOU_TEXT;
 	public static final String TEMA_WINDOWS = WINDOWS;
-	public static final String TEMA_MAC_OS  = MACOS;
-	public static final String TEMA_LINUX   = LINUX;
+	public static final String TEMA_MAC_OS = MACOS;
+	public static final String TEMA_LINUX = LINUX;
 
 	//-------------------------------
 	// CONSTANTS SEMÀNTIQUES — BASE DE DADES
 	//-------------------------------
 
-	public static final String BASE_DADES          = "database.png";
-	public static final String BASE_DADES_AFEGIR   = "database--plus.png";
+	public static final String BASE_DADES = "database.png";
+	public static final String BASE_DADES_AFEGIR = "database--plus.png";
 	public static final String BASE_DADES_ELIMINAR = "database--minus.png";
-	public static final String BASE_DADES_EDITAR   = "database--pencil.png";
+	public static final String BASE_DADES_EDITAR = "database--pencil.png";
 	public static final String BASE_DADES_EXPORTAR = "database--arrow.png";
-	public static final String BASE_DADES_NUVOL    = "database-cloud.png";
+	public static final String BASE_DADES_NUVOL = "database-cloud.png";
 
 	//-------------------------------
 	// CONSTANTS SEMÀNTIQUES — CARPETES
 	//-------------------------------
 
-	public static final String CARPETA          = "folder.png";
-	public static final String CARPETA_AFEGIR   = "folder--plus.png";
+	public static final String CARPETA = "folder.png";
+	public static final String CARPETA_AFEGIR = "folder--plus.png";
 	public static final String CARPETA_ELIMINAR = "folder--minus.png";
-	public static final String CARPETA_EDITAR   = "folder--pencil.png";
-	public static final String CARPETA_XARXA    = "folder-network-horizontal-open.png";
+	public static final String CARPETA_EDITAR = "folder--pencil.png";
+	public static final String CARPETA_XARXA = "folder-network-horizontal-open.png";
 
 	//-------------------------------
 	// CONSTANTS SEMÀNTIQUES — MARCADORS I ORGANITZACIÓ
 	//-------------------------------
 
-	public static final String CATEGORIES  = "category.png";
-	public static final String ETIQUETA    = "tag.png";
-	public static final String ETIQUETES   = "tags.png";
-	public static final String PREFERIT    = "star.png";
-	public static final String MARCADOR    = "bookmark.png";
+	public static final String CATEGORIES = "category.png";
+	public static final String ETIQUETA = "tag.png";
+	public static final String ETIQUETES = "tags.png";
+	public static final String PREFERIT = "star.png";
+	public static final String MARCADOR = "bookmark.png";
 	public static final String NOTIFICACIO = "bell.png";
 
 	//-------------------------------
@@ -234,18 +245,18 @@ public final class IconesSwing {
 	//-------------------------------
 
 	public static final String NAVEGACIO = "navigation.png";
-	public static final String INICIAR   = "arrow-skip.png";
+	public static final String INICIAR = "arrow-skip.png";
 	public static final String CONTINUAR = "arrow-continue.png";
-	public static final String ATURAR    = "arrow-stop.png";
-	public static final String TORNAR    = "arrow-return.png";
+	public static final String ATURAR = "arrow-stop.png";
+	public static final String TORNAR = "arrow-return.png";
 
 	//-------------------------------
 	// CONSTANTS SEMÀNTIQUES — NÚVOL I XARXA
 	//-------------------------------
 
-	public static final String NUVOL           = "application-cloud.png";
+	public static final String NUVOL = "application-cloud.png";
 	public static final String ORDINADOR_NUVOL = "computer-cloud.png";
-	public static final String SERVIDOR_NUVOL  = "server-cloud.png";
+	public static final String SERVIDOR_NUVOL = "server-cloud.png";
 
 	//-------------------------------
 	// CONSTANTS SEMÀNTIQUES — ALTRES
@@ -310,6 +321,62 @@ public final class IconesSwing {
 	}
 
 	//-------------------------------
+	// CÀRREGA RÀPIDA — ICONES DE BANDERES
+	//-------------------------------
+
+	/**
+	 * Carrega una icona de bandera de país o regió, amb la mida per defecte.
+	 * <p>
+	 * El nom de fitxer ha de ser una constant de {@link IconesBanderes}.
+	 *
+	 * @param nomFitxer Nom del fitxer de la icona (p.ex. {@link IconesBanderes#ES}).
+	 * @return Icona carregada, o {@code null} si no existeix.
+	 */
+	public static Icon carregarBandera(String nomFitxer) {
+		return carregar(IconesSwing.class, RUTA_ICONES_BANDERES, nomFitxer);
+	}
+
+	/**
+	 * Carrega una icona de bandera de país o regió, amb la mida indicada.
+	 *
+	 * @param nomFitxer Nom del fitxer de la icona (p.ex. {@link IconesBanderes#ES}).
+	 * @param mida Mida de la icona en píxels (l'escala es fa proporcionalment).
+	 * @return Icona carregada, o {@code null} si no existeix.
+	 */
+	public static Icon carregarBandera(String nomFitxer, int mida) {
+		return carregar(IconesSwing.class, RUTA_ICONES_BANDERES, nomFitxer, mida);
+	}
+
+	//-------------------------------
+	// CÀRREGA RÀPIDA — ICONES DE JOC (Game Icons, 512×512)
+	//-------------------------------
+
+	/**
+	 * Carrega una icona del paquet Game Icons (512×512 px originals), amb la mida per defecte.
+	 * <p>
+	 * El nom de fitxer ha de ser una constant de {@link IconesGame}.
+	 *
+	 * @param nomFitxer Nom del fitxer de la icona (p.ex. {@link IconesGame#SWORD}).
+	 * @return Icona carregada, o {@code null} si no existeix.
+	 */
+	public static Icon carregarGame(String nomFitxer) {
+		return carregar(IconesSwing.class, RUTA_ICONES_GAME, nomFitxer);
+	}
+
+	/**
+	 * Carrega una icona del paquet Game Icons (512×512 px originals), escalada a la mida indicada.
+	 * <p>
+	 * El nom de fitxer ha de ser una constant de {@link IconesGame}.
+	 *
+	 * @param nomFitxer Nom del fitxer de la icona (p.ex. {@link IconesGame#SWORD}).
+	 * @param mida Mida en píxels a la qual escalar la icona.
+	 * @return Icona carregada i escalada, o {@code null} si no existeix.
+	 */
+	public static Icon carregarGame(String nomFitxer, int mida) {
+		return carregar(IconesSwing.class, RUTA_ICONES_GAME, nomFitxer, mida);
+	}
+
+	//-------------------------------
 	// CÀRREGA GENÈRICA — RECURSOS EXTERNS
 	//-------------------------------
 
@@ -366,12 +433,92 @@ public final class IconesSwing {
 				return null;
 			}
 
-			ImageIcon iconaOriginal = new ImageIcon(url);
-			Image imatgeEscalada = iconaOriginal.getImage()
-					.getScaledInstance(k.mida(), k.mida(), Image.SCALE_SMOOTH);
-
-			return new ImageIcon(imatgeEscalada);
+			// getResourceAsStream és més fiable que URL dins JARs,
+			// i ImageIO.read(InputStream) retorna un BufferedImage natiu.
+			try(InputStream is = k.classeBase().getResourceAsStream(
+					k.ruta() + k.nomFitxer())) {
+				if(is == null) {
+					LOGGER.log(Level.WARNING,
+							() -> "No s'ha trobat la icona: " + k.ruta() + k.nomFitxer());
+					return null;
+				}
+				BufferedImage original = ImageIO.read(is);
+				if(original == null) {
+					LOGGER.log(Level.WARNING,
+							() -> "Format no reconegut: " + k.ruta() + k.nomFitxer());
+					return null;
+				}
+				return new ImageIcon(escalarAltaQualitat(original, k.mida()));
+			} catch(IOException e) {
+				LOGGER.log(Level.WARNING,
+						() -> "Error llegint la icona: " + k.ruta() + k.nomFitxer());
+				return null;
+			}
 		});
+	}
+
+	//-------------------------------
+	// ESCALAT D'ALTA QUALITAT
+	//-------------------------------
+
+	/**
+	 * Escala la imatge fins a {@code mida}×{@code mida} px amb escalat progressiu
+	 * bicúbic (Imgscalr technique).
+	 * <p>
+	 * Per a reduccions grans (p.ex. 512→32 px), redueix a la meitat en cada pas
+	 * fins arribar a la mida objectiu. Cada pas usa bicúbic + antialias, cosa que
+	 * produeix resultats molt superiors a {@code Image.SCALE_SMOOTH}.
+	 *
+	 * @param original Imatge original (qualsevol mida).
+	 * @param mida Mida objectiu en píxels (el resultat serà quadrat).
+	 * @return Nova {@link BufferedImage} escalada d'alta qualitat.
+	 */
+	private static BufferedImage escalarAltaQualitat(BufferedImage original, int mida) {
+		// Normalitzar a ARGB si cal (garanteix canal alfa i format consistent).
+		BufferedImage src;
+		if(original.getType() == BufferedImage.TYPE_INT_ARGB) {
+			src = original;
+		} else {
+			src = new BufferedImage(original.getWidth(), original.getHeight(),
+					BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g = src.createGraphics();
+			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+					RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+			g.drawImage(original, 0, 0, null);
+			g.dispose();
+		}
+
+		// Escalat progressiu: cada pas redueix a la meitat fins arribar a la mida.
+		int w = src.getWidth();
+		int h = src.getHeight();
+
+		while(w / 2 > mida || h / 2 > mida) {
+			w = Math.max(w / 2, mida);
+			h = Math.max(h / 2, mida);
+			src = escalarPas(src, w, h);
+		}
+
+		// Pas final a la mida exacta (quadrada).
+		return escalarPas(src, mida, mida);
+	}
+
+	/**
+	 * Escala la imatge a {@code w}×{@code h} px en un únic pas bicúbic.
+	 */
+	private static BufferedImage escalarPas(BufferedImage src, int w, int h) {
+		BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = dst.createGraphics();
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+				RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING,
+				RenderingHints.VALUE_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
+				RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+		g.drawImage(src, 0, 0, w, h, null);
+		g.dispose();
+		return dst;
 	}
 
 	//-------------------------------
