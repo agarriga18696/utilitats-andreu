@@ -596,7 +596,7 @@ public final class DialegsSwing {
 				&& extensio != null && !extensio.isBlank()) {
 			/*
 			 * Deshabilitar la llista per mostrar més extensions d'arxius
-			 * que no sigui la especificada per paràmetre.
+			 * que no sigui l'especificada per paràmetre.
 			 */
 			selector.removeChoosableFileFilter(selector.getAcceptAllFileFilter());
 			selector.setFileFilter(new FileNameExtensionFilter(descripcio, extensio));
