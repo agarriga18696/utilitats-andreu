@@ -6,17 +6,17 @@ Llibreria Java per crear **aplicacions de consola i aplicacions gràfiques Swing
 
 ## Requisits :memo:
 
-<<<<<<< HEAD
-No requereix de cap llibreria ni dependència externa.
-
-> [!IMPORTANT]
-> Requereix **Java 21** o superior.
-=======
 - **Java 25** o superior
 - **Maven 3+** (per compilar i empaquetar)
 - Cap dependència externa en producció
 - **JUnit 5** per als tests (s'instal·la automàticament amb Maven)
->>>>>>> 15cc8f6 (Actualitzar README amb Maven i tests)
+
+---
+
+## Descàrrega :arrow_down:
+
+> [!NOTE]
+> **Versió actual: `5.1.7`** → [Descàrrega directa del jar](https://github.com/agarriga18696/utilitats-andreu/releases/download/v5.1.7/utilitats-andreu-5.1.7.jar)
 
 ---
 
@@ -67,15 +67,6 @@ mvn -Dtest=ValidacionsTest test
 | `Conversor` | 17 | Conversió a enter, decimal, cadena i sí/no |
 | `Formatador` | 17 | Majúscules, minúscules, capitalització, format decimal |
 | `Validacions` | 47 | Validació d'enters, decimals, positius, rangs, email, telèfon i DNI |
-
-## Descàrrega :arrow_down:
-
-> [!NOTE]
-<<<<<<< HEAD
-> **Versió actual: `5.1.6`** → [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v5.1.6/utilitats-andreu-5.1.6.jar)
-=======
-> :paperclip: **Versió actual: `5.1.7`** → [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v5.1.7/utilitats-andreu-5.1.7.jar)
->>>>>>> 15cc8f6 (Actualitzar README amb Maven i tests)
 
 ---
 
@@ -142,7 +133,7 @@ Classe abstracta que gestiona el menú principal de l'aplicació per consola.
 | `gestionar(int opcio)` | Gestiona l'opció triada per l'usuari. **Override obligatori.** |
 
 > [!TIP]
->  L'opció de sortir sempre és l'última de l'array d'opcions. El mètode `opcioSortir()` retorna automàticament el seu número, i `menu()` gestiona el bucle fins que l'usuari la tria.
+> L'opció de sortir sempre és l'última de l'array d'opcions. El mètode `opcioSortir()` retorna automàticament el seu número, i `menu()` gestiona el bucle fins que l'usuari la tria.
 
 #### Exemple d'implementació
 
