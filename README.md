@@ -6,17 +6,76 @@ Llibreria Java per crear **aplicacions de consola i aplicacions gràfiques Swing
 
 ## Requisits :memo:
 
+<<<<<<< HEAD
 No requereix de cap llibreria ni dependència externa.
 
 > [!IMPORTANT]
 > Requereix **Java 21** o superior.
+=======
+- **Java 25** o superior
+- **Maven 3+** (per compilar i empaquetar)
+- Cap dependència externa en producció
+- **JUnit 5** per als tests (s'instal·la automàticament amb Maven)
+>>>>>>> 15cc8f6 (Actualitzar README amb Maven i tests)
 
 ---
+
+## Compilació amb Maven
+
+Compila el projecte i empaqueta el JAR:
+
+```bash
+mvn clean package
+```
+
+Instal·la la llibreria al repositori Maven local (`~/.m2/repository`) perquè projectes com DAMned la puguin resoldre com a dependència:
+
+```bash
+mvn clean install
+```
+
+La dependència es declara com:
+
+```xml
+<dependency>
+    <groupId>local.andreu</groupId>
+    <artifactId>utilitats-andreu</artifactId>
+    <version>5.1.7</version>
+</dependency>
+```
+
+## Tests
+
+Executa tots els tests:
+
+```bash
+mvn test
+```
+
+Executa un sol fitxer de tests:
+
+```bash
+mvn -Dtest=MatematiquesTest test
+mvn -Dtest=ValidacionsTest test
+```
+
+### Cobertura actual (111 tests)
+
+| Classe testejada | Tests | Àrees cobertes |
+|------------------|-------|----------------|
+| `Matematiques` | 30 | Paritat, múltiples, nombres primers, conversions binari/hexadecimal |
+| `Conversor` | 17 | Conversió a enter, decimal, cadena i sí/no |
+| `Formatador` | 17 | Majúscules, minúscules, capitalització, format decimal |
+| `Validacions` | 47 | Validació d'enters, decimals, positius, rangs, email, telèfon i DNI |
 
 ## Descàrrega :arrow_down:
 
 > [!NOTE]
+<<<<<<< HEAD
 > **Versió actual: `5.1.6`** → [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v5.1.6/utilitats-andreu-5.1.6.jar)
+=======
+> :paperclip: **Versió actual: `5.1.7`** → [Descàrrega directa](https://github.com/agarriga18696/utilitats-andreu/releases/download/v5.1.7/utilitats-andreu-5.1.7.jar)
+>>>>>>> 15cc8f6 (Actualitzar README amb Maven i tests)
 
 ---
 
