@@ -225,8 +225,12 @@ public final class PanellsSwing {
 	}
 
 	private static void validarGrid(int files, int columnes) {
-		if(files <= 0 || columnes <= 0) {
-			throw new IllegalArgumentException("Les files i columnes han de ser positives.");
+		if(files < 0 || columnes < 0) {
+			throw new IllegalArgumentException("Les files i columnes no poden ser negatives.");
+		}
+
+		if(files == 0 && columnes == 0) {
+			throw new IllegalArgumentException("Les files i columnes no poden ser totes dues zero.");
 		}
 	}
 
