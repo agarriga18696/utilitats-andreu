@@ -18,7 +18,7 @@ La branca `v6` introdueix una reorganització completa de l'API: paquets i class
 ## Versions :label:
 
 > [!IMPORTANT]
-> La branca `v6` correspon actualment a **`6.0.0-SNAPSHOT`**.
+> La branca `v6` correspon actualment a **`6.0.0`**.
 > És una versió amb canvis incompatibles respecte de la sèrie 5.x.
 
 La darrera versió publicada de la sèrie anterior és:
@@ -49,7 +49,7 @@ La dependència de la branca `v6` és:
 <dependency>
     <groupId>io.github.agarriga18696</groupId>
     <artifactId>andreu-utils</artifactId>
-    <version>6.0.0-SNAPSHOT</version>
+    <version>6.0.0</version>
 </dependency>
 ```
 
