@@ -323,49 +323,49 @@ public final class LookAndFeelSwing {
                 new LookAndFeelThemeSwing(
                         I18nSwing.text("theme.system"),
                         SYSTEM,
-                        IconesSwing.TEMA_JAVA,
+                        IconsFugue.CUP,
                         false
                 ),
                 new LookAndFeelThemeSwing(
                         "Nimbus",
                         NIMBUS,
-                        IconesSwing.TEMA_JAVA,
+                        IconsFugue.CUP,
                         false
                 ),
                 new LookAndFeelThemeSwing(
                         "Metal",
                         METAL,
-                        IconesSwing.TEMA_JAVA,
+                        IconsFugue.CUP,
                         false
                 ),
                 new LookAndFeelThemeSwing(
                         "Motif",
                         MOTIF,
-                        IconesSwing.TEMA_LINUX,
+                        IconsFugue.ANIMAL_PENGUIN,
                         false
                 ),
                 new LookAndFeelThemeSwing(
                         "GTK",
                         GTK,
-                        IconesSwing.TEMA_LINUX,
+                        IconsFugue.ANIMAL_PENGUIN,
                         false
                 ),
                 new LookAndFeelThemeSwing(
                         "Windows",
                         WINDOWS,
-                        IconesSwing.TEMA_WINDOWS,
+                        IconsFugue.WINDOWS,
                         false
                 ),
                 new LookAndFeelThemeSwing(
                         "Windows Classic",
                         WINDOWS_CLASSIC,
-                        IconesSwing.TEMA_WINDOWS,
+                        IconsFugue.WINDOWS,
                         false
                 ),
                 new LookAndFeelThemeSwing(
                         "macOS",
                         MAC_OS,
-                        IconesSwing.TEMA_MAC_OS,
+                        IconsFugue.MAC_OS,
                         false
                 )
         );

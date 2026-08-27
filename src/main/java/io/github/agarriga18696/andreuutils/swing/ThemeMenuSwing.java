@@ -90,7 +90,7 @@ public final class ThemeMenuSwing {
 
         JMenu themeMenu = MenusSwing.menu(
                 I18nSwing.text("menu.themes"),
-                IconesSwing.carregar(IconesSwing.TEMES),
+                IconsSwing.load(IconsFugue.PALETTE),
                 KeyEvent.VK_T
         );
 
@@ -118,7 +118,7 @@ public final class ThemeMenuSwing {
             );
 
             item.setIcon(
-                    IconesSwing.carregar(theme.icon())
+                    IconsSwing.load(theme.icon())
             );
 
             item.setEnabled(compatible);

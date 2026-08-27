@@ -1,25 +1,24 @@
 package io.github.agarriga18696.andreuutils.swing;
 
 /**
- * Catàleg generat automàticament amb totes les icones Fugue incloses a la llibreria.
+ * Automatically generated catalog containing all Fugue icons included
+ * in the library.
  * <p>
- * Aquesta classe només conté constants amb noms de fitxer. Les icones es carreguen
- * sota demanda mitjançant {@link IconesSwing}.
+ * This class only contains constants representing icon file names.
+ * Icons are loaded on demand through {@link IconsSwing}.
  *
  * @author Andreu
- * @version 1.0
+ * @version 2.0
  */
-public final class IconesFugue {
+public final class IconsFugue {
 
-	private IconesFugue() {
-		/*
-		 * Classe d'utilitat no instanciable.
-		 */
+	private IconsFugue() {
+		// Utility class
 	}
 
-	//-------------------------------
-	// ICONES FUGUE
-	//-------------------------------
+	// ----------------------------------------
+	// FUGUE ICONS
+	// ----------------------------------------
 
 	public static final String ABACUS = "abacus.png";
 	public static final String ACORN = "acorn.png";

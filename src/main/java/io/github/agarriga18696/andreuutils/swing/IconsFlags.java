@@ -1,31 +1,30 @@
 package io.github.agarriga18696.andreuutils.swing;
 
 /**
- * Catàleg de constants per a les icones de banderes de països i regions.
+ * Catalog of constants for country and region flag icons.
  * <p>
- * Els noms de les constants segueixen el codi ISO 3166-1 alpha-2 en majúscules.
- * Les icones es carreguen sota demanda mitjançant
- * {@link IconesSwing#carregarBandera(String)}.
+ * Constant names generally follow ISO 3166-1 alpha-2 country codes
+ * in uppercase. Icons are loaded on demand through
+ * {@link IconsSwing#loadFlag(String)}.
  * <p>
- * Excepcions al codi ISO:
+ * Special constants include:
  * <ul>
- * 	<li>{@link #DO_} — República Dominicana ({@code do} és paraula reservada de Java).</li>
- * 	<li>{@link #CATALONIA} — Catalunya (no té codi ISO oficial).</li>
- * 	<li>{@link #ENGLAND} — Anglaterra.</li>
- * 	<li>{@link #SCOTLAND} — Escòcia.</li>
- * 	<li>{@link #WALES} — Gal·les.</li>
- * 	<li>{@link #EUROPEAN_UNION} — Unió Europea.</li>
+ * 	<li>{@link #DO_} — Dominican Republic ({@code do} is a Java keyword).</li>
+ * 	<li>{@link #CATALONIA} — Catalonia.</li>
+ * 	<li>{@link #ENGLAND} — England.</li>
+ * 	<li>{@link #SCOTLAND} — Scotland.</li>
+ * 	<li>{@link #WALES} — Wales.</li>
+ * 	<li>{@link #EUROPEAN_UNION} — European Union.</li>
  * </ul>
  *
- * @see IconesSwing#carregarBandera(String)
- * @version 1.0
+ * @author Andreu
+ * @see IconsSwing#loadFlag(String)
+ * @version 2.0
  */
-public final class IconesBanderes {
+public final class IconsFlags {
 
-	private IconesBanderes() {
-		/*
-		 * Classe d'utilitat no instanciable.
-		 */
+	private IconsFlags() {
+		// Utility class
 	}
 
 	//-------------------------------

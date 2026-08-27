@@ -1,31 +1,28 @@
 package io.github.agarriga18696.andreuutils.swing;
 
 /**
- * Catàleg de constants per a les icones de joc (Game Icons).
+ * Catalog of constants for Game Icons.
  * <p>
- * Conté 4180 icones en format PNG de mida original 512×512 píxels,
- * adequades per a la interfície gràfica del joc DAMned.
+ * Contains 4180 PNG icons with an original size of 512×512 pixels.
+ * Icons are loaded on demand through
+ * {@link IconsSwing#loadGame(String)} or
+ * {@link IconsSwing#loadGame(String, int)} for a custom size.
  * <p>
- * Les icones es carreguen sota demanda mitjançant
- * {@link IconesSwing#carregarGame(String)} o
- * {@link IconesSwing#carregarGame(String, int)} per a una mida personalitzada.
- * <p>
- * Exemples d'ús:
+ * Example usage:
  * <pre>
- * 	Icon icona = IconesSwing.carregarGame(IconesGame.SWORD);
- *	Icon icona32 = IconesSwing.carregarGame(IconesGame.SWORD, 32);
+ * Icon icon = IconsSwing.loadGame(IconsGame.SWORD);
+ * Icon icon32 = IconsSwing.loadGame(IconsGame.SWORD, 32);
  * </pre>
  *
- * @see IconesSwing#carregarGame(String)
- * @see IconesSwing#carregarGame(String, int)
- * @version 1.0
+ * @author Andreu
+ * @see IconsSwing#loadGame(String)
+ * @see IconsSwing#loadGame(String, int)
+ * @version 2.0
  */
-public final class IconesGame {
+public final class IconsGame {
 
-	private IconesGame() {
-		/*
-		 * Classe d'utilitat no instanciable.
-		 */
+	private IconsGame() {
+		// Utility class
 	}
 
 	public static final String _3D_GLASSES = "3d-glasses.png";
