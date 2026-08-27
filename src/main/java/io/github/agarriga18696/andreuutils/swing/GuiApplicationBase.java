@@ -21,16 +21,16 @@ import javax.swing.SwingUtilities;
  */
 public abstract class GuiApplicationBase {
 
-	// ----------------------------------------
-	// STATIC ATTRIBUTES
-	// ----------------------------------------
+    // ----------------------------------------
+    // STATIC ATTRIBUTES
+    // ----------------------------------------
 
     private static final Logger LOGGER =
             Logger.getLogger(GuiApplicationBase.class.getName());
 
-	// ----------------------------------------
+    // ----------------------------------------
     // CONFIGURATION
-	// ----------------------------------------
+    // ----------------------------------------
 
     /**
      * Returns the initial language used by the application.
@@ -41,9 +41,9 @@ public abstract class GuiApplicationBase {
         return Language.ENGLISH;
     }
 
-	// ----------------------------------------
+    // ----------------------------------------
     // LIFECYCLE HOOKS
-	// ----------------------------------------
+    // ----------------------------------------
 
     /**
      * Hook called immediately before {@link #initialize()}.
@@ -75,9 +75,9 @@ public abstract class GuiApplicationBase {
         // Default implementation does nothing
     }
 
-	// ----------------------------------------
+    // ----------------------------------------
     // EXECUTION
-	// ----------------------------------------
+    // ----------------------------------------
 
     /**
      * Runs the graphical user interface initialization on the EDT after
@@ -107,9 +107,9 @@ public abstract class GuiApplicationBase {
         });
     }
 
-	// ----------------------------------------
+    // ----------------------------------------
     // PRIVATE METHODS
-	// ----------------------------------------
+    // ----------------------------------------
 
     /**
      * Runs the complete application lifecycle: the pre-initialization hook,
@@ -139,8 +139,11 @@ public abstract class GuiApplicationBase {
             EdtSwing.runLater(() ->
                     DialogsSwing.error(
                             null,
-                            "Unexpected error",
-                            "An unexpected error occurred:\n" + exception.getMessage()
+                            SwingMessages.text("dialog.unexpected_error_title"),
+                            SwingMessages.text(
+                                    "dialog.unexpected_error_message",
+                                    exception.getMessage()
+                            )
                     )
             );
         });
