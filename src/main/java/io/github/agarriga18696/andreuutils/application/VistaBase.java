@@ -1,4 +1,4 @@
-package aplicacio;
+package io.github.agarriga18696.andreuutils.application;
 
 import utilitats.Menu;
 
