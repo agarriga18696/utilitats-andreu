@@ -43,7 +43,13 @@ public final class MessageUtils {
      * @param message Error message to print.
      */
     public static void error(String message) {
-        System.out.println(LINE_BREAK + "ERROR: " + message + LINE_BREAK);
+        System.out.println(
+                LINE_BREAK
+                        + LanguageManager.text("message.error_prefix")
+                        + ": "
+                        + message
+                        + LINE_BREAK
+        );
     }
 
     /**
@@ -52,7 +58,13 @@ public final class MessageUtils {
      * @param message Success message to print.
      */
     public static void success(String message) {
-        System.out.println(LINE_BREAK + "OK: " + message + LINE_BREAK);
+        System.out.println(
+                LINE_BREAK
+                        + LanguageManager.text("message.success_prefix")
+                        + ": "
+                        + message
+                        + LINE_BREAK
+        );
     }
 
     /**
@@ -61,7 +73,13 @@ public final class MessageUtils {
      * @param message Warning message to print.
      */
     public static void warning(String message) {
-        System.out.println(LINE_BREAK + "WARNING: " + message + LINE_BREAK);
+        System.out.println(
+                LINE_BREAK
+                        + LanguageManager.text("message.warning_prefix")
+                        + ": "
+                        + message
+                        + LINE_BREAK
+        );
     }
 
     /**
@@ -70,7 +88,13 @@ public final class MessageUtils {
      * @param message Information message to print.
      */
     public static void info(String message) {
-        System.out.println(LINE_BREAK + "INFO: " + message + LINE_BREAK);
+        System.out.println(
+                LINE_BREAK
+                        + LanguageManager.text("message.info_prefix")
+                        + ": "
+                        + message
+                        + LINE_BREAK
+        );
     }
 
     //-------------------------------
@@ -157,63 +181,82 @@ public final class MessageUtils {
      * Prints the standard end-of-program message.
      */
     public static void endProgram() {
-        System.out.println(LINE_BREAK + "Program finished. See you next time!");
+        System.out.println(
+                LINE_BREAK
+                        + LanguageManager.text("message.program_finished")
+        );
     }
 
     /**
      * Prints the standard invalid-option message.
      */
     public static void invalidOption() {
-        error("Invalid option. Please select a valid option.");
+        error(
+                LanguageManager.text("message.invalid_option")
+        );
     }
 
     /**
      * Prints the standard empty-list message.
      */
     public static void emptyList() {
-        warning("There are no elements to display.");
+        warning(
+                LanguageManager.text("message.empty_list")
+        );
     }
 
     /**
      * Prints the standard element-not-found message.
      */
     public static void elementNotFound() {
-        warning("The element was not found.");
+        warning(
+                LanguageManager.text("message.element_not_found")
+        );
     }
 
     /**
      * Prints the standard element-added message.
      */
     public static void elementAdded() {
-        success("Element added successfully.");
+        success(
+                LanguageManager.text("message.element_added")
+        );
     }
 
     /**
      * Prints the standard element-removed message.
      */
     public static void elementRemoved() {
-        success("Element removed successfully.");
+        success(
+                LanguageManager.text("message.element_removed")
+        );
     }
 
     /**
      * Prints the standard element-updated message.
      */
     public static void elementUpdated() {
-        success("Element updated successfully.");
+        success(
+                LanguageManager.text("message.element_updated")
+        );
     }
 
     /**
      * Prints the standard data-saved message.
      */
     public static void dataSaved() {
-        success("Data saved successfully.");
+        success(
+                LanguageManager.text("message.data_saved")
+        );
     }
 
     /**
      * Prints the standard data-loaded message.
      */
     public static void dataLoaded() {
-        success("Data loaded successfully.");
+        success(
+                LanguageManager.text("message.data_loaded")
+        );
     }
 
 }

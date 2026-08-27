@@ -242,7 +242,7 @@ public final class InputUtils {
                     LanguageManager.text(
                             "input.confirm_prompt",
                             prompt
-                    )
+                    ) + " "
             );
 
             String response = SCANNER.nextLine()

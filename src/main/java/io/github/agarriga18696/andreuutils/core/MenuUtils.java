@@ -28,8 +28,9 @@ public final class MenuUtils {
      */
     public static int show(String title, String... options) {
         printMenu(title, options);
+
         return InputUtils.readIntInRange(
-                "Select an option: ",
+                LanguageManager.text("menu.select_option") + " ",
                 1,
                 options.length
         );
@@ -50,7 +51,7 @@ public final class MenuUtils {
         MessageUtils.newLine();
 
         return InputUtils.readIntInRange(
-                "Select an option: ",
+                LanguageManager.text("menu.select_option") + " ",
                 0,
                 options.length - 1
         );
@@ -86,7 +87,10 @@ public final class MenuUtils {
             String... options
     ) {
         printMenu(title, options);
-        return InputUtils.readInt("Select an option: ");
+
+        return InputUtils.readInt(
+                LanguageManager.text("menu.select_option") + " "
+        );
     }
 
     //-------------------------------
@@ -133,7 +137,7 @@ public final class MenuUtils {
         MessageUtils.newLine();
 
         return InputUtils.readIntInRange(
-                "Select an option: ",
+                LanguageManager.text("menu.select_option") + " ",
                 1,
                 options.length
         );
