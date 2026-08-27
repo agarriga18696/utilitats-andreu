@@ -34,7 +34,9 @@ public final class InputUtils {
             try {
                 return Integer.parseInt(line);
             } catch (NumberFormatException e) {
-                MessageUtils.error("You must enter a valid integer.");
+                MessageUtils.error(
+                        LanguageManager.text("input.invalid_integer")
+                );
             }
         }
     }
@@ -55,7 +57,13 @@ public final class InputUtils {
                 return value;
             }
 
-            MessageUtils.error("The value must be between " + min + " and " + max + ".");
+            MessageUtils.error(
+                    LanguageManager.text(
+                            "input.value_out_of_range",
+                            min,
+                            max
+                    )
+            );
         }
     }
 
@@ -73,7 +81,9 @@ public final class InputUtils {
                 return value;
             }
 
-            MessageUtils.error("The value must be greater than zero.");
+            MessageUtils.error(
+                    LanguageManager.text("input.value_must_be_positive")
+            );
         }
     }
 
@@ -96,7 +106,9 @@ public final class InputUtils {
             try {
                 return Double.parseDouble(line);
             } catch (NumberFormatException e) {
-                MessageUtils.error("You must enter a valid decimal number.");
+                MessageUtils.error(
+                        LanguageManager.text("input.invalid_decimal")
+                );
             }
         }
     }
@@ -109,7 +121,11 @@ public final class InputUtils {
      * @param max    Maximum accepted value.
      * @return The entered decimal value.
      */
-    public static double readDoubleInRange(String prompt, double min, double max) {
+    public static double readDoubleInRange(
+            String prompt,
+            double min,
+            double max
+    ) {
         while (true) {
             double value = readDouble(prompt);
 
@@ -117,7 +133,13 @@ public final class InputUtils {
                 return value;
             }
 
-            MessageUtils.error("The value must be between " + min + " and " + max + ".");
+            MessageUtils.error(
+                    LanguageManager.text(
+                            "input.value_out_of_range",
+                            min,
+                            max
+                    )
+            );
         }
     }
 
@@ -135,7 +157,9 @@ public final class InputUtils {
                 return value;
             }
 
-            MessageUtils.error("The value must be greater than zero.");
+            MessageUtils.error(
+                    LanguageManager.text("input.value_must_be_positive")
+            );
         }
     }
 
@@ -158,7 +182,9 @@ public final class InputUtils {
                 return line;
             }
 
-            MessageUtils.error("The input cannot be blank.");
+            MessageUtils.error(
+                    LanguageManager.text("input.blank")
+            );
         }
     }
 
@@ -180,7 +206,10 @@ public final class InputUtils {
      * @param minLength Minimum accepted length.
      * @return The entered string.
      */
-    public static String readStringWithMinLength(String prompt, int minLength) {
+    public static String readStringWithMinLength(
+            String prompt,
+            int minLength
+    ) {
         while (true) {
             String value = readString(prompt);
 
@@ -189,7 +218,10 @@ public final class InputUtils {
             }
 
             MessageUtils.error(
-                    "The string must contain at least " + minLength + " characters."
+                    LanguageManager.text(
+                            "input.min_length",
+                            minLength
+                    )
             );
         }
     }
@@ -206,13 +238,26 @@ public final class InputUtils {
      */
     public static boolean confirm(String prompt) {
         while (true) {
-            printPrompt(prompt + " (y/n): ");
-            String response = SCANNER.nextLine().strip().toLowerCase();
+            printPrompt(
+                    LanguageManager.text(
+                            "input.confirm_prompt",
+                            prompt
+                    )
+            );
 
-            if (response.equals("y")) return true;
-            if (response.equals("n")) return false;
+            String response = SCANNER.nextLine()
+                    .strip()
+                    .toLowerCase();
 
-            MessageUtils.error("Enter 'y' for yes or 'n' for no.");
+            String yes = LanguageManager.text("input.confirm_yes");
+            String no = LanguageManager.text("input.confirm_no");
+
+            if (response.equals(yes)) return true;
+            if (response.equals(no)) return false;
+
+            MessageUtils.error(
+                    LanguageManager.text("input.confirm_invalid")
+            );
         }
     }
 
@@ -235,7 +280,9 @@ public final class InputUtils {
                 return line.charAt(0);
             }
 
-            MessageUtils.error("You must enter exactly one character.");
+            MessageUtils.error(
+                    LanguageManager.text("input.invalid_character")
+            );
         }
     }
 
@@ -266,7 +313,10 @@ public final class InputUtils {
      * Pauses execution until the user presses Enter.
      */
     public static void waitForEnter() {
-        System.out.println("\nPress Enter to continue...");
+        System.out.println();
+        System.out.println(
+                LanguageManager.text("input.press_enter")
+        );
         SCANNER.nextLine();
     }
 
