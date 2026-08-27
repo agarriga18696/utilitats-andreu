@@ -51,7 +51,9 @@ public final class FileUtils {
 
             return content.toString();
         } catch (IOException e) {
-            MessageUtils.error("Could not read the file: " + path);
+            MessageUtils.error(
+                    LanguageManager.text("file.read_error", path)
+            );
             return null;
         }
     }
@@ -79,7 +81,9 @@ public final class FileUtils {
                 lines[index++] = line;
             }
         } catch (IOException e) {
-            MessageUtils.error("Could not read the file: " + path);
+            MessageUtils.error(
+                    LanguageManager.text("file.read_error", path)
+            );
         }
 
         return lines;
@@ -119,7 +123,9 @@ public final class FileUtils {
 
             return count;
         } catch (IOException e) {
-            MessageUtils.error("Could not read the file: " + path);
+            MessageUtils.error(
+                    LanguageManager.text("file.read_error", path)
+            );
             return -1;
         }
     }
@@ -142,7 +148,9 @@ public final class FileUtils {
             writer.write(text + System.lineSeparator());
             return true;
         } catch (IOException e) {
-            MessageUtils.error("Could not write to the file: " + path);
+            MessageUtils.error(
+                    LanguageManager.text("file.write_error", path)
+            );
             return false;
         }
     }
@@ -164,7 +172,9 @@ public final class FileUtils {
 
             return true;
         } catch (IOException e) {
-            MessageUtils.error("Could not write to the file: " + path);
+            MessageUtils.error(
+                    LanguageManager.text("file.write_error", path)
+            );
             return false;
         }
     }
@@ -218,7 +228,9 @@ public final class FileUtils {
 
             return true;
         } catch (IOException e) {
-            MessageUtils.error("Could not save the file: " + path);
+            MessageUtils.error(
+                    LanguageManager.text("file.save_error", path)
+            );
             return false;
         }
     }
@@ -244,7 +256,9 @@ public final class FileUtils {
 
             return true;
         } catch (IOException e) {
-            MessageUtils.error("Could not save the file: " + path);
+            MessageUtils.error(
+                    LanguageManager.text("file.save_error", path)
+            );
             return false;
         }
     }
@@ -265,7 +279,9 @@ public final class FileUtils {
             output.writeObject(map);
             return true;
         } catch (IOException e) {
-            MessageUtils.error("Could not save the file: " + path);
+            MessageUtils.error(
+                    LanguageManager.text("file.save_error", path)
+            );
             return false;
         }
     }
@@ -288,7 +304,6 @@ public final class FileUtils {
         }
 
         T[] objects = (T[]) Array.newInstance(type, objectCount);
-
         File file = new File(path);
 
         if (!file.exists()) {
@@ -308,7 +323,9 @@ public final class FileUtils {
                 }
             }
         } catch (IOException | ClassNotFoundException | ClassCastException e) {
-            MessageUtils.error("Could not read the file: " + path);
+            MessageUtils.error(
+                    LanguageManager.text("file.read_error", path)
+            );
             return (T[]) Array.newInstance(type, 0);
         }
 
@@ -326,7 +343,6 @@ public final class FileUtils {
     @SuppressWarnings("unchecked")
     public static <T> List<T> readObjects(String path) {
         List<T> objects = new ArrayList<>();
-
         File file = new File(path);
 
         if (!file.exists()) {
@@ -344,7 +360,9 @@ public final class FileUtils {
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
-            MessageUtils.error("Could not read the file: " + path);
+            MessageUtils.error(
+                    LanguageManager.text("file.read_error", path)
+            );
         }
 
         return objects;
@@ -365,7 +383,9 @@ public final class FileUtils {
 
             return (Map<K, V>) input.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            MessageUtils.error("Could not read the file: " + path);
+            MessageUtils.error(
+                    LanguageManager.text("file.read_error", path)
+            );
             return new HashMap<>();
         }
     }
@@ -389,12 +409,19 @@ public final class FileUtils {
                 } catch (EOFException e) {
                     break;
                 } catch (ClassNotFoundException e) {
-                    MessageUtils.error("Class not found in the file: " + path);
+                    MessageUtils.error(
+                            LanguageManager.text(
+                                    "file.class_not_found",
+                                    path
+                            )
+                    );
                     return -1;
                 }
             }
         } catch (IOException e) {
-            MessageUtils.error("Could not read the file: " + path);
+            MessageUtils.error(
+                    LanguageManager.text("file.read_error", path)
+            );
             return -1;
         }
 
@@ -428,7 +455,9 @@ public final class FileUtils {
             return file.delete();
         }
 
-        MessageUtils.warning("The file does not exist: " + path);
+        MessageUtils.warning(
+                LanguageManager.text("file.not_found", path)
+        );
         return false;
     }
 
@@ -448,7 +477,9 @@ public final class FileUtils {
         try {
             return file.createNewFile();
         } catch (IOException e) {
-            MessageUtils.error("Could not create the file: " + path);
+            MessageUtils.error(
+                    LanguageManager.text("file.create_error", path)
+            );
             return false;
         }
     }
