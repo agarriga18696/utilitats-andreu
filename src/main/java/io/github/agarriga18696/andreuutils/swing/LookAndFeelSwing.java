@@ -1,6 +1,7 @@
 package io.github.agarriga18696.andreuutils.swing;
 
 import java.awt.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,357 +15,369 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 /**
- * Classe d'utilitat per aplicar Look and Feel en aplicacions Swing.
- * 
+ * Utility class for managing Look and Feel in Swing applications.
+ * <p>
+ * Provides methods for applying Look and Feel implementations, updating
+ * component trees, checking compatibility and retrieving installed or
+ * predefined themes.
+ *
  * @author Andreu
- * @version 1.5
+ * @version 2.0
  */
 public final class LookAndFeelSwing {
 
-	private LookAndFeelSwing() {
-		/*
-		 * Classe d'utilitat no instanciable.
-		 */
-	}
+    // ----------------------------------------
+    // STATIC ATTRIBUTES
+    // ----------------------------------------
 
-	//-------------------------------
-	// ATRIBUTS ESTÀTICS
-	//-------------------------------
+    public static final String SYSTEM = UIManager.getSystemLookAndFeelClassName();
+    public static final String METAL = "javax.swing.plaf.metal.MetalLookAndFeel";
 
-	private static final Logger LOGGER = Logger.getLogger(LookAndFeelSwing.class.getName());
-	
-	private static final Map<String, Boolean> CACHE_COMPATIBILITAT = new ConcurrentHashMap<>();
+    // ----------------------------------------
+    // LOOK AND FEEL CONSTANTS
+    // ----------------------------------------
+    public static final String NIMBUS = "javax.swing.plaf.nimbus.NimbusLookAndFeel";
+    public static final String MOTIF = "com.sun.java.swing.plaf.motif.MotifLookAndFeel";
+    public static final String WINDOWS = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
+    public static final String WINDOWS_CLASSIC = "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel";
+    public static final String GTK = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
+    public static final String MAC_OS = "com.apple.laf.AquaLookAndFeel";
+    private static final Logger LOGGER = Logger.getLogger(LookAndFeelSwing.class.getName());
+    private static final Map<String, Boolean> COMPATIBILITY_CACHE = new ConcurrentHashMap<>();
 
-	//-------------------------------
-	// CONSTANTS LOOK AND FEEL
-	//-------------------------------
+    private LookAndFeelSwing() {
+        // Utility class
+    }
 
-	public static final String SISTEMA = UIManager.getSystemLookAndFeelClassName();
-	public static final String METAL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	public static final String NIMBUS = "javax.swing.plaf.nimbus.NimbusLookAndFeel";
-	public static final String MOTIF = "com.sun.java.swing.plaf.motif.MotifLookAndFeel";
-	public static final String WINDOWS = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
-	public static final String WINDOWS_CLASSIC = "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel";
-	public static final String GTK = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
-	public static final String MAC_OS = "com.apple.laf.AquaLookAndFeel";
+    // ----------------------------------------
+    // LOOK AND FEEL
+    // ----------------------------------------
 
-	//-------------------------------
-	// LOOK AND FEEL
-	//-------------------------------
+    /**
+     * Applies the operating system Look and Feel.
+     *
+     * @return {@code true} if applied successfully.
+     */
+    public static boolean applySystem() {
+        return apply(SYSTEM);
+    }
 
-	/**
-	 * Aplica el Look and Feel del sistema operatiu.
-	 * 
-	 * @return {@code true} si s'ha aplicat correctament.
-	 */
-	public static boolean aplicarSistema() {
-		return aplicar(SISTEMA);
-	}
+    /**
+     * Applies the Java Metal Look and Feel.
+     *
+     * @return {@code true} if applied successfully.
+     */
+    public static boolean applyMetal() {
+        return apply(METAL);
+    }
 
-	/**
-	 * Aplica el Look and Feel de Java (Metal).
-	 * 
-	 * @return {@code true} si s'ha aplicat correctament.
-	 */
-	public static boolean aplicarMetal() {
-		return aplicar(METAL);
-	}
+    /**
+     * Applies the Nimbus Look and Feel.
+     *
+     * @return {@code true} if applied successfully.
+     */
+    public static boolean applyNimbus() {
+        return apply(NIMBUS);
+    }
 
-	/**
-	 * Aplica el Look and Feel Nimbus.
-	 * 
-	 * @return {@code true} si s'ha aplicat correctament.
-	 */
-	public static boolean aplicarNimbus() {
-		return aplicar(NIMBUS);
-	}
+    /**
+     * Applies the Motif Look and Feel.
+     *
+     * @return {@code true} if applied successfully.
+     */
+    public static boolean applyMotif() {
+        return apply(MOTIF);
+    }
 
-	/**
-	 * Aplica el Look and Feel Motif.
-	 * 
-	 * @return {@code true} si s'ha aplicat correctament.
-	 */
-	public static boolean aplicarMotif() {
-		return aplicar(MOTIF);
-	}
+    /**
+     * Applies the Windows Look and Feel.
+     *
+     * @return {@code true} if applied successfully.
+     */
+    public static boolean applyWindows() {
+        return apply(WINDOWS);
+    }
 
-	/**
-	 * Aplica el Look and Feel Windows.
-	 * 
-	 * @return {@code true} si s'ha aplicat correctament.
-	 */
-	public static boolean aplicarWindows() {
-		return aplicar(WINDOWS);
-	}
+    /**
+     * Applies the Windows Classic Look and Feel.
+     *
+     * @return {@code true} if applied successfully.
+     */
+    public static boolean applyWindowsClassic() {
+        return apply(WINDOWS_CLASSIC);
+    }
 
-	/**
-	 * Aplica el Look and Feel Windows Classic.
-	 * 
-	 * @return {@code true} si s'ha aplicat correctament.
-	 */
-	public static boolean aplicarWindowsClassic() {
-		return aplicar(WINDOWS_CLASSIC);
-	}
+    /**
+     * Applies a Look and Feel using its fully qualified class name.
+     * <p>
+     * This operation modifies {@link UIManager} and must therefore be executed
+     * on the Swing Event Dispatch Thread. Calls made outside the EDT are
+     * automatically redirected using {@link EdtSwing#runAndWait(Runnable)}.
+     *
+     * @param className Fully qualified Look and Feel class name.
+     * @return {@code true} if applied successfully.
+     */
+    public static boolean apply(String className) {
 
-	/**
-	 * Aplica un Look and Feel a partir del nom complet de la classe.
-	 * <p>
-	 * Aquesta operació muta {@link UIManager} i, segons el contracte de Swing,
-	 * ha d'executar-se al fil d'esdeveniments (EDT). Si la crida es fa des d'un
-	 * altre fil, es redirigeix automàticament a l'EDT amb {@link SwingUtilities#invokeAndWait}
-	 * perquè el cridant pugui confiar en el valor retornat.
-	 *
-	 * @param nomClasse Nom complet de la classe del Look and Feel.
-	 * @return {@code true} si s'ha aplicat correctament.
-	 */
-	public static boolean aplicar(String nomClasse) {
+        if (className == null || className.isBlank()) {
+            return false;
+        }
 
-		if(nomClasse == null || nomClasse.isBlank()) {
-			return false;
-		}
+        AtomicBoolean result = new AtomicBoolean(false);
 
-		AtomicBoolean resultat = new AtomicBoolean(false);
+        EdtSwing.runAndWait(() -> {
+            try {
+                UIManager.setLookAndFeel(className);
+                result.set(true);
 
-		EdtSwing.runAndWait(() -> {
-			try {
-				UIManager.setLookAndFeel(nomClasse);
-				resultat.set(true);
+            } catch (Exception e) {
+                LOGGER.log(
+                        Level.WARNING,
+                        e,
+                        () -> "Could not apply Look and Feel: " + className
+                );
 
-			} catch(Exception e) {
-				LOGGER.log(Level.WARNING, e, () -> "No s'ha pogut aplicar el Look and Feel: " + nomClasse);
-				resultat.set(false);
-			}
-		});
+                result.set(false);
+            }
+        });
 
-		return resultat.get();
-	}
+        return result.get();
+    }
 
-	/**
-	 * Actualitza visualment un component i tots els seus fills després de canviar el Look and Feel.
-	 * <p>
-	 * Totes les operacions Swing es redirigeixen a l'EDT si la crida es fa des d'un altre fil.
-	 *
-	 * @param component Component principal a actualitzar.
-	 */
-	public static void actualitzar(Component component) {
+    /**
+     * Updates a component and all its descendants after changing the Look and
+     * Feel.
+     * <p>
+     * Swing operations are automatically redirected to the EDT when necessary.
+     *
+     * @param component Root component to update.
+     */
+    public static void update(Component component) {
 
-		if(component == null) {
-			return;
-		}
+        if (component == null) {
+            return;
+        }
 
-		EdtSwing.runAndWait(() -> {
-			SwingUtilities.updateComponentTreeUI(component);
-			component.revalidate();
-			component.repaint();
-		});
-	}
+        EdtSwing.runAndWait(() -> {
+            SwingUtilities.updateComponentTreeUI(component);
+            component.revalidate();
+            component.repaint();
+        });
+    }
 
-	//-------------------------------
-	// CONSULTES
-	//-------------------------------
+    // ----------------------------------------
+    // QUERIES
+    // ----------------------------------------
 
-	/**
-	 * Comprova si un Look and Feel està instal·lat.
-	 * 
-	 * @param nomClasse Nom complet de la classe del Look and Feel.
-	 * @return {@code true} si el Look and Feel apareix entre els instal·lats.
-	 */
-	public static boolean estaInstallat(String nomClasse) {
+    /**
+     * Returns whether a Look and Feel is installed.
+     *
+     * @param className Fully qualified Look and Feel class name.
+     * @return {@code true} if the Look and Feel appears among the installed
+     * implementations.
+     */
+    public static boolean isInstalled(String className) {
 
-		if(nomClasse == null || nomClasse.isBlank()) {
-			return false;
-		}
+        if (className == null || className.isBlank()) {
+            return false;
+        }
 
-		for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-			if(info.getClassName().equals(nomClasse)) {
-				return true;
-			}
-		}
+        for (UIManager.LookAndFeelInfo info :
+                UIManager.getInstalledLookAndFeels()) {
 
-		return false;
-	}
+            if (info.getClassName().equals(className)) {
+                return true;
+            }
+        }
 
-	/**
-	 * Comprova si un Look and Feel es pot aplicar al sistema actual.
-	 * <p>
-	 * A diferència de versions anteriors, aquesta comprovació <b>no aplica</b> el Look and Feel:
-	 * instancia la classe via reflexió i consulta {@link LookAndFeel#isSupportedLookAndFeel()},
-	 * evitant qualsevol parpelleig visual o mutació de l'estat global de {@link UIManager}.
-	 * <p>
-	 * El resultat es memoritza al cache de manera atòmica amb {@code computeIfAbsent}.
-	 *
-	 * @param nomClasse Nom complet de la classe del Look and Feel.
-	 * @return {@code true} si la classe existeix, és un {@link LookAndFeel} i està suportat.
-	 */
-	public static boolean esCompatible(String nomClasse) {
+        return false;
+    }
 
-		if(nomClasse == null || nomClasse.isBlank()) {
-			return false;
-		}
+    /**
+     * Returns whether a Look and Feel can be used on the current system.
+     * <p>
+     * This check does not apply the Look and Feel. The result is cached using
+     * {@link ConcurrentHashMap#computeIfAbsent(Object, java.util.function.Function)}.
+     *
+     * @param className Fully qualified Look and Feel class name.
+     * @return {@code true} if the class exists, represents a {@link LookAndFeel}
+     * and is supported by the current system.
+     */
+    public static boolean isCompatible(String className) {
 
-		return CACHE_COMPATIBILITAT.computeIfAbsent(nomClasse, LookAndFeelSwing::comprovarCompatibilitat);
-	}
+        if (className == null || className.isBlank()) {
+            return false;
+        }
 
-	/**
-	 * Comprovació real de compatibilitat sense aplicar el Look and Feel ni tocar {@link UIManager}.
-	 * <p>
-	 * La comprovació es fa en dos passos. Primer consulta {@link UIManager#getInstalledLookAndFeels()},
-	 * que és l'API oficial de Swing per determinar quins LAF estan disponibles al sistema actual
-	 * (per exemple, Windows i Windows Classic només apareixen en Windows). Si el LAF hi és,
-	 * es considera compatible directament sense cap instanciació per reflexió.
-	 * <p>
-	 * Si no hi és a la llista instal·lada (per exemple, un LAF de tercers), es recorre a
-	 * instanciar la classe via reflexió i consultar {@link LookAndFeel#isSupportedLookAndFeel()}.
-	 * En aquest segon pas es capturen tant {@link ReflectiveOperationException} com
-	 * {@link RuntimeException} (per cobrir {@code InaccessibleObjectException} de Java 9+)
-	 * i {@link LinkageError}.
-	 *
-	 * @param nomClasse Nom complet de la classe del Look and Feel.
-	 * @return {@code true} si el LAF és compatible amb el sistema actual.
-	 */
-	private static boolean comprovarCompatibilitat(String nomClasse) {
+        return COMPATIBILITY_CACHE.computeIfAbsent(
+                className,
+                LookAndFeelSwing::checkCompatibility
+        );
+    }
 
-		// Primer: consultar la llista oficial de LAFs instal·lats per Swing.
-		// Aquests estan garantits com a disponibles al sistema sense necessitat de reflexió.
-		for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-			if(info.getClassName().equals(nomClasse)) {
-				return true;
-			}
-		}
+    /**
+     * Performs the compatibility check without applying the Look and Feel or
+     * modifying {@link UIManager}.
+     * <p>
+     * Installed Look and Feel implementations are considered compatible
+     * directly. Other implementations are instantiated through reflection and
+     * checked using {@link LookAndFeel#isSupportedLookAndFeel()}.
+     *
+     * @param className Fully qualified Look and Feel class name.
+     * @return {@code true} if the Look and Feel is compatible.
+     */
+    private static boolean checkCompatibility(String className) {
 
-		// Segon: per LAFs no instal·lats per defecte (p. ex. de tercers),
-		// intentar instanciar-los i consultar isSupportedLookAndFeel().
-		try {
-			Class<?> classe = Class.forName(nomClasse);
+        if (isInstalled(className)) {
+            return true;
+        }
 
-			if(!LookAndFeel.class.isAssignableFrom(classe)) {
-				return false;
-			}
+        try {
+            Class<?> type = Class.forName(className);
 
-			LookAndFeel instancia = (LookAndFeel) classe.getDeclaredConstructor().newInstance();
-			return instancia.isSupportedLookAndFeel();
+            if (!LookAndFeel.class.isAssignableFrom(type)) {
+                return false;
+            }
 
-		} catch(ClassNotFoundException _) {
-			return false;
+            LookAndFeel instance =
+                    (LookAndFeel) type.getDeclaredConstructor().newInstance();
 
-		} catch(ReflectiveOperationException | RuntimeException | LinkageError e) {
-			// RuntimeException cobreix InaccessibleObjectException (Java 9+) i similars
-			LOGGER.log(Level.FINE, e, () -> "No s'ha pogut comprovar la compatibilitat de: " + nomClasse);
-			return false;
-		}
-	}
+            return instance.isSupportedLookAndFeel();
 
-	/**
-	 * Retorna els Look and Feel instal·lats al sistema.
-	 * 
-	 * @return Llista d'informació dels Look and Feel instal·lats.
-	 */
-	public static UIManager.LookAndFeelInfo[] getLookAndFeelsInstallats() {
-		return UIManager.getInstalledLookAndFeels();
-	}
+        } catch (ClassNotFoundException _) {
+            return false;
 
-	/**
-	 * Retorna els noms visibles dels Look and Feel instal·lats.
-	 * 
-	 * @return Llista de noms dels Look and Feel instal·lats.
-	 */
-	public static List<String> getNomsLookAndFeelsInstallats() {
+        } catch (ReflectiveOperationException |
+                 RuntimeException |
+                 LinkageError e) {
 
-		List<String> noms = new ArrayList<>();
+            LOGGER.log(
+                    Level.FINE,
+                    e,
+                    () -> "Could not check Look and Feel compatibility: "
+                            + className
+            );
 
-		for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-			noms.add(info.getName());
-		}
+            return false;
+        }
+    }
 
-		return noms;
-	}
+    /**
+     * Returns the Look and Feel implementations installed on the current system.
+     *
+     * @return Installed Look and Feel information.
+     */
+    public static UIManager.LookAndFeelInfo[] getInstalledLookAndFeels() {
+        return UIManager.getInstalledLookAndFeels();
+    }
 
-	/**
-	 * Cerca el nom de classe d'un Look and Feel instal·lat a partir del seu nom visible.
-	 * 
-	 * @param nom Nom visible del Look and Feel.
-	 * @return Nom complet de la classe, o {@code null} si no s'ha trobat.
-	 */
-	public static String cercarClassePerNom(String nom) {
+    /**
+     * Returns the display names of the Look and Feel implementations installed
+     * on the current system.
+     *
+     * @return Installed Look and Feel display names.
+     */
+    public static List<String> getInstalledLookAndFeelNames() {
 
-		if(nom == null || nom.isBlank()) {
-			return null;
-		}
+        List<String> names = new ArrayList<>();
 
-		for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-			if(info.getName().equalsIgnoreCase(nom)) {
-				return info.getClassName();
-			}
-		}
+        for (UIManager.LookAndFeelInfo info :
+                UIManager.getInstalledLookAndFeels()) {
 
-		return null;
-	}
+            names.add(info.getName());
+        }
 
-	/**
-	 * Retorna els temes predefinits de la llibreria.
-	 * 
-	 * @return Llista de temes predefinits.
-	 */
-	public static List<TemaLookAndFeelSwing> getTemesPredefinits() {
-		return List.of(
-				new TemaLookAndFeelSwing(
-						"Sistema",
-						SISTEMA,
-						IconesSwing.TEMA_JAVA,
-						false
-						),
-				new TemaLookAndFeelSwing(
-						"Nimbus",
-						NIMBUS,
-						IconesSwing.TEMA_JAVA,
-						false
-						),
-				new TemaLookAndFeelSwing(
-						"Metal",
-						METAL,
-						IconesSwing.TEMA_JAVA,
-						false
-						),
-				new TemaLookAndFeelSwing(
-						"Motif",
-						MOTIF,
-						IconesSwing.TEMA_LINUX,
-						false
-						),
-				new TemaLookAndFeelSwing(
-						"GTK",
-						GTK,
-						IconesSwing.TEMA_LINUX,
-						false
-						),
-				new TemaLookAndFeelSwing(
-						"Windows",
-						WINDOWS,
-						IconesSwing.TEMA_WINDOWS,
-						false
-						),
-				new TemaLookAndFeelSwing(
-						"Windows Classic",
-						WINDOWS_CLASSIC,
-						IconesSwing.TEMA_WINDOWS,
-						false
-						),
-				new TemaLookAndFeelSwing(
-						"macOS",
-						MAC_OS,
-						IconesSwing.TEMA_MAC_OS,
-						false
-						)
-				);
-	}
-	
-	/**
-	 * Retorna el nom de classe del Look and Feel actual.
-	 * 
-	 * @return Classe del Look and Feel actual.
-	 */
-	public static String getClasseActual() {
-		return UIManager.getLookAndFeel().getClass().getName();
-	}
+        return names;
+    }
+
+    /**
+     * Finds the class name of an installed Look and Feel using its display name.
+     *
+     * @param name Look and Feel display name.
+     * @return Fully qualified class name, or {@code null} if no match is found.
+     */
+    public static String findClassNameByName(String name) {
+
+        if (name == null || name.isBlank()) {
+            return null;
+        }
+
+        for (UIManager.LookAndFeelInfo info :
+                UIManager.getInstalledLookAndFeels()) {
+
+            if (info.getName().equalsIgnoreCase(name)) {
+                return info.getClassName();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the predefined themes provided by the library.
+     *
+     * @return Predefined themes.
+     */
+    public static List<TemaLookAndFeelSwing> getPredefinedThemes() {
+        return List.of(
+                new TemaLookAndFeelSwing(
+                        SwingMessages.text("theme.system"),
+                        SYSTEM,
+                        IconesSwing.TEMA_JAVA,
+                        false
+                ),
+                new TemaLookAndFeelSwing(
+                        "Nimbus",
+                        NIMBUS,
+                        IconesSwing.TEMA_JAVA,
+                        false
+                ),
+                new TemaLookAndFeelSwing(
+                        "Metal",
+                        METAL,
+                        IconesSwing.TEMA_JAVA,
+                        false
+                ),
+                new TemaLookAndFeelSwing(
+                        "Motif",
+                        MOTIF,
+                        IconesSwing.TEMA_LINUX,
+                        false
+                ),
+                new TemaLookAndFeelSwing(
+                        "GTK",
+                        GTK,
+                        IconesSwing.TEMA_LINUX,
+                        false
+                ),
+                new TemaLookAndFeelSwing(
+                        "Windows",
+                        WINDOWS,
+                        IconesSwing.TEMA_WINDOWS,
+                        false
+                ),
+                new TemaLookAndFeelSwing(
+                        "Windows Classic",
+                        WINDOWS_CLASSIC,
+                        IconesSwing.TEMA_WINDOWS,
+                        false
+                ),
+                new TemaLookAndFeelSwing(
+                        "macOS",
+                        MAC_OS,
+                        IconesSwing.TEMA_MAC_OS,
+                        false
+                )
+        );
+    }
+
+    /**
+     * Returns the class name of the currently active Look and Feel.
+     *
+     * @return Fully qualified class name of the current Look and Feel.
+     */
+    public static String getCurrentClassName() {
+        return UIManager.getLookAndFeel().getClass().getName();
+    }
 
 }

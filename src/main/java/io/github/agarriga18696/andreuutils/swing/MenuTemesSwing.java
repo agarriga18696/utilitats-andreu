@@ -55,7 +55,7 @@ public final class MenuTemesSwing {
 
 		return crearMenuTemes(
 				componentActualitzar,
-				LookAndFeelSwing.getTemesPredefinits(),
+				LookAndFeelSwing.getPredefinedThemes(),
 				accioTemaAplicat
 				);
 	}
@@ -85,12 +85,12 @@ public final class MenuTemesSwing {
 
 		ButtonGroup grupTemes = new ButtonGroup();
 
-		String classeActual = LookAndFeelSwing.getClasseActual();
+		String classeActual = LookAndFeelSwing.getCurrentClassName();
 
 		for(TemaLookAndFeelSwing tema : temes) {
 
 			boolean seleccionat = tema.classe().equals(classeActual);
-			boolean compatible = LookAndFeelSwing.esCompatible(tema.classe());
+			boolean compatible = LookAndFeelSwing.isCompatible(tema.classe());
 
 			JRadioButtonMenuItem item = MenusSwing.radioItem(
 					tema.nom(),
@@ -118,12 +118,12 @@ public final class MenuTemesSwing {
 			Consumer<String> accioTemaAplicat
 			) {
 
-		if(!LookAndFeelSwing.esCompatible(tema.classe())) {
+		if(!LookAndFeelSwing.isCompatible(tema.classe())) {
 			return;
 		}
 
-		if(LookAndFeelSwing.aplicar(tema.classe())) {
-			LookAndFeelSwing.actualitzar(componentActualitzar);
+		if(LookAndFeelSwing.apply(tema.classe())) {
+			LookAndFeelSwing.update(componentActualitzar);
 			accioTemaAplicat.accept(tema.nom());
 		}
 	}

@@ -102,7 +102,7 @@ public abstract class GuiApplicationBase {
         installUncaughtExceptionHandler();
 
         SwingUtilities.invokeLater(() -> {
-            LookAndFeelSwing.aplicar(lookAndFeelClassName);
+            LookAndFeelSwing.apply(lookAndFeelClassName);
             runLifecycle();
         });
     }
