@@ -237,4 +237,61 @@ class ApplicationMenuBarSwingTest {
         assertNull(helpMenu.getItem(1));
         assertEquals("About...", helpMenu.getItem(2).getText());
     }
+
+    @Test
+    void notifiesLanguageChangeCallback() {
+
+        Language[] selectedLanguage = {null};
+
+        JMenuBar menuBar =
+                ApplicationMenuBarSwing.builder(new JPanel())
+                        .onHome(() -> {
+                        })
+                        .onExit(() -> {
+                        })
+                        .onAbout(() -> {
+                        })
+                        .onLanguageChanged(language ->
+                                selectedLanguage[0] = language
+                        )
+                        .build();
+
+        JMenu languageMenu =
+                (JMenu) menuBar
+                        .getMenu(2)
+                        .getItem(0);
+
+        languageMenu.getItem(1).doClick();
+
+        assertEquals(
+                Language.SPANISH,
+                selectedLanguage[0]
+        );
+    }
+
+    @Test
+    void notifiesThemeAppliedCallback() {
+
+        int[] callbackCalls = {0};
+
+        JMenuBar menuBar =
+                ApplicationMenuBarSwing.builder(new JPanel())
+                        .onHome(() -> {
+                        })
+                        .onExit(() -> {
+                        })
+                        .onAbout(() -> {
+                        })
+                        .onThemeApplied(_ -> callbackCalls[0]++)
+                        .build();
+
+        JMenu themesMenu =
+                (JMenu) menuBar
+                        .getMenu(1)
+                        .getItem(0);
+
+        themesMenu.getItem(0).doClick();
+
+        assertEquals(1, callbackCalls[0]);
+    }
 }

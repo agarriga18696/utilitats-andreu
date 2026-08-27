@@ -1,5 +1,7 @@
 package io.github.agarriga18696.andreuutils.swing;
 
+import io.github.agarriga18696.andreuutils.core.Language;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -49,6 +51,8 @@ public final class ApplicationMenuBarSwing {
         private Consumer<JMenu> viewMenuConfigurator;
         private Consumer<JMenu> settingsMenuConfigurator;
         private Consumer<JMenu> helpMenuConfigurator;
+        private Consumer<Language> onLanguageChanged;
+        private Consumer<String> onThemeApplied;
 
         private Builder(Component componentToUpdate) {
 
@@ -174,6 +178,38 @@ public final class ApplicationMenuBarSwing {
             return this;
         }
 
+        /**
+         * Sets the action executed when the application language changes.
+         *
+         * @param action Language change action.
+         * @return This builder.
+         */
+        public Builder onLanguageChanged(Consumer<Language> action) {
+
+            this.onLanguageChanged = Objects.requireNonNull(
+                    action,
+                    "The language change action cannot be null."
+            );
+
+            return this;
+        }
+
+        /**
+         * Sets the action executed when a theme is applied.
+         *
+         * @param action Theme applied action.
+         * @return This builder.
+         */
+        public Builder onThemeApplied(Consumer<String> action) {
+
+            this.onThemeApplied = Objects.requireNonNull(
+                    action,
+                    "The theme applied action cannot be null."
+            );
+
+            return this;
+        }
+
         private void validateActions() {
 
             if (onHome == null) {
@@ -229,7 +265,12 @@ public final class ApplicationMenuBarSwing {
             JMenu viewMenu = MenusSwing.menu(I18nSwing.text("menu.view"));
 
             viewMenu.add(
-                    ThemeMenuSwing.create(componentToUpdate)
+                    onThemeApplied == null
+                            ? ThemeMenuSwing.create(componentToUpdate)
+                            : ThemeMenuSwing.create(
+                            componentToUpdate,
+                            onThemeApplied
+                    )
             );
 
             if (viewMenuConfigurator != null) {
@@ -239,7 +280,9 @@ public final class ApplicationMenuBarSwing {
             JMenu settingsMenu = MenusSwing.menu(I18nSwing.text("menu.settings"));
 
             settingsMenu.add(
-                    LanguageMenuSwing.create()
+                    onLanguageChanged == null
+                            ? LanguageMenuSwing.create()
+                            : LanguageMenuSwing.create(onLanguageChanged)
             );
 
             if (settingsMenuConfigurator != null) {
