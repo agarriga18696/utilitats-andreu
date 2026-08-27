@@ -2,7 +2,6 @@ package io.github.agarriga18696.andreuutils.swing;
 
 import java.awt.Component;
 import java.awt.event.KeyEvent;
-import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -11,16 +10,20 @@ import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JRadioButtonMenuItem;
 
-import io.github.agarriga18696.andreuutils.core.Language;
-import io.github.agarriga18696.andreuutils.core.LanguageManager;
-
 /**
  * Utility class for creating Look and Feel theme selection menus.
  *
  * @author Andreu
- * @version 2.1
+ * @version 2.2
  */
 public final class ThemeMenuSwing {
+
+    // ----------------------------------------
+    // CONSTANTS
+    // ----------------------------------------
+
+    private static final String SYSTEM_THEME_PROPERTY =
+            ThemeMenuSwing.class.getName() + ".systemTheme";
 
     private ThemeMenuSwing() {
         // Utility class
@@ -129,9 +132,6 @@ public final class ThemeMenuSwing {
         String currentClassName =
                 LookAndFeelSwing.getCurrentClassName();
 
-        JRadioButtonMenuItem systemItem =
-                null;
-
         for (LookAndFeelThemeSwing theme : themes) {
 
             boolean selected =
@@ -162,20 +162,23 @@ public final class ThemeMenuSwing {
             item.setEnabled(compatible);
 
             if (localizeSystemTheme
-                    && theme.name().equals(I18nSwing.text("theme.system"))) {
+                    && theme.name().equals(
+                    I18nSwing.text("theme.system")
+            )) {
 
-                systemItem = item;
+                item.putClientProperty(
+                        SYSTEM_THEME_PROPERTY,
+                        Boolean.TRUE
+                );
             }
 
             themeGroup.add(item);
             themeMenu.add(item);
         }
 
-        LanguageManager.addLanguageChangeListener(
-                new ThemeMenuLanguageListener(
-                        themeMenu,
-                        systemItem
-                )
+        I18nSwing.bind(
+                themeMenu,
+                (menu, _) -> refreshMenu(menu)
         );
 
         return themeMenu;
@@ -203,56 +206,35 @@ public final class ThemeMenuSwing {
         }
     }
 
-    // ----------------------------------------
-    // LANGUAGE LISTENER
-    // ----------------------------------------
+    private static void refreshMenu(
+            JMenu themeMenu
+    ) {
 
-    private record ThemeMenuLanguageListener(WeakReference<JMenu> menuReference,
-                                             WeakReference<JRadioButtonMenuItem> systemItemReference)
-                implements Consumer<Language> {
+        themeMenu.setText(
+                I18nSwing.text("menu.themes")
+        );
 
-            private ThemeMenuLanguageListener(
-                    JMenu themeMenu,
-                    JRadioButtonMenuItem systemItem
-            ) {
+        for (int index = 0;
+             index < themeMenu.getItemCount();
+             index++) {
 
-                this(new WeakReference<>(themeMenu), new WeakReference<>(systemItem));
+            if (!(themeMenu.getItem(index)
+                    instanceof JRadioButtonMenuItem item)) {
+
+                continue;
             }
 
-            @Override
-            public void accept(
-                    Language language
-            ) {
+            if (Boolean.TRUE.equals(
+                    item.getClientProperty(
+                            SYSTEM_THEME_PROPERTY
+                    )
+            )) {
 
-                JMenu themeMenu =
-                        menuReference.get();
-
-                if (themeMenu == null) {
-
-                    LanguageManager.removeLanguageChangeListener(
-                            this
-                    );
-
-                    return;
-                }
-
-                JRadioButtonMenuItem systemItem =
-                        systemItemReference.get();
-
-                EdtSwing.runAndWait(() -> {
-
-                    themeMenu.setText(
-                            I18nSwing.text("menu.themes")
-                    );
-
-                    if (systemItem != null) {
-
-                        systemItem.setText(
-                                I18nSwing.text("theme.system")
-                        );
-                    }
-                });
+                item.setText(
+                        I18nSwing.text("theme.system")
+                );
             }
         }
+    }
 
 }

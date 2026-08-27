@@ -1,9 +1,6 @@
 package io.github.agarriga18696.andreuutils.swing;
 
 import java.awt.event.KeyEvent;
-import java.lang.ref.WeakReference;
-import java.util.EnumMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -18,9 +15,16 @@ import io.github.agarriga18696.andreuutils.core.LanguageManager;
  * Utility class for creating language selection menus.
  *
  * @author Andreu
- * @version 1.1
+ * @version 1.2
  */
 public final class LanguageMenuSwing {
+
+    // ----------------------------------------
+    // CONSTANTS
+    // ----------------------------------------
+
+    private static final String LANGUAGE_PROPERTY =
+            LanguageMenuSwing.class.getName() + ".language";
 
     private LanguageMenuSwing() {
         // Utility class
@@ -64,38 +68,30 @@ public final class LanguageMenuSwing {
         ButtonGroup languageGroup =
                 new ButtonGroup();
 
-        Map<Language, JRadioButtonMenuItem> items =
-                new EnumMap<>(Language.class);
-
         for (Language language : Language.values()) {
-
-            boolean selected =
-                    language == LanguageManager.getLanguage();
 
             JRadioButtonMenuItem item =
                     MenusSwing.radioItem(
                             getLanguageName(language),
-                            selected,
+                            language == LanguageManager.getLanguage(),
                             () -> applyLanguage(
                                     language,
                                     onLanguageChanged
                             )
                     );
 
-            items.put(
-                    language,
-                    item
+            item.putClientProperty(
+                    LANGUAGE_PROPERTY,
+                    language
             );
 
             languageGroup.add(item);
             languageMenu.add(item);
         }
 
-        LanguageManager.addLanguageChangeListener(
-                new LanguageMenuListener(
-                        languageMenu,
-                        items
-                )
+        I18nSwing.bind(
+                languageMenu,
+                LanguageMenuSwing::refreshMenu
         );
 
         return languageMenu;
@@ -121,7 +117,6 @@ public final class LanguageMenuSwing {
 
     private static void refreshMenu(
             JMenu languageMenu,
-            Map<Language, JRadioButtonMenuItem> items,
             Language currentLanguage
     ) {
 
@@ -129,17 +124,31 @@ public final class LanguageMenuSwing {
                 I18nSwing.text("menu.language")
         );
 
-        for (Map.Entry<Language, JRadioButtonMenuItem> entry : items.entrySet()) {
+        for (int index = 0;
+             index < languageMenu.getItemCount();
+             index++) {
 
-            JRadioButtonMenuItem item =
-                    entry.getValue();
+            if (!(languageMenu.getItem(index)
+                    instanceof JRadioButtonMenuItem item)) {
+
+                continue;
+            }
+
+            Object value =
+                    item.getClientProperty(
+                            LANGUAGE_PROPERTY
+                    );
+
+            if (!(value instanceof Language language)) {
+                continue;
+            }
 
             item.setText(
-                    getLanguageName(entry.getKey())
+                    getLanguageName(language)
             );
 
             item.setSelected(
-                    entry.getKey() == currentLanguage
+                    language == currentLanguage
             );
         }
     }
@@ -156,77 +165,5 @@ public final class LanguageMenuSwing {
             case CATALAN -> I18nSwing.text("language.catalan");
         };
     }
-
-    // ----------------------------------------
-    // LANGUAGE LISTENER
-    // ----------------------------------------
-
-    private record LanguageMenuListener(
-            WeakReference<JMenu> menuReference,
-            Map<Language, WeakReference<JRadioButtonMenuItem>> itemReferences
-    ) implements Consumer<Language> {
-
-            private LanguageMenuListener(
-                    JMenu languageMenu,
-                    Map<Language, JRadioButtonMenuItem> items
-            ) {
-
-                this(new WeakReference<>(languageMenu), new EnumMap<>(Language.class));
-
-                for (Map.Entry<Language, JRadioButtonMenuItem> entry : items.entrySet()) {
-
-                    this.itemReferences.put(
-                            entry.getKey(),
-                            new WeakReference<>(entry.getValue())
-                    );
-                }
-            }
-
-            @Override
-            public void accept(
-                    Language language
-            ) {
-
-                JMenu languageMenu =
-                        menuReference.get();
-
-                if (languageMenu == null) {
-
-                    LanguageManager.removeLanguageChangeListener(
-                            this
-                    );
-
-                    return;
-                }
-
-                EdtSwing.runAndWait(() -> {
-
-                    languageMenu.setText(
-                            I18nSwing.text("menu.language")
-                    );
-
-                    for (
-                            Map.Entry<Language, WeakReference<JRadioButtonMenuItem>> entry
-                            : itemReferences.entrySet()
-                    ) {
-
-                        JRadioButtonMenuItem item =
-                                entry.getValue().get();
-
-                        if (item == null) {
-                            continue;
-                        }
-
-                        item.setText(
-                                getLanguageName(entry.getKey())
-                        );
-
-                        item.setSelected(
-                                entry.getKey() == language
-                        );
-                    }
-                });
-            }
-        }
 
 }
