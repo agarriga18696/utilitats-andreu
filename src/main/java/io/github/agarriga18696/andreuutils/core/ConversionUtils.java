@@ -74,7 +74,9 @@ public final class ConversionUtils {
      * @return {@code "Yes"} if {@code true}, otherwise {@code "No"}.
      */
     public static String toYesNo(boolean value) {
-        return value ? "Yes" : "No";
+        return LanguageManager.text(
+                value ? "conversion.yes" : "conversion.no"
+        );
     }
 
 }

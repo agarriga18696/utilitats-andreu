@@ -99,12 +99,14 @@ class ConversionUtilsTest {
     // --- toYesNo ---
 
     @Test
-    void trueConvertsToYes() {
+    void convertsTrueToYes() {
+        LanguageManager.setLanguage(Language.ENGLISH);
         assertEquals("Yes", ConversionUtils.toYesNo(true));
     }
 
     @Test
-    void falseConvertsToNo() {
+    void convertsFalseToNo() {
+        LanguageManager.setLanguage(Language.ENGLISH);
         assertEquals("No", ConversionUtils.toYesNo(false));
     }
 
