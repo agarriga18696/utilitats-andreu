@@ -1,6 +1,6 @@
 package io.github.agarriga18696.andreuutils.application;
 
-import io.github.agarriga18696.andreuutils.core.Menu;
+import io.github.agarriga18696.andreuutils.core.MenuUtils;
 
 /**
  * Base class for creating console application views.
@@ -46,7 +46,7 @@ public abstract class ViewBase {
 		String[] menuOptions = options();
 		int option;
 		do {
-			option = Menu.mostrar(title(), exitOption(), menuOptions);
+			option = MenuUtils.show(title(), exitOption(), menuOptions);
 			handle(option);
 		} while(option != exitOption());
 	}
