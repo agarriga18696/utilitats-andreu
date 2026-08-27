@@ -139,8 +139,8 @@ public abstract class GuiApplicationBase {
             EdtSwing.runLater(() ->
                     DialogsSwing.error(
                             null,
-                            SwingMessages.text("dialog.unexpected_error_title"),
-                            SwingMessages.text(
+                            I18nSwing.text("dialog.unexpected_error_title"),
+                            I18nSwing.text(
                                     "dialog.unexpected_error_message",
                                     exception.getMessage()
                             )

@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Tests for {@link SwingMessages}.
+ * Tests for {@link I18nSwing}.
  *
  * @author Andreu
  * @version 1.0
  */
-class SwingMessagesTest {
+class I18nSwingTest {
 
     @AfterEach
     void resetLanguage() {
@@ -27,7 +27,7 @@ class SwingMessagesTest {
 
         assertEquals(
                 "Close",
-                SwingMessages.text("dialog.close")
+                I18nSwing.text("dialog.close")
         );
     }
 
@@ -37,7 +37,7 @@ class SwingMessagesTest {
 
         assertEquals(
                 "Cerrar",
-                SwingMessages.text("dialog.close")
+                I18nSwing.text("dialog.close")
         );
     }
 
@@ -47,7 +47,7 @@ class SwingMessagesTest {
 
         assertEquals(
                 "Tancar",
-                SwingMessages.text("dialog.close")
+                I18nSwing.text("dialog.close")
         );
     }
 
@@ -57,7 +57,7 @@ class SwingMessagesTest {
 
         assertEquals(
                 "El fitxer \"novel.txt\" ja existeix.\nVols sobreescriure'l?",
-                SwingMessages.text(
+                I18nSwing.text(
                         "dialog.confirm_overwrite_message",
                         "novel.txt"
                 )
@@ -70,7 +70,7 @@ class SwingMessagesTest {
 
         assertEquals(
                 "S'ha produït un error inesperat:\nBoom",
-                SwingMessages.text(
+                I18nSwing.text(
                         "dialog.unexpected_error_message",
                         "Boom"
                 )

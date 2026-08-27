@@ -12,11 +12,11 @@ import java.util.ResourceBundle;
  * @author Andreu
  * @version 1.0
  */
-final class SwingMessages {
+final class I18nSwing {
 
     private static final String BUNDLE = "io.github.agarriga18696.andreuutils.i18n.swing";
 
-    private SwingMessages() {
+    private I18nSwing() {
         // Utility class
     }
 

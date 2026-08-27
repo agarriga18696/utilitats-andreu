@@ -321,7 +321,7 @@ public final class LookAndFeelSwing {
     public static List<LookAndFeelThemeSwing> getPredefinedThemes() {
         return List.of(
                 new LookAndFeelThemeSwing(
-                        SwingMessages.text("theme.system"),
+                        I18nSwing.text("theme.system"),
                         SYSTEM,
                         IconesSwing.TEMA_JAVA,
                         false

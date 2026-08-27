@@ -107,8 +107,8 @@ public final class DialogsSwing {
 
         EdtSwing.runAndWait(() -> {
             Object[] options = {
-                    SwingMessages.text("dialog.yes"),
-                    SwingMessages.text("dialog.no")
+                    I18nSwing.text("dialog.yes"),
+                    I18nSwing.text("dialog.no")
             };
 
             int response = JOptionPane.showOptionDialog(
@@ -201,7 +201,7 @@ public final class DialogsSwing {
 
         dialog.add(new JScrollPane(contentArea), BorderLayout.CENTER);
 
-        JButton closeButton = new JButton(SwingMessages.text("dialog.close"));
+        JButton closeButton = new JButton(I18nSwing.text("dialog.close"));
         closeButton.addActionListener(_ -> dialog.dispose());
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -443,7 +443,7 @@ public final class DialogsSwing {
             JFileChooser chooser =
                     createFileChooser(description, extension, defaultName);
 
-            chooser.setDialogTitle(SwingMessages.text("dialog.save_file"));
+            chooser.setDialogTitle(I18nSwing.text("dialog.save_file"));
 
             if (initialDirectory != null && initialDirectory.exists()) {
                 chooser.setCurrentDirectory(initialDirectory);
@@ -461,11 +461,11 @@ public final class DialogsSwing {
                 if (file.exists()) {
                     int response = JOptionPane.showConfirmDialog(
                             parent,
-                            SwingMessages.text(
+                            I18nSwing.text(
                                     "dialog.confirm_overwrite_message",
                                     file.getName()
                             ),
-                            SwingMessages.text("dialog.confirm_overwrite_title"),
+                            I18nSwing.text("dialog.confirm_overwrite_title"),
                             JOptionPane.YES_NO_OPTION,
                             JOptionPane.WARNING_MESSAGE
                     );
@@ -556,7 +556,7 @@ public final class DialogsSwing {
             JFileChooser chooser =
                     createFileChooser(description, extension, null);
 
-            chooser.setDialogTitle(SwingMessages.text("dialog.open_file"));
+            chooser.setDialogTitle(I18nSwing.text("dialog.open_file"));
 
             if (initialDirectory != null && initialDirectory.exists()) {
                 chooser.setCurrentDirectory(initialDirectory);
@@ -702,7 +702,7 @@ public final class DialogsSwing {
      */
     private static String generateFilterDescription(String extension) {
         return (extension != null && !extension.isBlank())
-                ? SwingMessages.text(
+                ? I18nSwing.text(
                 "dialog.files_filter",
                 extension.toLowerCase(Locale.ROOT)
         )

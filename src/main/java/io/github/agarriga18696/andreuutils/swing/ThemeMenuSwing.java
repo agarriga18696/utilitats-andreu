@@ -89,7 +89,7 @@ public final class ThemeMenuSwing {
         );
 
         JMenu themeMenu = MenusSwing.menu(
-                SwingMessages.text("menu.themes"),
+                I18nSwing.text("menu.themes"),
                 IconesSwing.carregar(IconesSwing.TEMES),
                 KeyEvent.VK_T
         );
