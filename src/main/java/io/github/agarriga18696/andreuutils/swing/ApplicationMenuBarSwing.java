@@ -243,6 +243,7 @@ public final class ApplicationMenuBarSwing {
             JMenuItem homeItem =
                     MenusSwing.item(
                             I18nSwing.text("menu.home"),
+                            IconsSwing.load(IconsFugue.HOME),
                             onHome
                     );
 
@@ -257,6 +258,7 @@ public final class ApplicationMenuBarSwing {
             JMenuItem exitItem =
                     MenusSwing.item(
                             I18nSwing.text("menu.exit_desktop"),
+                            IconsSwing.load(IconsFugue.DOOR_OPEN_OUT),
                             onExit
                     );
 
@@ -302,6 +304,7 @@ public final class ApplicationMenuBarSwing {
             JMenuItem aboutItem =
                     MenusSwing.item(
                             I18nSwing.text("menu.about"),
+                            IconsSwing.load(IconsFugue.QUESTION),
                             onAbout
                     );
 
