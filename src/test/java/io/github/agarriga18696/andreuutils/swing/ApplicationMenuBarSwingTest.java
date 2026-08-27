@@ -119,4 +119,122 @@ class ApplicationMenuBarSwingTest {
                 menuBar.getMenu(3).getItem(0).getText()
         );
     }
+
+    @Test
+    void addsCustomFileMenuItemsBeforeExitSeparator() {
+
+        JMenuBar menuBar =
+                ApplicationMenuBarSwing.builder(new JPanel())
+                        .onHome(() -> {
+                        })
+                        .onExit(() -> {
+                        })
+                        .onAbout(() -> {
+                        })
+                        .configureFileMenu(menu ->
+                                menu.add(
+                                        MenusSwing.item(
+                                                "Custom action",
+                                                () -> {
+                                                }
+                                        )
+                                )
+                        )
+                        .build();
+
+        JMenu fileMenu = menuBar.getMenu(0);
+
+        assertEquals("Home", fileMenu.getItem(0).getText());
+        assertEquals("Custom action", fileMenu.getItem(1).getText());
+        assertNull(fileMenu.getItem(2));
+        assertEquals(
+                "Exit to desktop",
+                fileMenu.getItem(3).getText()
+        );
+    }
+
+    @Test
+    void addsCustomViewMenuItemsAfterThemes() {
+
+        JMenuBar menuBar =
+                ApplicationMenuBarSwing.builder(new JPanel())
+                        .onHome(() -> {
+                        })
+                        .onExit(() -> {
+                        })
+                        .onAbout(() -> {
+                        })
+                        .configureViewMenu(menu ->
+                                menu.add(
+                                        MenusSwing.item(
+                                                "Custom view",
+                                                () -> {
+                                                }
+                                        )
+                                )
+                        )
+                        .build();
+
+        JMenu viewMenu = menuBar.getMenu(1);
+
+        assertEquals("Themes", viewMenu.getItem(0).getText());
+        assertEquals("Custom view", viewMenu.getItem(1).getText());
+    }
+
+    @Test
+    void addsCustomSettingsMenuItemsAfterLanguage() {
+
+        JMenuBar menuBar =
+                ApplicationMenuBarSwing.builder(new JPanel())
+                        .onHome(() -> {
+                        })
+                        .onExit(() -> {
+                        })
+                        .onAbout(() -> {
+                        })
+                        .configureSettingsMenu(menu ->
+                                menu.add(
+                                        MenusSwing.item(
+                                                "Custom setting",
+                                                () -> {
+                                                }
+                                        )
+                                )
+                        )
+                        .build();
+
+        JMenu settingsMenu = menuBar.getMenu(2);
+
+        assertEquals("Language", settingsMenu.getItem(0).getText());
+        assertEquals("Custom setting", settingsMenu.getItem(1).getText());
+    }
+
+    @Test
+    void addsCustomHelpMenuItemsBeforeAboutSeparator() {
+
+        JMenuBar menuBar =
+                ApplicationMenuBarSwing.builder(new JPanel())
+                        .onHome(() -> {
+                        })
+                        .onExit(() -> {
+                        })
+                        .onAbout(() -> {
+                        })
+                        .configureHelpMenu(menu ->
+                                menu.add(
+                                        MenusSwing.item(
+                                                "Documentation",
+                                                () -> {
+                                                }
+                                        )
+                                )
+                        )
+                        .build();
+
+        JMenu helpMenu = menuBar.getMenu(3);
+
+        assertEquals("Documentation", helpMenu.getItem(0).getText());
+        assertNull(helpMenu.getItem(1));
+        assertEquals("About...", helpMenu.getItem(2).getText());
+    }
 }

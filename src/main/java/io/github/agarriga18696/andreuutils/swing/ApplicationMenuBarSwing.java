@@ -5,12 +5,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import java.awt.Component;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 /**
  * Utility for building a standard application menu bar.
  *
  * @author Andreu
- * @version 1.0
+ * @version 1.1
  */
 public final class ApplicationMenuBarSwing {
 
@@ -39,9 +40,15 @@ public final class ApplicationMenuBarSwing {
     public static final class Builder {
 
         private final Component componentToUpdate;
+
         private Runnable onHome;
         private Runnable onExit;
         private Runnable onAbout;
+
+        private Consumer<JMenu> fileMenuConfigurator;
+        private Consumer<JMenu> viewMenuConfigurator;
+        private Consumer<JMenu> settingsMenuConfigurator;
+        private Consumer<JMenu> helpMenuConfigurator;
 
         private Builder(Component componentToUpdate) {
 
@@ -49,6 +56,74 @@ public final class ApplicationMenuBarSwing {
                     componentToUpdate,
                     "The component to update cannot be null."
             );
+        }
+
+        /**
+         * Sets a configurator for adding application-specific items
+         * to the File menu.
+         *
+         * @param configurator File menu configurator.
+         * @return This builder.
+         */
+        public Builder configureFileMenu(Consumer<JMenu> configurator) {
+
+            this.fileMenuConfigurator = Objects.requireNonNull(
+                    configurator,
+                    "The File menu configurator cannot be null."
+            );
+
+            return this;
+        }
+
+        /**
+         * Sets a configurator for adding application-specific items
+         * to the View menu.
+         *
+         * @param configurator View menu configurator.
+         * @return This builder.
+         */
+        public Builder configureViewMenu(Consumer<JMenu> configurator) {
+
+            this.viewMenuConfigurator = Objects.requireNonNull(
+                    configurator,
+                    "The View menu configurator cannot be null."
+            );
+
+            return this;
+        }
+
+        /**
+         * Sets a configurator for adding application-specific items
+         * to the Settings menu.
+         *
+         * @param configurator Settings menu configurator.
+         * @return This builder.
+         */
+        public Builder configureSettingsMenu(Consumer<JMenu> configurator) {
+
+            this.settingsMenuConfigurator = Objects.requireNonNull(
+                    configurator,
+                    "The Settings menu configurator cannot be null."
+            );
+
+            return this;
+        }
+
+        /**
+         * Sets a configurator for adding application-specific items
+         * to the Help menu.
+         *
+         * @param configurator Help menu configurator.
+         * @return This builder.
+         */
+        public Builder configureHelpMenu(Consumer<JMenu> configurator) {
+
+            this.helpMenuConfigurator = Objects.requireNonNull(
+                    configurator,
+                    "The Help menu configurator cannot be null."
+            );
+
+            return this;
         }
 
         /**
@@ -137,6 +212,10 @@ public final class ApplicationMenuBarSwing {
 
             fileMenu.add(homeItem);
 
+            if (fileMenuConfigurator != null) {
+                fileMenuConfigurator.accept(fileMenu);
+            }
+
             fileMenu.addSeparator();
 
             JMenuItem exitItem =
@@ -153,13 +232,29 @@ public final class ApplicationMenuBarSwing {
                     ThemeMenuSwing.create(componentToUpdate)
             );
 
+            if (viewMenuConfigurator != null) {
+                viewMenuConfigurator.accept(viewMenu);
+            }
+
             JMenu settingsMenu = MenusSwing.menu(I18nSwing.text("menu.settings"));
 
             settingsMenu.add(
                     LanguageMenuSwing.create()
             );
 
+            if (settingsMenuConfigurator != null) {
+                settingsMenuConfigurator.accept(settingsMenu);
+            }
+
             JMenu helpMenu = MenusSwing.menu(I18nSwing.text("menu.help"));
+
+            if (helpMenuConfigurator != null) {
+                helpMenuConfigurator.accept(helpMenu);
+            }
+
+            if (helpMenu.getItemCount() > 0) {
+                helpMenu.addSeparator();
+            }
 
             JMenuItem aboutItem =
                     MenusSwing.item(
