@@ -21,11 +21,13 @@ La branca `v6` introdueix una reorganització completa de l'API: paquets i class
 > La branca `v6` correspon actualment a **`6.0.0`**.
 > És una versió amb canvis incompatibles respecte de la sèrie 5.x.
 
-La darrera versió publicada de la sèrie anterior és:
+La versió actual és:
+
+- **v6.0.0** — [Descàrrega directa del JAR](https://github.com/agarriga18696/utilitats-andreu/releases/download/v6.0.0/andreu-utils-6.0.0.jar)
+
+La darrera versió de la sèrie anterior és:
 
 - **v5.1.8** — [Descàrrega directa del JAR](https://github.com/agarriga18696/utilitats-andreu/releases/download/v5.1.8/utilitats-andreu-5.1.8.jar)
-
-Quan es publiqui `6.0.0`, aquesta secció s'haurà d'actualitzar amb el JAR definitiu.
 
 ---
 
