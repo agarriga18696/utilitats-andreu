@@ -1,4 +1,4 @@
-package aplicaciogui;
+package io.github.agarriga18696.andreuutils.swing;
 
 /**
  * Catàleg de constants per a les icones de joc (Game Icons).

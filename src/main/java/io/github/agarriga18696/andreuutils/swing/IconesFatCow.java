@@ -1,4 +1,4 @@
-package aplicaciogui;
+package io.github.agarriga18696.andreuutils.swing;
 
 /**
  * Catàleg generat automàticament amb totes les icones FatCow incloses a la llibreria.

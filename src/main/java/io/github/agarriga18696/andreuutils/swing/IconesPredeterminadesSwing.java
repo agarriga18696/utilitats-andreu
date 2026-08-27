@@ -1,10 +1,10 @@
-package aplicaciogui;
+package io.github.agarriga18696.andreuutils.swing;
 
 /**
  * @deprecated Classe eliminada. Tota la funcionalitat s'ha fusionat a {@link IconesSwing}.
  *             Elimina aquest fitxer del projecte.
  */
 @Deprecated(forRemoval = true)
-final class IconesPaquetSwing {
-	private IconesPaquetSwing() {}
+final class IconesPredeterminadesSwing {
+	private IconesPredeterminadesSwing() {}
 }

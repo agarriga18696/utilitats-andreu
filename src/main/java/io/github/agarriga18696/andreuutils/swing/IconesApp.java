@@ -1,4 +1,4 @@
-package aplicaciogui;
+package io.github.agarriga18696.andreuutils.swing;
 
 import java.awt.Image;
 import java.net.URL;
@@ -30,7 +30,7 @@ public final class IconesApp {
 	// CONSTANTS
 	//-------------------------------
 
-	private static final String RUTA = "/aplicaciogui/recursos/icones/app/andreu-";
+	private static final String RUTA = "/io/github/agarriga18696/andreuutils/icons/app/andreu-";
 	private static final int[] MIDES = { 16, 32, 64, 128, 256, 512 };
 
 	//-------------------------------

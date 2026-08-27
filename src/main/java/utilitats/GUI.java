@@ -7,8 +7,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import aplicaciogui.FinestresSwing;
-import aplicaciogui.PanellsSwing;
+import io.github.agarriga18696.andreuutils.swing.FinestresSwing;
+import io.github.agarriga18696.andreuutils.swing.PanellsSwing;
 
 /**
  * Façana de compatibilitat per a utilitats Swing antigues.
@@ -22,7 +22,7 @@ import aplicaciogui.PanellsSwing;
  * @version 1.0
  * 
  * @deprecated Des de la versió 4.3. Utilitza les classes específiques del paquet
- * 				{@code aplicaciogui} en lloc d'aquesta façana.
+ * 				{@code io.github.agarriga18696.andreuutils.swing} en lloc d'aquesta façana.
  */
 @Deprecated(since = "4.3", forRemoval = false)
 public final class GUI {

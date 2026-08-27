@@ -1,4 +1,4 @@
-package aplicaciogui;
+package io.github.agarriga18696.andreuutils.swing;
 
 /**
  * Representa un Look and Feel disponible per a una aplicació Swing.

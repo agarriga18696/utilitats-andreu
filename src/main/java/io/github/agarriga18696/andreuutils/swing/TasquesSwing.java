@@ -1,4 +1,4 @@
-package aplicaciogui;
+package io.github.agarriga18696.andreuutils.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Component;

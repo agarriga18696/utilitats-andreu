@@ -1,4 +1,4 @@
-package aplicaciogui;
+package io.github.agarriga18696.andreuutils.swing;
 
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -36,16 +36,16 @@ public final class IconesSwing {
 	private static final Map<ClauCache, Icon> CACHE = new ConcurrentHashMap<>();
 
 	/* Ruta interna de les icones Fugue dins el .jar de la llibreria. */
-	private static final String RUTA_ICONES_INTERNES = "/aplicaciogui/recursos/icones/fugue/";
+	private static final String RUTA_ICONES_INTERNES = "/io/github/agarriga18696/andreuutils/icons/fugue/";
 
 	/* Ruta interna de les icones FatCow dins el .jar de la llibreria. */
-	private static final String RUTA_ICONES_FATCOW = "/aplicaciogui/recursos/icones/fatcow/";
+	private static final String RUTA_ICONES_FATCOW = "/io/github/agarriga18696/andreuutils/icons/fatcow/";
 
 	/* Ruta interna de les icones de banderes dins el .jar de la llibreria. */
-	private static final String RUTA_ICONES_BANDERES = "/aplicaciogui/recursos/icones/flagicons/";
+	private static final String RUTA_ICONES_BANDERES = "/io/github/agarriga18696/andreuutils/icons/flagicons/";
 
 	/* Ruta interna de les icones de joc (Game Icons, 512×512) dins el .jar. */
-	private static final String RUTA_ICONES_GAME = "/aplicaciogui/recursos/icones/game/";
+	private static final String RUTA_ICONES_GAME = "/io/github/agarriga18696/andreuutils/icons/game/";
 
 	private IconesSwing() {
 		/*
