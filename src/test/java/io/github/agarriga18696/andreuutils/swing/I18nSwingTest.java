@@ -155,4 +155,52 @@ class I18nSwingTest {
         );
     }
 
+    @Test
+    void loadsEnglishApplicationMenuTexts() {
+
+        LanguageManager.setLanguage(Language.ENGLISH);
+
+        assertEquals(
+                "File",
+                I18nSwing.text("menu.file")
+        );
+
+        assertEquals(
+                "Help",
+                I18nSwing.text("menu.help")
+        );
+    }
+
+    @Test
+    void loadsSpanishApplicationMenuTexts() {
+
+        LanguageManager.setLanguage(Language.SPANISH);
+
+        assertEquals(
+                "Archivo",
+                I18nSwing.text("menu.file")
+        );
+
+        assertEquals(
+                "Ayuda",
+                I18nSwing.text("menu.help")
+        );
+    }
+
+    @Test
+    void loadsCatalanApplicationMenuTexts() {
+
+        LanguageManager.setLanguage(Language.CATALAN);
+
+        assertEquals(
+                "Fitxer",
+                I18nSwing.text("menu.file")
+        );
+
+        assertEquals(
+                "Ajuda",
+                I18nSwing.text("menu.help")
+        );
+    }
+
 }
