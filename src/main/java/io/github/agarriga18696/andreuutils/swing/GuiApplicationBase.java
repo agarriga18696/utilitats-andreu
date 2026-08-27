@@ -3,6 +3,8 @@ package io.github.agarriga18696.andreuutils.swing;
 import io.github.agarriga18696.andreuutils.core.Language;
 import io.github.agarriga18696.andreuutils.core.LanguageManager;
 
+import java.awt.Component;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,7 +19,7 @@ import javax.swing.SwingUtilities;
  * before initialization.
  *
  * @author Andreu
- * @version 2.0
+ * @version 2.1
  */
 public abstract class GuiApplicationBase {
 
@@ -39,6 +41,19 @@ public abstract class GuiApplicationBase {
      */
     protected Language language() {
         return Language.ENGLISH;
+    }
+
+    /**
+     * Creates a builder for the standard application menu bar.
+     *
+     * @param componentToUpdate Component updated when the theme changes.
+     * @return Application menu bar builder.
+     */
+    protected final ApplicationMenuBarSwing.Builder applicationMenuBar(
+            Component componentToUpdate
+    ) {
+
+        return ApplicationMenuBarSwing.builder(componentToUpdate);
     }
 
     // ----------------------------------------
