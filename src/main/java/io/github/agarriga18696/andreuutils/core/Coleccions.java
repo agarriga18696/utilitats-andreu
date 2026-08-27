@@ -52,7 +52,7 @@ public final class Coleccions {
 	public static List<Integer> generarAleatoris(int quantitat, int min, int max) {
 		List<Integer> coleccio = new ArrayList<>();
 		for(int i = 0; i < quantitat; i++) {
-			coleccio.add(Aleatori.enter(min, max));
+			coleccio.add(RandomUtils.integer(min, max));
 		}
 		return coleccio;
 	}
@@ -68,7 +68,7 @@ public final class Coleccions {
 	public static List<Double> generarAleatoris(int quantitat, double min, double max) {
 		List<Double> coleccio = new ArrayList<>();
 		for(int i = 0; i < quantitat; i++) {
-			coleccio.add(Aleatori.decimal(min, max));
+			coleccio.add(RandomUtils.decimal(min, max));
 		}
 		return coleccio;
 	}

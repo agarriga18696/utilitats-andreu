@@ -21,7 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import io.github.agarriga18696.andreuutils.core.Arrays;
+import io.github.agarriga18696.andreuutils.core.ArrayUtils;
 
 /**
  * Classe d'utilitat per mostrar diàlegs Swing.
@@ -301,7 +301,7 @@ public final class DialegsSwing {
 
 		AtomicReference<String> resultat = new AtomicReference<>();
 
-		if(Arrays.esBuit(opcions)) {
+		if(ArrayUtils.isEmpty(opcions)) {
 			return Optional.empty();
 		}
 
