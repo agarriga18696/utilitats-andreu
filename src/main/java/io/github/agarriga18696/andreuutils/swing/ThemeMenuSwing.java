@@ -2,7 +2,7 @@ package io.github.agarriga18696.andreuutils.swing;
 
 import java.awt.Component;
 import java.awt.event.KeyEvent;
-
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -11,11 +11,14 @@ import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JRadioButtonMenuItem;
 
+import io.github.agarriga18696.andreuutils.core.Language;
+import io.github.agarriga18696.andreuutils.core.LanguageManager;
+
 /**
  * Utility class for creating Look and Feel theme selection menus.
  *
  * @author Andreu
- * @version 2.0
+ * @version 2.1
  */
 public final class ThemeMenuSwing {
 
@@ -34,9 +37,15 @@ public final class ThemeMenuSwing {
      * @param componentToUpdate Main component to update after applying a theme.
      * @return Created theme menu.
      */
-    public static JMenu create(Component componentToUpdate) {
-        return create(componentToUpdate, _ -> {
-        });
+    public static JMenu create(
+            Component componentToUpdate
+    ) {
+
+        return create(
+                componentToUpdate,
+                _ -> {
+                }
+        );
     }
 
     /**
@@ -57,10 +66,11 @@ public final class ThemeMenuSwing {
                 "The theme-applied action cannot be null."
         );
 
-        return create(
+        return createMenu(
                 componentToUpdate,
                 LookAndFeelSwing.getPredefinedThemes(),
-                onThemeApplied
+                onThemeApplied,
+                true
         );
     }
 
@@ -88,16 +98,39 @@ public final class ThemeMenuSwing {
                 "The theme-applied action cannot be null."
         );
 
+        return createMenu(
+                componentToUpdate,
+                themes,
+                onThemeApplied,
+                false
+        );
+    }
+
+    // ----------------------------------------
+    // PRIVATE METHODS
+    // ----------------------------------------
+
+    private static JMenu createMenu(
+            Component componentToUpdate,
+            List<LookAndFeelThemeSwing> themes,
+            Consumer<String> onThemeApplied,
+            boolean localizeSystemTheme
+    ) {
+
         JMenu themeMenu = MenusSwing.menu(
                 I18nSwing.text("menu.themes"),
                 IconsSwing.load(IconsFugue.PALETTE),
                 KeyEvent.VK_T
         );
 
-        ButtonGroup themeGroup = new ButtonGroup();
+        ButtonGroup themeGroup =
+                new ButtonGroup();
 
         String currentClassName =
                 LookAndFeelSwing.getCurrentClassName();
+
+        JRadioButtonMenuItem systemItem =
+                null;
 
         for (LookAndFeelThemeSwing theme : themes) {
 
@@ -105,34 +138,48 @@ public final class ThemeMenuSwing {
                     theme.className().equals(currentClassName);
 
             boolean compatible =
-                    LookAndFeelSwing.isCompatible(theme.className());
+                    LookAndFeelSwing.isCompatible(
+                            theme.className()
+                    );
 
-            JRadioButtonMenuItem item = MenusSwing.radioItem(
-                    theme.name(),
-                    selected,
-                    () -> applyTheme(
-                            componentToUpdate,
-                            theme,
-                            onThemeApplied
+            JRadioButtonMenuItem item =
+                    MenusSwing.radioItem(
+                            theme.name(),
+                            selected,
+                            () -> applyTheme(
+                                    componentToUpdate,
+                                    theme,
+                                    onThemeApplied
+                            )
+                    );
+
+            item.setIcon(
+                    IconsSwing.load(
+                            theme.icon()
                     )
             );
 
-            item.setIcon(
-                    IconsSwing.load(theme.icon())
-            );
-
             item.setEnabled(compatible);
+
+            if (localizeSystemTheme
+                    && theme.name().equals(I18nSwing.text("theme.system"))) {
+
+                systemItem = item;
+            }
 
             themeGroup.add(item);
             themeMenu.add(item);
         }
 
+        LanguageManager.addLanguageChangeListener(
+                new ThemeMenuLanguageListener(
+                        themeMenu,
+                        systemItem
+                )
+        );
+
         return themeMenu;
     }
-
-    // ----------------------------------------
-    // PRIVATE METHODS
-    // ----------------------------------------
 
     private static void applyTheme(
             Component componentToUpdate,
@@ -145,9 +192,67 @@ public final class ThemeMenuSwing {
         }
 
         if (LookAndFeelSwing.apply(theme.className())) {
-            LookAndFeelSwing.update(componentToUpdate);
-            onThemeApplied.accept(theme.name());
+
+            LookAndFeelSwing.update(
+                    componentToUpdate
+            );
+
+            onThemeApplied.accept(
+                    theme.name()
+            );
         }
     }
+
+    // ----------------------------------------
+    // LANGUAGE LISTENER
+    // ----------------------------------------
+
+    private record ThemeMenuLanguageListener(WeakReference<JMenu> menuReference,
+                                             WeakReference<JRadioButtonMenuItem> systemItemReference)
+                implements Consumer<Language> {
+
+            private ThemeMenuLanguageListener(
+                    JMenu themeMenu,
+                    JRadioButtonMenuItem systemItem
+            ) {
+
+                this(new WeakReference<>(themeMenu), new WeakReference<>(systemItem));
+            }
+
+            @Override
+            public void accept(
+                    Language language
+            ) {
+
+                JMenu themeMenu =
+                        menuReference.get();
+
+                if (themeMenu == null) {
+
+                    LanguageManager.removeLanguageChangeListener(
+                            this
+                    );
+
+                    return;
+                }
+
+                JRadioButtonMenuItem systemItem =
+                        systemItemReference.get();
+
+                EdtSwing.runAndWait(() -> {
+
+                    themeMenu.setText(
+                            I18nSwing.text("menu.themes")
+                    );
+
+                    if (systemItem != null) {
+
+                        systemItem.setText(
+                                I18nSwing.text("theme.system")
+                        );
+                    }
+                });
+            }
+        }
 
 }
