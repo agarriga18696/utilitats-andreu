@@ -16,7 +16,7 @@ Llibreria Java per crear **aplicacions de consola i aplicacions gràfiques Swing
 ## Descàrrega :arrow_down:
 
 > [!NOTE]
-> **Versió actual: `5.1.7`** → [Descàrrega directa del jar](https://github.com/agarriga18696/utilitats-andreu/releases/download/v5.1.7/utilitats-andreu-5.1.7.jar)
+> **Versió actual: `5.1.8`** → [Descàrrega directa del jar](https://github.com/agarriga18696/utilitats-andreu/releases/download/v5.1.8/utilitats-andreu-5.1.8.jar)
 
 ---
 
