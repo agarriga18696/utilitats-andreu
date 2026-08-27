@@ -108,4 +108,41 @@ class LanguageMenuSwingTest {
         );
     }
 
+    @Test
+    void refreshesMenuWhenLanguageChangesExternally() {
+
+        LanguageManager.setLanguage(Language.ENGLISH);
+
+        JMenu menu =
+                LanguageMenuSwing.create();
+
+        LanguageManager.setLanguage(
+                Language.CATALAN
+        );
+
+        assertEquals(
+                "Idioma",
+                menu.getText()
+        );
+
+        assertEquals(
+                "Anglès",
+                menu.getItem(0).getText()
+        );
+
+        assertEquals(
+                "Espanyol",
+                menu.getItem(1).getText()
+        );
+
+        assertEquals(
+                "Català",
+                menu.getItem(2).getText()
+        );
+
+        assertTrue(
+                menu.getItem(2).isSelected()
+        );
+    }
+
 }
