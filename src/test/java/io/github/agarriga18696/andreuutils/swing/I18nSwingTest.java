@@ -77,4 +77,82 @@ class I18nSwingTest {
         );
     }
 
+    @Test
+    void loadsEnglishLanguageMenuTexts() {
+
+        LanguageManager.setLanguage(Language.ENGLISH);
+
+        assertEquals(
+                "Language",
+                I18nSwing.text("menu.language")
+        );
+
+        assertEquals(
+                "English",
+                I18nSwing.text("language.english")
+        );
+
+        assertEquals(
+                "Spanish",
+                I18nSwing.text("language.spanish")
+        );
+
+        assertEquals(
+                "Catalan",
+                I18nSwing.text("language.catalan")
+        );
+    }
+
+    @Test
+    void loadsSpanishLanguageMenuTexts() {
+
+        LanguageManager.setLanguage(Language.SPANISH);
+
+        assertEquals(
+                "Idioma",
+                I18nSwing.text("menu.language")
+        );
+
+        assertEquals(
+                "Inglés",
+                I18nSwing.text("language.english")
+        );
+
+        assertEquals(
+                "Español",
+                I18nSwing.text("language.spanish")
+        );
+
+        assertEquals(
+                "Catalán",
+                I18nSwing.text("language.catalan")
+        );
+    }
+
+    @Test
+    void loadsCatalanLanguageMenuTexts() {
+
+        LanguageManager.setLanguage(Language.CATALAN);
+
+        assertEquals(
+                "Idioma",
+                I18nSwing.text("menu.language")
+        );
+
+        assertEquals(
+                "Anglès",
+                I18nSwing.text("language.english")
+        );
+
+        assertEquals(
+                "Espanyol",
+                I18nSwing.text("language.spanish")
+        );
+
+        assertEquals(
+                "Català",
+                I18nSwing.text("language.catalan")
+        );
+    }
+
 }
