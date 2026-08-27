@@ -203,4 +203,40 @@ class I18nSwingTest {
         );
     }
 
+    @Test
+    void loadsEnglishBaseMenuTexts() {
+
+        LanguageManager.setLanguage(Language.ENGLISH);
+
+        assertEquals("View", I18nSwing.text("menu.view"));
+        assertEquals("Settings", I18nSwing.text("menu.settings"));
+        assertEquals("Home", I18nSwing.text("menu.home"));
+        assertEquals("Exit to desktop", I18nSwing.text("menu.exit_desktop"));
+        assertEquals("About...", I18nSwing.text("menu.about"));
+    }
+
+    @Test
+    void loadsSpanishBaseMenuTexts() {
+
+        LanguageManager.setLanguage(Language.SPANISH);
+
+        assertEquals("Ver", I18nSwing.text("menu.view"));
+        assertEquals("Configuración", I18nSwing.text("menu.settings"));
+        assertEquals("Inicio", I18nSwing.text("menu.home"));
+        assertEquals("Salir al escritorio", I18nSwing.text("menu.exit_desktop"));
+        assertEquals("Acerca de...", I18nSwing.text("menu.about"));
+    }
+
+    @Test
+    void loadsCatalanBaseMenuTexts() {
+
+        LanguageManager.setLanguage(Language.CATALAN);
+
+        assertEquals("Visualitza", I18nSwing.text("menu.view"));
+        assertEquals("Configuració", I18nSwing.text("menu.settings"));
+        assertEquals("Inici", I18nSwing.text("menu.home"));
+        assertEquals("Sortir a l'escriptori", I18nSwing.text("menu.exit_desktop"));
+        assertEquals("Quant a...", I18nSwing.text("menu.about"));
+    }
+
 }
