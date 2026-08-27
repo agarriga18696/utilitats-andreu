@@ -18,279 +18,383 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 /**
- * Classe d'utilitat per crear components Swing comuns.
- * 
+ * Utility class for creating common Swing components.
+ *
  * @author Andreu
- * @version 1.4
+ * @version 2.0
  */
 public final class ComponentsSwing {
 
-	private ComponentsSwing() {
-		/*
-		 * Classe d'utilitat no instanciable.
-		 */
-	}
+    private ComponentsSwing() {
+        // Utility class
+    }
 
-	//-------------------------------
-	// BOTONS
-	//-------------------------------
+    // ----------------------------------------
+    // BUTTONS
+    // ----------------------------------------
 
-	/**
-	 * Retorna un {@code JButton} amb el text indicat.
-	 * 
-	 * @param text Text del botó.
-	 * @return Botó creat.
-	 */
-	public static JButton boto(String text) {
-		return new JButton(text);
-	}
+    /**
+     * Creates a {@link JButton} with the specified text.
+     *
+     * @param text Button text.
+     * @return Created button.
+     */
+    public static JButton button(String text) {
+        return new JButton(text);
+    }
 
-	/**
-	 * Retorna un {@code JButton} amb el text indicat i una acció associada a l'esdeveniment de clic.
-	 *  
-	 * @param text Text del botó.
-	 * @param accio Acció a executar quan es faci clic al botó.
-	 * @return Botó creat amb acció associada.
-	 */
-	public static JButton boto(String text, Runnable accio) {
-		Objects.requireNonNull(accio, "L'acció no pot ser null.");
+    /**
+     * Creates a {@link JButton} with the specified text and action.
+     *
+     * @param text   Button text.
+     * @param action Action executed when the button is clicked.
+     * @return Created button.
+     */
+    public static JButton button(
+            String text,
+            Runnable action
+    ) {
 
-		JButton boto = new JButton(text);
-		boto.addActionListener(_ -> accio.run());
+        Objects.requireNonNull(
+                action,
+                "Action cannot be null."
+        );
 
-		return boto;
-	}
+        JButton button = new JButton(text);
 
-	/**
-	 * Retorna un {@code JButton} amb text, icona i acció.
-	 * 
-	 * @param text Text del botó.
-	 * @param icona Icona del botó.
-	 * @param accio Acció a executar quan es faci clic al botó.
-	 * @return Botó creat amb icona i acció associada.
-	 */
-	public static JButton boto(String text, Icon icona, Runnable accio) {
-		Objects.requireNonNull(accio, "L'acció no pot ser null.");
+        button.addActionListener(
+                _ -> action.run()
+        );
 
-		JButton boto = new JButton(text, icona);
-		boto.addActionListener(_ -> accio.run());
+        return button;
+    }
 
-		return boto;
-	}
+    /**
+     * Creates a {@link JButton} with text, icon and action.
+     *
+     * @param text   Button text.
+     * @param icon   Button icon.
+     * @param action Action executed when the button is clicked.
+     * @return Created button.
+     */
+    public static JButton button(
+            String text,
+            Icon icon,
+            Runnable action
+    ) {
 
-	/**
-	 * Retorna un {@code JButton} amb text, mnemònic i acció.
-	 *
-	 * @param text     Text del botó.
-	 * @param mnemonic Codi de tecla mnemònica (p. ex. {@link java.awt.event.KeyEvent#VK_J}).
-	 * @param accio    Acció a executar quan es faci clic al botó.
-	 * @return Botó creat amb mnemònic i acció associada.
-	 */
-	public static JButton boto(String text, int mnemonic, Runnable accio) {
-		Objects.requireNonNull(accio, "L'acció no pot ser null.");
+        Objects.requireNonNull(
+                action,
+                "Action cannot be null."
+        );
 
-		JButton boto = new JButton(text);
-		boto.setMnemonic(mnemonic);
-		boto.addActionListener(_ -> accio.run());
+        JButton button =
+                new JButton(
+                        text,
+                        icon
+                );
 
-		return boto;
-	}
+        button.addActionListener(
+                _ -> action.run()
+        );
 
-	/**
-	 * Retorna un {@code JButton} amb text, icona, mnemònic i acció.
-	 *
-	 * @param text     Text del botó.
-	 * @param icona    Icona del botó.
-	 * @param mnemonic Codi de tecla mnemònica (p. ex. {@link java.awt.event.KeyEvent#VK_J}).
-	 * @param accio    Acció a executar quan es faci clic al botó.
-	 * @return Botó creat amb icona, mnemònic i acció associada.
-	 */
-	public static JButton boto(String text, Icon icona, int mnemonic, Runnable accio) {
-		Objects.requireNonNull(accio, "L'acció no pot ser null.");
+        return button;
+    }
 
-		JButton boto = new JButton(text, icona);
-		boto.setMnemonic(mnemonic);
-		boto.addActionListener(_ -> accio.run());
+    /**
+     * Creates a {@link JButton} with text, mnemonic and action.
+     *
+     * @param text     Button text.
+     * @param mnemonic Mnemonic key code.
+     * @param action   Action executed when the button is clicked.
+     * @return Created button.
+     */
+    public static JButton button(
+            String text,
+            int mnemonic,
+            Runnable action
+    ) {
 
-		return boto;
-	}
+        Objects.requireNonNull(
+                action,
+                "Action cannot be null."
+        );
 
-	/**
-	 * Retorna un {@code JButton} amb el text indicat i una acció associada a l'esdeveniment de clic.
-	 * 
-	 * @param text Text del botó.
-	 * @param listener ActionListener a executar quan es faci clic al botó.
-	 * @return Botó creat amb ActionListener associat.
-	 */
-	public static JButton boto(String text, ActionListener listener) {
-		Objects.requireNonNull(listener, "L'ActionListener no pot ser null.");
+        JButton button = new JButton(text);
 
-		JButton boto = new JButton(text);
-		boto.addActionListener(listener);
+        button.setMnemonic(mnemonic);
 
-		return boto;
-	}
+        button.addActionListener(
+                _ -> action.run()
+        );
 
-	//-------------------------------
-	// ETIQUETES
-	//-------------------------------
+        return button;
+    }
 
-	/**
-	 * Retorna un {@code JLabel} amb el text indicat.
-	 * 
-	 * @param text Text de l'etiqueta.
-	 * @return Etiqueta creada.
-	 */
-	public static JLabel etiqueta(String text) {
-		return new JLabel(text);
-	}
+    /**
+     * Creates a {@link JButton} with text, icon, mnemonic and action.
+     *
+     * @param text     Button text.
+     * @param icon     Button icon.
+     * @param mnemonic Mnemonic key code.
+     * @param action   Action executed when the button is clicked.
+     * @return Created button.
+     */
+    public static JButton button(
+            String text,
+            Icon icon,
+            int mnemonic,
+            Runnable action
+    ) {
 
-	/**
-	 * Retorna un {@code JLabel} vinculat a un component i amb mnemònic.
-	 * 
-	 * @param text Text de l'etiqueta.
-	 * @param component Component associat a l'etiqueta.
-	 * @param mnemonic Tecla mnemònica.
-	 * @return Etiqueta configurada.
-	 */
-	public static JLabel etiquetaPer(String text, JComponent component, int mnemonic) {
-		JLabel etiqueta = etiqueta(text);
-		etiqueta.setLabelFor(component);
-		etiqueta.setDisplayedMnemonic(mnemonic);
-		return etiqueta;
-	}
+        Objects.requireNonNull(
+                action,
+                "Action cannot be null."
+        );
 
-	/**
-	 * Retorna un {@code JLabel} amb el text indicat i alineat al centre.
-	 * 
-	 * @param text Text de l'etiqueta.
-	 * @return Etiqueta creada amb alineació centrada.
-	 */
-	public static JLabel etiquetaCentrada(String text) {
-		return new JLabel(text, SwingConstants.CENTER);
-	}
+        JButton button =
+                new JButton(
+                        text,
+                        icon
+                );
 
-	/**
-	 * Retorna un {@code JLabel} amb el text indicat i alineat al final de la línia.
-	 * 
-	 * @param text Text de l'etiqueta.
-	 * @return Etiqueta creada amb alineació al final.
-	 */
-	public static JLabel etiquetaDreta(String text) {
-		return new JLabel(text, SwingConstants.TRAILING);
-	}
+        button.setMnemonic(mnemonic);
 
-	//-------------------------------
-	// CAMPS DE TEXT
-	//-------------------------------
+        button.addActionListener(
+                _ -> action.run()
+        );
 
-	/**
-	 * Retorna un {@code JTextField} amb el nombre de columnes indicat.
-	 * 
-	 * @param columnes Nombre de columnes del camp de text.
-	 * @return Camp de text creat.
-	 */
-	public static JTextField campText(int columnes) {
-		return new JTextField(columnes);
-	}
+        return button;
+    }
 
-	//-------------------------------
-	// CAMP DE CONTRASSENYA
-	//-------------------------------
+    /**
+     * Creates a {@link JButton} with the specified text and action listener.
+     *
+     * @param text     Button text.
+     * @param listener Action listener executed when the button is clicked.
+     * @return Created button.
+     */
+    public static JButton button(
+            String text,
+            ActionListener listener
+    ) {
 
-	/**
-	 * Retorna un {@code JPasswordField} amb el nombre de columnes indicat.
-	 * <p>
-	 * Per obtenir la contrasenya usa {@link JPasswordField#getPassword()},
-	 * que retorna un {@code char[]}. Un cop usada, buida l'array amb:
-	 * <pre>
-	 * 		Arrays.fill(pwd, '\0');
-	 * </pre>
-	 *
-	 * @param columnes Nombre de columnes del camp.
-	 * @return Camp de contrasenya creat.
-	 */
-	public static JPasswordField campContrasenya(int columnes) {
-		return new JPasswordField(columnes);
-	}
+        Objects.requireNonNull(
+                listener,
+                "Action listener cannot be null."
+        );
 
-	/**
-	 * Retorna un {@code JTextArea} amb el nombre de files i columnes indicat.
-	 * 
-	 * @param files Nombre de files.
-	 * @param columnes Nombre de columnes.
-	 * @return Text Area creat.
-	 */
-	public static JTextArea areaText(int files, int columnes) {
-		return new JTextArea(files, columnes);
-	}
+        JButton button = new JButton(text);
 
-	//-------------------------------
-	// CHECKBOX
-	//-------------------------------
+        button.addActionListener(listener);
 
-	/**
-	 * Retorna un {@code JCheckBox} amb el text indicat.
-	 * 
-	 * @param text Text del checkbox.
-	 * @return Checkbox creat.
-	 */
-	public static JCheckBox checkbox(String text) {
-		return new JCheckBox(text);
-	}
+        return button;
+    }
 
-	//-------------------------------
-	// COMBOBOX
-	//-------------------------------
+    // ----------------------------------------
+    // LABELS
+    // ----------------------------------------
 
-	/**
-	 * Retorna un {@code JComboBox} amb els items indicats.
-	 * 
-	 * @param <T> Tipus dels items del combo box.
-	 * @param items Array d'items que es mostraran al combo box.
-	 * @return Combo box creat amb els items indicats.
-	 */
-	public static <T> JComboBox<T> comboBox(T[] items) {
-		return new JComboBox<>(items);
-	}
+    /**
+     * Creates a {@link JLabel} with the specified text.
+     *
+     * @param text Label text.
+     * @return Created label.
+     */
+    public static JLabel label(String text) {
+        return new JLabel(text);
+    }
 
-	//-------------------------------
-	// JLIST
-	//-------------------------------
+    /**
+     * Creates a {@link JLabel} associated with a component and mnemonic.
+     *
+     * @param text      Label text.
+     * @param component Component associated with the label.
+     * @param mnemonic  Mnemonic key code.
+     * @return Configured label.
+     */
+    public static JLabel labelFor(
+            String text,
+            JComponent component,
+            int mnemonic
+    ) {
 
-	/**
-	 * Retorna una {@code JList} genèrica buida.
-	 * 
-	 * @param <T> Tipus d'element de la llista.
-	 * @return Llista creada.
-	 */
-	public static <T> JList<T> llista() {
-		return new JList<>();
-	}
+        Objects.requireNonNull(
+                component,
+                "Component cannot be null."
+        );
 
-	/**
-	 * Retorna una {@code JList} genèrica amb els elements indicats.
-	 * 
-	 * @param <T> Tipus d'element de la llista.
-	 * @param elements Array d'elements que es mostraran a la llista.
-	 * @return Llista creada amb els elements indicats.
-	 */
-	public static <T> JList<T> llista(T[] elements) {
-		return new JList<>(elements);
-	}
+        JLabel label = label(text);
 
-	//-------------------------------
-	// SCROLL
-	//-------------------------------
+        label.setLabelFor(component);
+        label.setDisplayedMnemonic(mnemonic);
 
-	/**
-	 * Retorna un {@code JScrollPane} que conté el component indicat.
-	 * 
-	 * @param component Component que es mostrarà dins el scroll.
-	 * @return ScrollPane creat.
-	 */
-	public static JScrollPane scroll(Component component) {
-		return new JScrollPane(component);
-	}
+        return label;
+    }
+
+    /**
+     * Creates a centered {@link JLabel}.
+     *
+     * @param text Label text.
+     * @return Centered label.
+     */
+    public static JLabel centeredLabel(String text) {
+        return new JLabel(
+                text,
+                SwingConstants.CENTER
+        );
+    }
+
+    /**
+     * Creates a {@link JLabel} aligned to the trailing edge.
+     *
+     * @param text Label text.
+     * @return Trailing-aligned label.
+     */
+    public static JLabel trailingLabel(String text) {
+        return new JLabel(
+                text,
+                SwingConstants.TRAILING
+        );
+    }
+
+    // ----------------------------------------
+    // TEXT COMPONENTS
+    // ----------------------------------------
+
+    /**
+     * Creates a {@link JTextField} with the specified number of columns.
+     *
+     * @param columns Number of columns.
+     * @return Created text field.
+     */
+    public static JTextField textField(int columns) {
+        return new JTextField(columns);
+    }
+
+    /**
+     * Creates a {@link JPasswordField} with the specified number of columns.
+     * <p>
+     * Use {@link JPasswordField#getPassword()} to retrieve the password as a
+     * {@code char[]}. The array should be cleared after use:
+     * <pre>
+     * Arrays.fill(password, '\0');
+     * </pre>
+     *
+     * @param columns Number of columns.
+     * @return Created password field.
+     */
+    public static JPasswordField passwordField(
+            int columns
+    ) {
+
+        return new JPasswordField(columns);
+    }
+
+    /**
+     * Creates a {@link JTextArea} with the specified number of rows and columns.
+     *
+     * @param rows    Number of rows.
+     * @param columns Number of columns.
+     * @return Created text area.
+     */
+    public static JTextArea textArea(
+            int rows,
+            int columns
+    ) {
+
+        return new JTextArea(
+                rows,
+                columns
+        );
+    }
+
+    // ----------------------------------------
+    // CHECK BOXES
+    // ----------------------------------------
+
+    /**
+     * Creates a {@link JCheckBox} with the specified text.
+     *
+     * @param text Check box text.
+     * @return Created check box.
+     */
+    public static JCheckBox checkBox(String text) {
+        return new JCheckBox(text);
+    }
+
+    // ----------------------------------------
+    // COMBO BOXES
+    // ----------------------------------------
+
+    /**
+     * Creates a {@link JComboBox} containing the specified items.
+     *
+     * @param <T>   Item type.
+     * @param items Items to display.
+     * @return Created combo box.
+     */
+    public static <T> JComboBox<T> comboBox(T[] items) {
+
+        Objects.requireNonNull(
+                items,
+                "Items cannot be null."
+        );
+
+        return new JComboBox<>(items);
+    }
+
+    // ----------------------------------------
+    // LISTS
+    // ----------------------------------------
+
+    /**
+     * Creates an empty generic {@link JList}.
+     *
+     * @param <T> Element type.
+     * @return Created list.
+     */
+    public static <T> JList<T> list() {
+        return new JList<>();
+    }
+
+    /**
+     * Creates a generic {@link JList} containing the specified elements.
+     *
+     * @param <T>      Element type.
+     * @param elements Elements to display.
+     * @return Created list.
+     */
+    public static <T> JList<T> list(T[] elements) {
+
+        Objects.requireNonNull(
+                elements,
+                "Elements cannot be null."
+        );
+
+        return new JList<>(elements);
+    }
+
+    // ----------------------------------------
+    // SCROLL PANES
+    // ----------------------------------------
+
+    /**
+     * Creates a {@link JScrollPane} containing the specified component.
+     *
+     * @param component Component displayed inside the scroll pane.
+     * @return Created scroll pane.
+     */
+    public static JScrollPane scrollPane(
+            Component component
+    ) {
+
+        Objects.requireNonNull(
+                component,
+                "Component cannot be null."
+        );
+
+        return new JScrollPane(component);
+    }
 
 }
