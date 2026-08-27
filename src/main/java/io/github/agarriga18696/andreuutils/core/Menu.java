@@ -28,7 +28,7 @@ public final class Menu {
 	 */
 	public static int mostrar(String titol, String... opcions) {
 		crearMenu(titol, opcions);
-		return Escriure.enterRang("Sel·lecciona una opció: ", 1, opcions.length);
+		return InputUtils.readIntInRange("Sel·lecciona una opció: ", 1, opcions.length);
 	}
 	
 	/**
@@ -40,10 +40,10 @@ public final class Menu {
 	 * @return L'opció sel·leccionada.
 	 */
 	public static int mostrar(String titol, int opcioSortir, String... opcions) {
-		Missatges.titol(titol);
+		MessageUtils.title(titol);
 		mostrarOpcionsAmbSortir(opcions, opcioSortir);
-		Missatges.saltLinia();
-		return Escriure.enterRang("Sel·lecciona una opció: ", 0, opcions.length - 1);
+		MessageUtils.newLine();
+		return InputUtils.readIntInRange("Sel·lecciona una opció: ", 0, opcions.length - 1);
 	}
 	
 	/**
@@ -71,7 +71,7 @@ public final class Menu {
 	 */
 	public static int mostrarSenseValidacio(String titol, String... opcions) {
 		crearMenu(titol, opcions);
-		return Escriure.enter("Sel·lecciona una opció: ");
+		return InputUtils.readInt("Sel·lecciona una opció: ");
 	}
 
 	//-------------------------------
@@ -84,9 +84,9 @@ public final class Menu {
 	 * @param opcions Opcions del menú.
 	 */
 	public static void crearMenu(String titol, String... opcions) {
-		Missatges.titol(titol);
+		MessageUtils.title(titol);
 		mostrarOpcions(opcions);
-		Missatges.saltLinia();
+		MessageUtils.newLine();
 	}
 
 	/**
@@ -110,10 +110,10 @@ public final class Menu {
 	 * @return L'opció sel·leccionada.
 	 */
 	public static int mostrarSubMenu(String subtitol, String... opcions) {
-		Missatges.subtitol(subtitol);
+		MessageUtils.subtitle(subtitol);
 		mostrarOpcions(opcions);
-		Missatges.saltLinia();
-		return Escriure.enterRang("Sel·lecciona una opció: ", 1, opcions.length);
+		MessageUtils.newLine();
+		return InputUtils.readIntInRange("Sel·lecciona una opció: ", 1, opcions.length);
 	}
 
 	//-------------------------------

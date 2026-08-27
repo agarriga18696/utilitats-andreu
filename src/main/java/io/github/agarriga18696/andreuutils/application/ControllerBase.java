@@ -1,7 +1,7 @@
 package io.github.agarriga18696.andreuutils.application;
 
-import io.github.agarriga18696.andreuutils.core.Fitxers;
-import io.github.agarriga18696.andreuutils.core.Missatges;
+import io.github.agarriga18696.andreuutils.core.FileUtils;
+import io.github.agarriga18696.andreuutils.core.MessageUtils;
 
 /**
  * Base class for creating console application controllers.
@@ -27,7 +27,7 @@ public abstract class ControllerBase {
 	 * Initializes the directory and loads data from the file.
 	 */
 	public void initialize() {
-		Fitxers.crearDirectoriSiNoExisteix(directory());
+		FileUtils.createDirectoriesIfAbsent(directory());
 		load();
 	}
 
@@ -36,7 +36,7 @@ public abstract class ControllerBase {
 	 */
 	public void shutdown() {
 		save();
-		Missatges.fiPrograma();
+		MessageUtils.endProgram();
 		System.exit(0);
 	}
 
