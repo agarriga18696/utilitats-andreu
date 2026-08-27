@@ -127,7 +127,7 @@ public final class TasquesSwing {
 	 * {@code alAcabar} o {@code alError} a l'EDT.
 	 * <p>
 	 * Tot el cicle (creació del diàleg, execució del worker i visualització) es
-	 * gestiona a l'EDT gràcies a {@link EdtSwing#executarMesTard(Runnable)}.
+	 * gestiona a l'EDT gràcies a {@link EdtSwing#runLater(Runnable)}.
 	 * El worker s'inicia <em>abans</em> de mostrar el diàleg per evitar la condició
 	 * de cursa en la qual la tasca acabés abans que el diàleg fos visible.
 	 *
@@ -150,7 +150,7 @@ public final class TasquesSwing {
 		 * Swing obre un bucle d'esdeveniments niuat: done() es processa dins d'aquest
 		 * bucle i pot tancar el diàleg, desblocant la crida a setVisible(true).
 		 */
-		EdtSwing.executarMesTard(() -> {
+		EdtSwing.runLater(() -> {
 
 			JDialog dialeg = crearDialegProgres(pare, titol);
 

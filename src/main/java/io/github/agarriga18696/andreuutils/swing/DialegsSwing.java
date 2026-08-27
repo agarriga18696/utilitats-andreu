@@ -27,7 +27,7 @@ import io.github.agarriga18696.andreuutils.core.ArrayUtils;
  * Classe d'utilitat per mostrar diàlegs Swing.
  * <p>
  * Tots els mètodes són segurs per cridar des de qualsevol fil: si la crida no
- * es fa des de l'EDT, es redirigeix automàticament amb {@link EdtSwing#executar(Runnable)}.
+ * es fa des de l'EDT, es redirigeix automàticament amb {@link EdtSwing#runAndWait(Runnable)}.
  *
  * @author Andreu
  * @version 1.7
@@ -56,7 +56,7 @@ public final class DialegsSwing {
 		/*
 		 * Executar l'acció en un fil paralel.
 		 */
-		EdtSwing.executar(() -> JOptionPane.showMessageDialog(
+		EdtSwing.runAndWait(() -> JOptionPane.showMessageDialog(
 				pare,
 				missatge,
 				titol,
@@ -76,7 +76,7 @@ public final class DialegsSwing {
 		/*
 		 * Executar l'acció en un fil paralel.
 		 */
-		EdtSwing.executar(() -> JOptionPane.showMessageDialog(
+		EdtSwing.runAndWait(() -> JOptionPane.showMessageDialog(
 				pare,
 				missatge,
 				titol,
@@ -96,7 +96,7 @@ public final class DialegsSwing {
 		/*
 		 * Executar l'acció en un fil paralel.
 		 */
-		EdtSwing.executar(() -> JOptionPane.showMessageDialog(
+		EdtSwing.runAndWait(() -> JOptionPane.showMessageDialog(
 				pare,
 				missatge,
 				titol,
@@ -119,7 +119,7 @@ public final class DialegsSwing {
 		/*
 		 * Executar l'acció en un fil paralel.
 		 */
-		EdtSwing.executar(() -> {
+		EdtSwing.runAndWait(() -> {
 
 			/*
 			 * Canviar el nom de les opcions.
@@ -155,7 +155,7 @@ public final class DialegsSwing {
 	 * <p>
 	 * La construcció i la visualització del diàleg es fan a l'EDT. Si la crida
 	 * es fa des d'un altre fil, es redirigeix automàticament amb
-	 * {@link EdtSwing#executar(Runnable)}. Com que el diàleg és modal,
+	 * {@link EdtSwing#runAndWait(Runnable)}. Com que el diàleg és modal,
 	 * {@code setVisible(true)} bloqueja l'EDT fins que l'usuari el tanca,
 	 * i el fil cridant (si és diferent de l'EDT) també queda bloquejat.
 	 *
@@ -170,7 +170,7 @@ public final class DialegsSwing {
 		/*
 		 * Executar l'acció en un fil paralel.
 		 */
-		EdtSwing.executar(() -> mostrarTextLlarg(
+		EdtSwing.runAndWait(() -> mostrarTextLlarg(
 				pare, 
 				titol, 
 				contingut, 
@@ -239,7 +239,7 @@ public final class DialegsSwing {
 		/*
 		 * Executar l'acció en un fil paralel.
 		 */
-		EdtSwing.executar(() -> {
+		EdtSwing.runAndWait(() -> {
 			String resposta = JOptionPane.showInputDialog(
 					pare,
 					missatge,
@@ -268,7 +268,7 @@ public final class DialegsSwing {
 		/*
 		 * Executar l'acció en un fil paralel.
 		 */
-		EdtSwing.executar(() -> {
+		EdtSwing.runAndWait(() -> {
 			String resposta = (String) JOptionPane.showInputDialog(
 					pare,
 					missatge,
@@ -308,7 +308,7 @@ public final class DialegsSwing {
 		/*
 		 * Executar l'acció en un fil paralel.
 		 */
-		EdtSwing.executar(() -> {
+		EdtSwing.runAndWait(() -> {
 			String resposta = (String) JOptionPane.showInputDialog(
 					pare,
 					missatge,
@@ -410,7 +410,7 @@ public final class DialegsSwing {
 
 		AtomicReference<File> resultat = new AtomicReference<>();
 
-		EdtSwing.executar(() -> {
+		EdtSwing.runAndWait(() -> {
 
 			JFileChooser selector = crearSelector(descripcio, extensio, nomDefecte);
 			selector.setDialogTitle("Guardar fitxer");
@@ -503,7 +503,7 @@ public final class DialegsSwing {
 
 		AtomicReference<File> resultat = new AtomicReference<>();
 
-		EdtSwing.executar(() -> {
+		EdtSwing.runAndWait(() -> {
 
 			JFileChooser selector = crearSelector(descripcio, extensio, null);
 			selector.setDialogTitle("Obrir fitxer");
@@ -550,7 +550,7 @@ public final class DialegsSwing {
 		/*
 		 * Executar l'acció en un fil paralel.
 		 */
-		EdtSwing.executar(() -> {
+		EdtSwing.runAndWait(() -> {
 
 			JFileChooser selector = new JFileChooser();
 

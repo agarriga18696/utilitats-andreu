@@ -125,7 +125,7 @@ public final class LookAndFeelSwing {
 
 		AtomicBoolean resultat = new AtomicBoolean(false);
 
-		EdtSwing.executar(() -> {
+		EdtSwing.runAndWait(() -> {
 			try {
 				UIManager.setLookAndFeel(nomClasse);
 				resultat.set(true);
@@ -152,7 +152,7 @@ public final class LookAndFeelSwing {
 			return;
 		}
 
-		EdtSwing.executar(() -> {
+		EdtSwing.runAndWait(() -> {
 			SwingUtilities.updateComponentTreeUI(component);
 			component.revalidate();
 			component.repaint();

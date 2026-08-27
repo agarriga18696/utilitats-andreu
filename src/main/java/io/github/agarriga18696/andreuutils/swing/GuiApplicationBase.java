@@ -136,7 +136,7 @@ public abstract class GuiApplicationBase {
                     () -> "Uncaught exception in thread: " + thread.getName()
             );
 
-            EdtSwing.executarMesTard(() ->
+            EdtSwing.runLater(() ->
                     DialegsSwing.error(
                             null,
                             "Unexpected error",
