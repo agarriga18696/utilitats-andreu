@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * Utility class for working with collections.
  *
  * @author Andreu
- * @version 2.0
+ * @version 2.1
  */
 public final class CollectionUtils {
 
@@ -22,9 +22,9 @@ public final class CollectionUtils {
         /* This utility class should not be instantiated */
     }
 
-    //-------------------------------
+    // ----------------------------------------
     // OPERATIONS
-    //-------------------------------
+    // ----------------------------------------
 
     /**
      * Returns the sum of all numeric elements in a collection.
@@ -43,14 +43,20 @@ public final class CollectionUtils {
     }
 
     /**
-     * Generates a list of random integers between {@code min} and {@code max}, inclusive.
+     * Generates a list of random integers between {@code min} and {@code max},
+     * inclusive.
      *
      * @param count Number of elements to generate.
      * @param min   Minimum value, inclusive.
      * @param max   Maximum value, inclusive.
      * @return A list of random integers.
      */
-    public static List<Integer> randomIntegers(int count, int min, int max) {
+    public static List<Integer> randomIntegers(
+            int count,
+            int min,
+            int max
+    ) {
+
         List<Integer> collection = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
@@ -61,14 +67,20 @@ public final class CollectionUtils {
     }
 
     /**
-     * Generates a list of random decimal numbers between {@code min} and {@code max}, inclusive.
+     * Generates a list of random decimal numbers between {@code min} and
+     * {@code max}, inclusive.
      *
      * @param count Number of elements to generate.
      * @param min   Minimum value, inclusive.
      * @param max   Maximum value, inclusive.
      * @return A list of random decimal numbers.
      */
-    public static List<Double> randomDoubles(int count, double min, double max) {
+    public static List<Double> randomDoubles(
+            int count,
+            double min,
+            double max
+    ) {
+
         List<Double> collection = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
@@ -78,33 +90,45 @@ public final class CollectionUtils {
         return collection;
     }
 
-    //-------------------------------
+    // ----------------------------------------
     // STATISTICS
-    //-------------------------------
+    // ----------------------------------------
 
     /**
-     * Returns the maximum element in a collection according to the given comparator.
+     * Returns the maximum element in a collection according to the given
+     * comparator.
      *
      * @param collection Collection of elements.
      * @param comparator Comparison criterion.
+     * @param <T>        Type of the collection elements.
      * @return The maximum element.
      * @throws java.util.NoSuchElementException if the collection is empty.
      */
-    public static <T> T max(Collection<T> collection, Comparator<T> comparator) {
+    public static <T> T max(
+            Collection<T> collection,
+            Comparator<T> comparator
+    ) {
+
         return collection.stream()
                 .max(comparator)
                 .orElseThrow();
     }
 
     /**
-     * Returns the minimum element in a collection according to the given comparator.
+     * Returns the minimum element in a collection according to the given
+     * comparator.
      *
      * @param collection Collection of elements.
      * @param comparator Comparison criterion.
+     * @param <T>        Type of the collection elements.
      * @return The minimum element.
      * @throws java.util.NoSuchElementException if the collection is empty.
      */
-    public static <T> T min(Collection<T> collection, Comparator<T> comparator) {
+    public static <T> T min(
+            Collection<T> collection,
+            Comparator<T> comparator
+    ) {
+
         return collection.stream()
                 .min(comparator)
                 .orElseThrow();
@@ -115,12 +139,15 @@ public final class CollectionUtils {
      * to each element in a collection.
      *
      * @param collection  Collection of elements.
-     * @param valueMapper Function used to obtain a numeric value from each element.
+     * @param valueMapper Function used to obtain a numeric value from each
+     *                    element.
+     * @param <T>         Type of the collection elements.
      * @return The average value, or {@code 0} if the collection is empty.
      */
     public static <T> double average(
             Collection<T> collection,
-            ToDoubleFunction<T> valueMapper) {
+            ToDoubleFunction<T> valueMapper
+    ) {
 
         return collection.stream()
                 .mapToDouble(valueMapper)
@@ -128,9 +155,9 @@ public final class CollectionUtils {
                 .orElse(0);
     }
 
-    //-------------------------------
+    // ----------------------------------------
     // MANIPULATION
-    //-------------------------------
+    // ----------------------------------------
 
     /**
      * Returns a new list with all occurrences of the specified element removed.
@@ -138,11 +165,13 @@ public final class CollectionUtils {
      *
      * @param collection Original collection.
      * @param element    Element to remove.
+     * @param <T>        Type of the collection elements.
      * @return A new list without occurrences of the specified element.
      */
     public static <T> List<T> removeAllOccurrences(
             Collection<T> collection,
-            T element) {
+            T element
+    ) {
 
         List<T> result = new ArrayList<>(collection);
         result.removeAll(Collections.singleton(element));
@@ -152,15 +181,18 @@ public final class CollectionUtils {
 
     /**
      * Returns a new list containing all elements from both collections.
-     * The elements from the first collection appear before those from the second.
+     * The elements from the first collection appear before those from the
+     * second.
      *
      * @param first  First collection.
      * @param second Second collection.
+     * @param <T>    Type of the collection elements.
      * @return A new list containing all elements from both collections.
      */
     public static <T> List<T> concat(
             Collection<T> first,
-            Collection<T> second) {
+            Collection<T> second
+    ) {
 
         List<T> result = new ArrayList<>(first);
         result.addAll(second);
@@ -175,11 +207,13 @@ public final class CollectionUtils {
      *
      * @param first  First collection.
      * @param second Second collection.
+     * @param <T>    Type of the collection elements.
      * @return A new list containing the common elements.
      */
     public static <T> List<T> commonElements(
             Collection<T> first,
-            Collection<T> second) {
+            Collection<T> second
+    ) {
 
         List<T> result = new ArrayList<>(first);
         result.retainAll(second);
@@ -194,11 +228,13 @@ public final class CollectionUtils {
      *
      * @param first  Original collection.
      * @param second Collection containing the elements to remove.
+     * @param <T>    Type of the collection elements.
      * @return A new list containing the difference between both collections.
      */
     public static <T> List<T> difference(
             Collection<T> first,
-            Collection<T> second) {
+            Collection<T> second
+    ) {
 
         List<T> result = new ArrayList<>(first);
         result.removeAll(second);
@@ -206,20 +242,23 @@ public final class CollectionUtils {
         return result;
     }
 
-    //-------------------------------
+    // ----------------------------------------
     // FILTERING AND SEARCH
-    //-------------------------------
+    // ----------------------------------------
 
     /**
-     * Returns a new list containing the elements that match the given predicate.
+     * Returns a new list containing the elements that match the given
+     * predicate.
      *
      * @param collection Collection of elements.
      * @param predicate  Condition that elements must satisfy.
+     * @param <T>        Type of the collection elements.
      * @return A new list containing the matching elements.
      */
     public static <T> List<T> filter(
             Collection<T> collection,
-            Predicate<T> predicate) {
+            Predicate<T> predicate
+    ) {
 
         return collection.stream()
                 .filter(predicate)
@@ -232,11 +271,13 @@ public final class CollectionUtils {
      *
      * @param collection Collection of elements.
      * @param predicate  Condition that the element must satisfy.
+     * @param <T>        Type of the collection elements.
      * @return The first matching element, or {@code null} if none is found.
      */
     public static <T> T findFirst(
             Collection<T> collection,
-            Predicate<T> predicate) {
+            Predicate<T> predicate
+    ) {
 
         return collection.stream()
                 .filter(predicate)
@@ -249,31 +290,35 @@ public final class CollectionUtils {
      *
      * @param collection Collection of elements.
      * @param predicate  Condition that elements must satisfy.
+     * @param <T>        Type of the collection elements.
      * @return The number of matching elements.
      */
     public static <T> long count(
             Collection<T> collection,
-            Predicate<T> predicate) {
+            Predicate<T> predicate
+    ) {
 
         return collection.stream()
                 .filter(predicate)
                 .count();
     }
 
-    //-------------------------------
+    // ----------------------------------------
     // CHECKS
-    //-------------------------------
+    // ----------------------------------------
 
     /**
      * Returns {@code true} if any element matches the given predicate.
      *
      * @param collection Collection of elements.
      * @param predicate  Condition to test.
+     * @param <T>        Type of the collection elements.
      * @return {@code true} if any element matches the predicate.
      */
     public static <T> boolean anyMatch(
             Collection<T> collection,
-            Predicate<T> predicate) {
+            Predicate<T> predicate
+    ) {
 
         return collection.stream()
                 .anyMatch(predicate);
@@ -284,11 +329,13 @@ public final class CollectionUtils {
      *
      * @param collection Collection of elements.
      * @param predicate  Condition to test.
+     * @param <T>        Type of the collection elements.
      * @return {@code true} if all elements match the predicate.
      */
     public static <T> boolean allMatch(
             Collection<T> collection,
-            Predicate<T> predicate) {
+            Predicate<T> predicate
+    ) {
 
         return collection.stream()
                 .allMatch(predicate);
@@ -299,19 +346,21 @@ public final class CollectionUtils {
      *
      * @param collection Collection of elements.
      * @param predicate  Condition to test.
+     * @param <T>        Type of the collection elements.
      * @return {@code true} if no element matches the predicate.
      */
     public static <T> boolean noneMatch(
             Collection<T> collection,
-            Predicate<T> predicate) {
+            Predicate<T> predicate
+    ) {
 
         return collection.stream()
                 .noneMatch(predicate);
     }
 
-    //-------------------------------
+    // ----------------------------------------
     // TRANSFORMATIONS
-    //-------------------------------
+    // ----------------------------------------
 
     /**
      * Returns a new list containing the elements transformed
@@ -319,15 +368,17 @@ public final class CollectionUtils {
      *
      * @param collection Collection of elements.
      * @param mapper     Transformation function.
+     * @param <T>        Type of the source collection elements.
+     * @param <V>        Type of the resulting elements.
      * @return A new list containing the transformed elements.
      */
     public static <T, V> List<V> map(
             Collection<T> collection,
-            Function<T, V> mapper) {
+            Function<T, V> mapper
+    ) {
 
         return collection.stream()
                 .map(mapper)
                 .collect(Collectors.toList());
     }
-
 }
