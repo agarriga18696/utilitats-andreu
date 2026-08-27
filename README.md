@@ -1,22 +1,31 @@
-# Llibreria d'utilitats Andreu :hammer_and_wrench: :coffee:
+# Andreu Utils :hammer_and_wrench: :coffee:
 
-Llibreria Java per crear **aplicacions de consola i aplicacions gràfiques Swing** de manera ràpida, estructurada i professional.
+Llibreria Java d'utilitats per crear **aplicacions de consola i aplicacions gràfiques Swing** de manera ràpida, estructurada i reutilitzable.
+
+La branca `v6` introdueix una reorganització completa de l'API: paquets i classes en anglès, internacionalització integrada, utilitats Swing ampliades i una barra de menú d'aplicació reutilitzable.
 
 ---
 
 ## Requisits :memo:
 
 - **Java 25** o superior
-- **Maven 3+** (per compilar i empaquetar)
+- **Maven 3+** per compilar, provar i empaquetar
 - Cap dependència externa en producció
-- **JUnit 5** per als tests (s'instal·la automàticament amb Maven)
+- **JUnit 5** per als tests, gestionat automàticament per Maven
 
 ---
 
-## Descàrrega :arrow_down:
+## Versions :label:
 
-> [!NOTE]
-> **Versió actual: `5.1.8`** → [Descàrrega directa del jar](https://github.com/agarriga18696/utilitats-andreu/releases/download/v5.1.8/utilitats-andreu-5.1.8.jar)
+> [!IMPORTANT]
+> La branca `v6` correspon actualment a **`6.0.0-SNAPSHOT`**.
+> És una versió amb canvis incompatibles respecte de la sèrie 5.x.
+
+La darrera versió publicada de la sèrie anterior és:
+
+- **v5.1.8** — [Descàrrega directa del JAR](https://github.com/agarriga18696/utilitats-andreu/releases/download/v5.1.8/utilitats-andreu-5.1.8.jar)
+
+Quan es publiqui `6.0.0`, aquesta secció s'haurà d'actualitzar amb el JAR definitiu.
 
 ---
 
@@ -28,547 +37,437 @@ Compila el projecte i empaqueta el JAR:
 mvn clean package
 ```
 
-Instal·la la llibreria al repositori Maven local (`~/.m2/repository`) perquè projectes com DAMned la puguin resoldre com a dependència:
+Instal·la la llibreria al repositori Maven local (`~/.m2/repository`) perquè altres projectes la puguin resoldre com a dependència:
 
 ```bash
 mvn clean install
 ```
 
-La dependència es declara com:
+La dependència de la branca `v6` és:
 
 ```xml
 <dependency>
-    <groupId>local.andreu</groupId>
-    <artifactId>utilitats-andreu</artifactId>
-    <version>5.1.7</version>
+    <groupId>io.github.agarriga18696</groupId>
+    <artifactId>andreu-utils</artifactId>
+    <version>6.0.0-SNAPSHOT</version>
 </dependency>
 ```
 
-## Tests
+---
 
-Executa tots els tests:
+## Tests :test_tube:
+
+Executa tota la suite:
 
 ```bash
 mvn test
 ```
 
-Executa un sol fitxer de tests:
+Executa una sola classe de tests:
 
 ```bash
-mvn -Dtest=MatematiquesTest test
-mvn -Dtest=ValidacionsTest test
+mvn -Dtest=MathUtilsTest test
+mvn -Dtest=ValidationUtilsTest test
 ```
 
-### Cobertura actual (111 tests)
+### Cobertura actual
 
-| Classe testejada | Tests | Àrees cobertes |
-|------------------|-------|----------------|
-| `Matematiques` | 30 | Paritat, múltiples, nombres primers, conversions binari/hexadecimal |
-| `Conversor` | 17 | Conversió a enter, decimal, cadena i sí/no |
-| `Formatador` | 17 | Majúscules, minúscules, capitalització, format decimal |
-| `Validacions` | 47 | Validació d'enters, decimals, positius, rangs, email, telèfon i DNI |
+| Classe de tests | Tests |
+|---|---:|
+| `ConversionUtilsTest` | 17 |
+| `FormatUtilsTest` | 17 |
+| `LanguageManagerTest` | 6 |
+| `MathUtilsTest` | 30 |
+| `ValidationUtilsTest` | 47 |
+| `ApplicationMenuBarSwingTest` | 12 |
+| `I18nSwingTest` | 14 |
+| `LanguageMenuSwingTest` | 3 |
+| `ThemeMenuSwingTest` | 1 |
+| **Total** | **147** |
+
+Estat actual:
+
+```text
+Tests run: 147, Failures: 0, Errors: 0, Skipped: 0
+BUILD SUCCESS
+```
 
 ---
 
-## Paquets disponibles
+## Javadoc :books:
+
+Genera la documentació de l'API:
+
+```bash
+mvn -DskipTests javadoc:javadoc
+```
+
+La branca `v6` genera actualment el Javadoc sense warnings.
+
+---
+
+## Estructura de paquets
+
+Tota l'API pública es troba sota:
+
+```text
+io.github.agarriga18696.andreuutils
+├── application
+├── core
+└── swing
+```
 
 | Paquet | Descripció |
 |---|---|
-| `aplicacio` | Components, menús i utilitats per a aplicacions de consola |
-| `aplicaciogui` | Components, panells, diàlegs, menús, icones i utilitats per a aplicacions Swing |
-| `utilitats` | Utilitats generals: cadenes, fitxers, dates, col·leccions i entrada per consola |
+| `application` | Classes base per estructurar aplicacions de consola |
+| `core` | Utilitats generals independents de Swing |
+| `swing` | Components, diàlegs, menús, taules, tasques, icones, i18n i utilitats Swing |
 
 ---
 
-## Paquet `aplicacio`
+# `application`
 
-### `AplicacioBase` — Base per a aplicacions de consola
+## `ApplicationBase`
 
-Classe abstracta que estructura una aplicació de consola seguint el patró MVC. Coordina el controlador i la vista i inicia el cicle de vida de l'aplicació.
+Classe base per estructurar una aplicació de consola.
 
-#### Cicle de vida
+El cicle principal és:
 
+```text
+controller()
+    ↓
+controller.initialize()
+    ↓
+view(controller).showMenu()
 ```
-controlador().inicialitzar()  →  vista(controlador).menu()
-```
 
-| Mètode abstracte | Descripció |
-|---|---|
-| `controlador()` | Retorna la instància del controlador. **Override obligatori.** |
-| `vista(controlador)` | Retorna la instància de la vista. **Override obligatori.** |
-
-#### Iniciar l'aplicació
+Implementació mínima:
 
 ```java
-new MevaAplicacio().executar();
-```
+import io.github.agarriga18696.andreuutils.application.ApplicationBase;
+import io.github.agarriga18696.andreuutils.application.ControllerBase;
+import io.github.agarriga18696.andreuutils.application.ViewBase;
 
----
+public final class MyApplication extends ApplicationBase {
 
-### `ControladorBase` — Base per al controlador de consola
+    @Override
+    protected ControllerBase controller() {
+        return new MyController();
+    }
 
-Classe abstracta que gestiona la inicialització, la persistència i el tancament de l'aplicació.
+    @Override
+    protected ViewBase view(ControllerBase controller) {
+        return new MyView((MyController) controller);
+    }
 
-| Mètode abstracte | Descripció |
-|---|---|
-| `directori()` | Retorna la ruta del directori de dades. **Override obligatori.** |
-| `carregar()` | Carrega les dades des del fitxer. **Override obligatori.** |
-| `guardar()` | Guarda les dades al fitxer. **Override obligatori.** |
-
-| Mètode concret | Descripció |
-|---|---|
-| `inicialitzar()` | Crea el directori si no existeix i carrega les dades. |
-| `finalitzar()` | Guarda les dades, mostra el missatge de fi i surt. |
-
----
-
-### `VistaBase` — Base per a la vista de consola
-
-Classe abstracta que gestiona el menú principal de l'aplicació per consola.
-
-| Mètode abstracte | Descripció |
-|---|---|
-| `titol()` | Retorna el títol del menú. **Override obligatori.** |
-| `opcions()` | Retorna l'array d'opcions del menú. **Override obligatori.** |
-| `gestionar(int opcio)` | Gestiona l'opció triada per l'usuari. **Override obligatori.** |
-
-> [!TIP]
-> L'opció de sortir sempre és l'última de l'array d'opcions. El mètode `opcioSortir()` retorna automàticament el seu número, i `menu()` gestiona el bucle fins que l'usuari la tria.
-
-#### Exemple d'implementació
-
-```java
-// Test.java
-public final class Test {
     public static void main(String[] args) {
-        new MevaAplicacio().executar();
-    }
-}
-
-// MevaAplicacio.java
-public final class MevaAplicacio extends AplicacioBase {
-    @Override
-    protected ControladorBase controlador() {
-        return new MeuControlador();
-    }
-    @Override
-    protected VistaBase vista(ControladorBase controlador) {
-        return new MevaVista((MeuControlador) controlador);
-    }
-}
-
-// MeuControlador.java
-public final class MeuControlador extends ControladorBase {
-    private List<Element> elements = new ArrayList<>();
-
-    @Override protected String directori() { return "dades"; }
-    @Override protected void carregar() { /* carrega elements */ }
-    @Override protected void guardar() { /* guarda elements */ }
-}
-
-// MevaVista.java
-public final class MevaVista extends VistaBase {
-    private final MeuControlador controlador;
-    public MevaVista(MeuControlador controlador) { this.controlador = controlador; }
-
-    @Override protected String titol() { return "Gestió d'elements"; }
-    @Override protected String[] opcions() {
-        return new String[]{ "Llistar", "Afegir", "Eliminar", "Sortir" };
-    }
-    @Override
-    protected void gestionar(int opcio) {
-        switch (opcio) {
-            case 1 -> controlador.llistar();
-            case 2 -> controlador.afegir();
-            case 3 -> controlador.eliminar();
-            case 4 -> controlador.finalitzar();
-        }
+        new MyApplication().run();
     }
 }
 ```
+
+Per defecte, l'aplicació s'inicialitza en anglès. Es pot sobreescriure `language()` per seleccionar un altre idioma inicial.
 
 ---
 
-## Paquet `aplicaciogui`
+## `ControllerBase`
 
-### `AplicacioGuiBase` — Base per a aplicacions Swing
+Classe base per a controladors de consola.
 
-Classe abstracta que gestiona el cicle de vida d'una aplicació Swing i garanteix l'execució al fil d'esdeveniments (EDT).
+Les subclasses implementen:
 
-#### Cicle de vida
-
+```java
+protected abstract String directory();
+protected abstract void load();
+protected abstract void save();
 ```
-abansInicialitzar()  →  inicialitzar()  →  despresInicialitzar()
-```
 
-| Mètode | Descripció |
+Mètodes de cicle de vida:
+
+| Mètode | Funció |
 |---|---|
-| `abansInicialitzar()` | S'executa abans de crear la interfície. Override opcional. |
-| `inicialitzar()` | S'executa per crear la interfície. **Override obligatori.** |
-| `despresInicialitzar()` | S'executa un cop la interfície ja és visible. Override opcional. |
-
-#### Iniciar l'aplicació
-
-```java
-// Amb Look and Feel del sistema
-new MevaAplicacio().executarAmbLookAndFeel(LookAndFeelSwing.SISTEMA);
-
-// Sense Look and Feel (usa el predeterminat de Swing)
-new MevaAplicacio().executar();
-```
-
-> [!TIP]
-> Usa sempre `executarAmbLookAndFeel(LookAndFeelSwing.SISTEMA)` per obtenir l'aparença nativa del sistema operatiu. Reserva `executar()` per a prototips ràpids.
-
-#### Exemple d'implementació
-
-```java
-public final class MevaAplicacio extends AplicacioGuiBase {
-    private static final Logger LOGGER = Logger.getLogger(MevaAplicacio.class.getName());
-    private JFrame frmPrincipal;
-
-    public MevaAplicacio() {
-        // Inicialitza el model aquí (no la interfície)
-    }
-
-    @Override
-    protected void abansInicialitzar() {
-        LOGGER.log(Level.INFO, "Iniciant l''aplicació...");
-    }
-
-    @Override
-    protected void inicialitzar() {
-        this.frmPrincipal = FinestresSwing.frame("La meva app", 800, 600);
-        this.frmPrincipal.setVisible(true);
-    }
-
-    @Override
-    protected void despresInicialitzar() {
-        LOGGER.log(Level.INFO, "Aplicació llesta.");
-    }
-}
-```
+| `initialize()` | Crea el directori si no existeix i carrega les dades |
+| `shutdown()` | Guarda les dades, finalitza el programa i surt |
 
 ---
 
-### `TasquesSwing` — Operacions en segon pla
+# `core`
 
-Executa operacions llargues sense bloquejar l'EDT (interfície). Basat en `SwingWorker`.
+El paquet `core` conté utilitats que no depenen de Swing.
 
-#### Executar en segon pla
-
-```java
-TasquesSwing.executarEnFons(
-    () -> gestor.guardar(),          // Supplier: s'executa en segon pla
-    _ -> lblEstat.setText("Desat"),  // Consumer: s'executa a l'EDT quan acaba
-    ex -> mostrarError(ex)           // Consumer<Throwable>: s'executa si hi ha error
-);
-```
-
-#### Executar amb barra de progrés
-
-```java
-TasquesSwing.executarAmbBarraProgres(
-    frame,
-    "Carregant...",
-    () -> gestor.carregar(),          // Supplier: s'executa en segon pla
-    dades -> refrescarLlista(dades),  // Consumer: rep el resultat a l'EDT
-    ex -> mostrarError(ex)
-);
-```
-
-> [!TIP]
-> Usa `executarAmbBarraProgres` per a operacions que poden durar més d'un segon (càrrega de fitxers grans, consultes a base de dades). Per a operacions ràpides com guardar, `executarEnFons` és suficient.
-
----
-
-### `LookAndFeelSwing` — Look and Feel
-
-Aplicació i gestió de temes visuals de Swing, compatible amb totes les plataformes.
-
-```java
-LookAndFeelSwing.aplicarSistema();
-LookAndFeelSwing.aplicarNimbus();
-LookAndFeelSwing.aplicarMetal();
-```
-
-#### Constants disponibles
-
-```java
-LookAndFeelSwing.SISTEMA
-LookAndFeelSwing.NIMBUS
-LookAndFeelSwing.METAL
-LookAndFeelSwing.MOTIF
-LookAndFeelSwing.WINDOWS
-LookAndFeelSwing.WINDOWS_CLASSIC
-LookAndFeelSwing.GTK
-LookAndFeelSwing.MAC_OS
-```
-
-#### Comprovar compatibilitat
-
-```java
-boolean compatible = LookAndFeelSwing.esCompatible(LookAndFeelSwing.WINDOWS);
-```
-
-#### Actualitzar la interfície
-
-```java
-LookAndFeelSwing.actualitzar(frame);
-```
-
----
-
-### `MenuTemesSwing` — Menú de temes
-
-Crea automàticament un menú de selecció de Look and Feel. Els temes incompatibles amb el sistema es mostren deshabilitats.
-
-```java
-JMenu mnuTemes = MenuTemesSwing.crearMenuTemes(frame);
-
-// Amb acció posterior
-JMenu mnuTemes = MenuTemesSwing.crearMenuTemes(
-    frame,
-    nomTema -> lblEstat.setText("Tema aplicat: " + nomTema)
-);
-```
-
----
-
-### `IconesSwing` — Icones
-
-Carrega icones del paquet Fugue inclòs a la llibreria. Inclou una memòria cau thread-safe i constants semàntiques.
-
-#### Carregar per constant semàntica
-
-```java
-Icon icona = IconesSwing.carregar(IconesSwing.AFEGIR);
-Icon icona = IconesSwing.carregar(IconesSwing.GUARDAR, 24); // mida personalitzada
-```
-
-#### Carregar per nom del catàleg complet
-
-```java
-Icon icona = IconesSwing.carregar(IconesFugue.CALENDAR);
-```
-
-#### Carregar des d'un recurs extern
-
-```java
-Icon icona = IconesSwing.carregar(MevaClasse.class, "/recursos/icones/", "logo.png");
-```
-
-#### Constants semàntiques disponibles (selecció)
-
-```java
-// Accions principals
-IconesSwing.NOU, GUARDAR, CARREGAR, SORTIR, INICI
-
-// CRUD
-IconesSwing.AFEGIR, TREURE, ELIMINAR, EDITAR, CERCAR, ACTUALITZAR
-
-// Documents
-IconesSwing.DOCUMENT, DOCUMENT_BINARI, DOCUMENT_PDF, DOCUMENT_EXCEL, DOCUMENT_WORD
-
-// Llibres
-IconesSwing.LLIBRE, LLIBRE_AFEGIR, LLIBRE_ELIMINAR
-
-// Temes / sistemes operatius
-IconesSwing.TEMA_JAVA, TEMA_WINDOWS, TEMA_LINUX, TEMA_MAC_OS
-
-// Ajuda
-IconesSwing.AJUDA, INFORMACIO, INTERROGACIO, BUG
-
-// Estats
-IconesSwing.OK, ERROR, AVIS
-```
-
----
-
-### `DialegsSwing` — Diàlegs
-
-Tots els mètodes són thread-safe: es poden cridar des de qualsevol fil.
-
-#### Diàlegs informatius
-
-```java
-DialegsSwing.info(frame, "Títol", "Missatge");
-DialegsSwing.avis(frame, "Títol", "Missatge");
-DialegsSwing.error(frame, "Títol", "Missatge");
-```
-
-#### Confirmació
-
-```java
-boolean confirmat = DialegsSwing.confirmar(frame, "Títol", "Vols continuar?");
-```
-
-#### Text llarg amb scroll
-
-```java
-DialegsSwing.textLlarg(frame, "Títol", contingut, 600, 400);
-```
-
-#### Selectors de fitxer
-
-Retornen `Optional<File>` — buit si l'usuari cancel·la.
-
-```java
-// Guardar
-DialegsSwing.triarFitxerGuardar(frame);
-DialegsSwing.triarFitxerGuardar(frame, "txt");
-DialegsSwing.triarFitxerGuardar(frame, "Fitxers de text", "txt");
-DialegsSwing.triarFitxerGuardar(frame, "Fitxers de text", "txt", "dades.txt");
-
-// Carregar
-DialegsSwing.triarFitxerCarregar(frame);
-DialegsSwing.triarFitxerCarregar(frame, "dat");
-DialegsSwing.triarFitxerCarregar(frame, "Fitxers binaris", "dat");
-```
-
-> [!TIP]
-> Encadena `ifPresent` per executar l'acció només si l'usuari ha triat un fitxer:
-> ```java
-> DialegsSwing.triarFitxerGuardar(frame, "txt")
->     .ifPresent(f -> gestor.guardarText(f));
-> ```
-> Si l'usuari cancel·la el diàleg, `Optional` és buit i no passa res.
-
----
-
-### `TaulesSwing` — Taules genèriques
-
-Crea un `JTable` a partir de qualsevol llista d'objectes i una llista de columnes, sense escriure cap `TableModel` a mà.
-
-#### Definir columnes i crear la taula
-
-```java
-List<ColumnaSwing<Producte>> columnes = List.of(
-    new ColumnaSwing<>("ID",   Producte::getId),
-    new ColumnaSwing<>("Nom",  Producte::getNom),
-    new ColumnaSwing<>("Preu", Producte::getPreu)
-);
-
-// Guardar referència al model per poder actualitzar les dades
-ModelTaulaSwing<Producte> model = TaulesSwing.model(productes, columnes);
-JTable taula = TaulesSwing.taula(model);
-
-// O en un sol pas (sense referència al model)
-JTable taula = TaulesSwing.taula(productes, columnes);
-```
-
-#### Actualitzar les dades
-
-```java
-model.actualitzar(novaLlista);
-```
-
-#### Obtenir l'element seleccionat
-
-```java
-Optional<Producte> seleccionat = TaulesSwing.getFilaSeleccionada(taula);
-seleccionat.ifPresent(p -> System.out.println(p.getNom()));
-```
-
-#### Gestió d'amplades de columna
-
-```java
-// Amplada preferida (l'última columna ocupa l'espai restant)
-TaulesSwing.setAmplada(taula, 0, 50);
-
-// Amplada fixa (l'usuari no pot redimensionar)
-TaulesSwing.setAmpladaFixa(taula, 0, 50);
-
-// Auto-ajust al contingut de totes les columnes
-TaulesSwing.ajustarAmpladesAContingut(taula);
-```
-
-> [!TIP]
-> Crida `ajustarAmpladesAContingut` **després** de carregar les dades, no en la inicialització, perquè mesura les cel·les amb el contingut real.
-
-> [!NOTE]
-> `getFilaSeleccionada` usa `convertRowIndexToModel` internament, de manera que funciona correctament quan l'usuari ha ordenat la taula per qualsevol columna.
-
----
-
-### Altres classes del paquet `aplicaciogui`
-
-| Classe | Descripció |
+| Classe | Finalitat |
 |---|---|
-| `FinestresSwing` | Creació de `JFrame` i `JDialog` |
-| `ComponentsSwing` | Botons, camps de text, llistes, etiquetes, scroll |
-| `PanellsSwing` | Panells amb BorderLayout, FlowLayout, GridLayout, BoxLayout |
-| `MenusSwing` | Barres de menú, menús, ítems, radiobuttons |
-| `EdtSwing` | Execució segura al fil d'esdeveniments (EDT) |
-| `ModelTaulaSwing` | `AbstractTableModel` genèric per a `TaulesSwing` |
-| `ColumnaSwing` | Record que defineix una columna de `ModelTaulaSwing` |
-| `IconesFugue` | Catàleg complet de les icones Fugue (3500+) |
-| `TemaLookAndFeelSwing` | Record que representa un tema de Look and Feel |
+| `ArrayUtils` | Cerca, manipulació, estadístiques, filtratge i transformació d'arrays |
+| `CollectionUtils` | Operacions, estadístiques, filtratge i transformació de col·leccions |
+| `ConsoleUtils` | Utilitats de consola |
+| `ConversionUtils` | Conversió entre tipus i valors |
+| `CsvSerializable` | Contracte per a objectes serialitzables en CSV |
+| `DateTimeUtils` | Utilitats de data i hora |
+| `FileUtils` | Fitxers, directoris i persistència |
+| `FormatUtils` | Format de text i valors |
+| `InputUtils` | Lectura i validació d'entrada |
+| `Language` | Idiomes suportats per la llibreria |
+| `LanguageManager` | Estat global d'idioma i notificació de canvis |
+| `MathUtils` | Operacions i comprovacions matemàtiques |
+| `MenuUtils` | Utilitats per a menús de consola |
+| `MessageUtils` | Missatges reutilitzables |
+| `RandomUtils` | Generació de valors aleatoris |
+| `SecurityUtils` | Utilitats relacionades amb seguretat |
+| `StringUtils` | Operacions amb cadenes |
+| `ValidationUtils` | Validació de valors i formats |
 
 ---
 
-## Exemple complet
+## Internacionalització
+
+La v6 incorpora un sistema d'idioma compartit entre el nucli i Swing.
+
+Idiomes disponibles:
 
 ```java
-// Test.java
-public final class Test {
-    public static void main(String[] args) {
-        new MevaAplicacio().executarAmbLookAndFeel(LookAndFeelSwing.SISTEMA);
-    }
-}
-
-// MevaAplicacio.java
-public final class MevaAplicacio extends AplicacioGuiBase {
-    private static final Logger LOGGER = Logger.getLogger(MevaAplicacio.class.getName());
-    private JFrame frmPrincipal;
-    private JTextField txtNom;
-    private GestorDades gestor;
-
-    public MevaAplicacio() {
-        this.gestor = new GestorDades();
-    }
-
-    @Override
-    protected void abansInicialitzar() {
-        LOGGER.log(Level.INFO, "Iniciant...");
-    }
-
-    @Override
-    protected void inicialitzar() {
-        this.frmPrincipal = FinestresSwing.frame("La meva app", 800, 600);
-        this.txtNom = ComponentsSwing.campText(20);
-
-        JButton btnGuardar = ComponentsSwing.boto(
-            "Guardar",
-            IconesSwing.carregar(IconesSwing.GUARDAR),
-            this::guardar
-        );
-        this.frmPrincipal.getRootPane().setDefaultButton(btnGuardar);
-
-        JPanel panel = PanellsSwing.panelAmbMarge(new BorderLayout(), 10);
-        panel.add(this.txtNom, BorderLayout.CENTER);
-        panel.add(btnGuardar, BorderLayout.SOUTH);
-
-        this.frmPrincipal.setContentPane(panel);
-        this.frmPrincipal.setVisible(true);
-    }
-
-    @Override
-    protected void despresInicialitzar() {
-        this.txtNom.requestFocusInWindow();
-        LOGGER.log(Level.INFO, "Llesta.");
-    }
-
-    private void guardar() {
-        DialegsSwing.triarFitxerGuardar(this.frmPrincipal, "txt")
-            .ifPresent(f -> TasquesSwing.executarEnFons(
-                () -> { this.gestor.guardar(f); return null; },
-                _ -> DialegsSwing.info(this.frmPrincipal, "Èxit", "Dades guardades."),
-                _ -> DialegsSwing.error(this.frmPrincipal, "Error", "No s'han pogut guardar les dades.")
-            ));
-    }
-}
+Language.ENGLISH
+Language.SPANISH
+Language.CATALAN
 ```
+
+Canviar l'idioma global:
+
+```java
+LanguageManager.setLanguage(Language.SPANISH);
+```
+
+Els components Swing vinculats al sistema d'i18n s'actualitzen quan canvia l'idioma.
+
+---
+
+# `swing`
+
+El paquet `swing` concentra les utilitats per construir interfícies Swing sense repetir infraestructura habitual.
+
+Entre les classes principals hi ha:
+
+| Classe | Finalitat |
+|---|---|
+| `GuiApplicationBase` | Cicle de vida base per a aplicacions Swing |
+| `ApplicationMenuBarSwing` | Barra de menú estàndard i extensible per a aplicacions |
+| `ComponentsSwing` | Creació i configuració de components |
+| `DialogsSwing` | Diàlegs i selectors de fitxer |
+| `EdtSwing` | Execució segura al Swing Event Dispatch Thread |
+| `FramesSwing` | Creació i configuració de finestres |
+| `I18nSwing` | Traducció i vinculació dinàmica de components |
+| `LanguageMenuSwing` | Menú de selecció d'idioma |
+| `ListsSwing` | Utilitats per a `JList` |
+| `LookAndFeelSwing` | Gestió de Look and Feel |
+| `LookAndFeelThemeSwing` | Definició d'un tema de Look and Feel |
+| `MenusSwing` | Creació de barres, menús i ítems |
+| `PanelsSwing` | Creació de panells i layouts |
+| `TableModelSwing` | `TableModel` genèric |
+| `TablesSwing` | Creació i gestió de taules |
+| `TasksSwing` | Tasques en segon pla amb callbacks a l'EDT |
+| `ThemeMenuSwing` | Menú de selecció de tema |
+
+---
+
+## `ApplicationMenuBarSwing`
+
+Crea una barra de menú base amb una estructura comuna:
+
+```text
+File
+├── Home
+├── [ítems específics de l'aplicació]
+├── separator
+└── Exit to desktop
+
+View
+├── Themes >
+└── [ítems específics de l'aplicació]
+
+Settings
+├── Language >
+└── [ítems específics de l'aplicació]
+
+Help
+├── [ítems específics de l'aplicació]
+├── separator
+└── About...
+```
+
+Les accions `Home`, `Exit` i `About` són obligatòries:
+
+```java
+JMenuBar menuBar = ApplicationMenuBarSwing.builder(frame)
+        .onHome(this::goHome)
+        .onExit(this::exitApplication)
+        .onAbout(this::showAbout)
+        .build();
+
+frame.setJMenuBar(menuBar);
+```
+
+Es poden afegir opcions pròpies sense reconstruir la barra:
+
+```java
+JMenuBar menuBar = ApplicationMenuBarSwing.builder(frame)
+        .onHome(this::goHome)
+        .onExit(this::exitApplication)
+        .onAbout(this::showAbout)
+        .configureFileMenu(menu ->
+                menu.add(MenusSwing.item("Reload", this::reload))
+        )
+        .configureViewMenu(menu ->
+                menu.add(MenusSwing.item("Fullscreen", this::toggleFullscreen))
+        )
+        .build();
+```
+
+També es poden rebre callbacks quan l'usuari canvia l'idioma o aplica un tema:
+
+```java
+ApplicationMenuBarSwing.builder(frame)
+        .onHome(this::goHome)
+        .onExit(this::exitApplication)
+        .onAbout(this::showAbout)
+        .onLanguageChanged(language -> refreshContent())
+        .onThemeApplied(theme -> refreshLayout())
+        .build();
+```
+
+Els textos estàndard de la barra s'actualitzen automàticament amb l'idioma actiu.
+
+---
+
+## `EdtSwing`
+
+Centralitza l'execució segura de tasques al fil d'esdeveniments de Swing.
+
+```java
+EdtSwing.runAndWait(() -> {
+    // Codi que ha de completar-se a l'EDT abans de continuar
+});
+
+EdtSwing.runLater(() -> {
+    // Codi encuat de manera asíncrona a l'EDT
+});
+
+boolean onEdt = EdtSwing.isEdt();
+```
+
+---
+
+## Menús de tema i idioma
+
+`ThemeMenuSwing` crea un menú de Look and Feel reutilitzable:
+
+```java
+JMenu themes = ThemeMenuSwing.create(frame);
+```
+
+`LanguageMenuSwing` crea el selector d'idioma:
+
+```java
+JMenu language = LanguageMenuSwing.create();
+```
+
+Ambdós formen part automàticament d'`ApplicationMenuBarSwing`.
+
+---
+
+## Icones
+
+La llibreria incorpora diversos catàlegs d'icones:
+
+| Classe | Catàleg |
+|---|---|
+| `IconsFugue` | Fugue Icons |
+| `IconsFatCow` | FatCow Icons |
+| `IconsFlags` | Banderes |
+| `IconsGame` | Game Icons |
+| `IconsApp` | Constants semàntiques d'ús habitual |
+
+La càrrega es centralitza a `IconsSwing`:
+
+```java
+Icon home = IconsSwing.load(IconsFugue.HOME);
+```
+
+Les icones es carreguen sota demanda i es reutilitzen mitjançant memòria cau.
+
+---
+
+## Taules genèriques
+
+`ColumnSwing`, `TableModelSwing` i `TablesSwing` permeten construir taules a partir d'objectes sense implementar manualment un `AbstractTableModel` per a cada cas.
+
+Exemple conceptual:
+
+```java
+List<ColumnSwing<Product>> columns = List.of(
+        new ColumnSwing<>("ID", Product::getId),
+        new ColumnSwing<>("Name", Product::getName),
+        new ColumnSwing<>("Price", Product::getPrice)
+);
+```
+
+A partir d'aquí, `TableModelSwing` manté les dades i `TablesSwing` proporciona les utilitats de presentació i selecció.
+
+---
+
+## Tasques en segon pla
+
+`TasksSwing` encapsula `SwingWorker` per executar operacions lentes fora de l'EDT i retornar els callbacks a la interfície de manera segura.
+
+És apropiat per a operacions com:
+
+- lectura o escriptura de fitxers
+- consultes a base de dades
+- càrregues costoses
+- operacions que no han de bloquejar la interfície
+
+---
+
+# Migració de v5 a v6 :warning:
+
+La v6 reorganitza i anglifica l'API. No és un canvi compatible a nivell de noms.
+
+Alguns exemples:
+
+| v5 | v6 |
+|---|---|
+| `aplicacio` | `io.github.agarriga18696.andreuutils.application` |
+| `utilitats` | `io.github.agarriga18696.andreuutils.core` |
+| `aplicaciogui` | `io.github.agarriga18696.andreuutils.swing` |
+| `AplicacioBase` | `ApplicationBase` |
+| `ControladorBase` | `ControllerBase` |
+| `VistaBase` | `ViewBase` |
+| `AplicacioGuiBase` | `GuiApplicationBase` |
+| `DialegsSwing` | `DialogsSwing` |
+| `FinestresSwing` | `FramesSwing` |
+| `PanellsSwing` | `PanelsSwing` |
+| `TasquesSwing` | `TasksSwing` |
+| `TaulesSwing` | `TablesSwing` |
+| `ModelTaulaSwing` | `TableModelSwing` |
+| `ColumnaSwing` | `ColumnSwing` |
+| `IconesSwing` | `IconsSwing` |
+| `IconesFugue` | `IconsFugue` |
+| `MenuTemesSwing` | `ThemeMenuSwing` |
+
+> [!TIP]
+> Si migres un projecte existent, usa **Refactor → Rename** d'IntelliJ IDEA sempre que sigui possible en lloc de substituir noms globalment com a text.
+
+---
+
+## Estat de la branca `v6`
+
+- Java 25
+- 45 fitxers font compilats
+- 147 tests
+- 0 failures
+- 0 errors
+- 0 skipped
+- Javadoc sense warnings
+- API principal en anglès
+- i18n per anglès, castellà i català
 
 ---
 
