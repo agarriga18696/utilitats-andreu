@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Test;
 import io.github.agarriga18696.andreuutils.core.Language;
 import io.github.agarriga18696.andreuutils.core.LanguageManager;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests for {@link ApplicationMenuBarSwing}.
@@ -293,5 +292,47 @@ class ApplicationMenuBarSwingTest {
         themesMenu.getItem(0).doClick();
 
         assertEquals(1, callbackCalls[0]);
+    }
+
+    @Test
+    void requiresHomeAction() {
+
+        assertThrows(
+                IllegalStateException.class,
+                () -> ApplicationMenuBarSwing.builder(new JPanel())
+                        .onExit(() -> {
+                        })
+                        .onAbout(() -> {
+                        })
+                        .build()
+        );
+    }
+
+    @Test
+    void requiresExitAction() {
+
+        assertThrows(
+                IllegalStateException.class,
+                () -> ApplicationMenuBarSwing.builder(new JPanel())
+                        .onHome(() -> {
+                        })
+                        .onAbout(() -> {
+                        })
+                        .build()
+        );
+    }
+
+    @Test
+    void requiresAboutAction() {
+
+        assertThrows(
+                IllegalStateException.class,
+                () -> ApplicationMenuBarSwing.builder(new JPanel())
+                        .onHome(() -> {
+                        })
+                        .onExit(() -> {
+                        })
+                        .build()
+        );
     }
 }
