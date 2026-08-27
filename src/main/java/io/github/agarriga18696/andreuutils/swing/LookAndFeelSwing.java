@@ -318,51 +318,51 @@ public final class LookAndFeelSwing {
      *
      * @return Predefined themes.
      */
-    public static List<TemaLookAndFeelSwing> getPredefinedThemes() {
+    public static List<LookAndFeelThemeSwing> getPredefinedThemes() {
         return List.of(
-                new TemaLookAndFeelSwing(
+                new LookAndFeelThemeSwing(
                         SwingMessages.text("theme.system"),
                         SYSTEM,
                         IconesSwing.TEMA_JAVA,
                         false
                 ),
-                new TemaLookAndFeelSwing(
+                new LookAndFeelThemeSwing(
                         "Nimbus",
                         NIMBUS,
                         IconesSwing.TEMA_JAVA,
                         false
                 ),
-                new TemaLookAndFeelSwing(
+                new LookAndFeelThemeSwing(
                         "Metal",
                         METAL,
                         IconesSwing.TEMA_JAVA,
                         false
                 ),
-                new TemaLookAndFeelSwing(
+                new LookAndFeelThemeSwing(
                         "Motif",
                         MOTIF,
                         IconesSwing.TEMA_LINUX,
                         false
                 ),
-                new TemaLookAndFeelSwing(
+                new LookAndFeelThemeSwing(
                         "GTK",
                         GTK,
                         IconesSwing.TEMA_LINUX,
                         false
                 ),
-                new TemaLookAndFeelSwing(
+                new LookAndFeelThemeSwing(
                         "Windows",
                         WINDOWS,
                         IconesSwing.TEMA_WINDOWS,
                         false
                 ),
-                new TemaLookAndFeelSwing(
+                new LookAndFeelThemeSwing(
                         "Windows Classic",
                         WINDOWS_CLASSIC,
                         IconesSwing.TEMA_WINDOWS,
                         false
                 ),
-                new TemaLookAndFeelSwing(
+                new LookAndFeelThemeSwing(
                         "macOS",
                         MAC_OS,
                         IconesSwing.TEMA_MAC_OS,

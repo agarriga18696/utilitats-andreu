@@ -70,7 +70,7 @@ public final class MenuTemesSwing {
 	 */
 	public static JMenu crearMenuTemes(
 			Component componentActualitzar,
-			List<TemaLookAndFeelSwing> temes,
+			List<LookAndFeelThemeSwing> temes,
 			Consumer<String> accioTemaAplicat
 			) {
 
@@ -87,18 +87,18 @@ public final class MenuTemesSwing {
 
 		String classeActual = LookAndFeelSwing.getCurrentClassName();
 
-		for(TemaLookAndFeelSwing tema : temes) {
+		for(LookAndFeelThemeSwing tema : temes) {
 
-			boolean seleccionat = tema.classe().equals(classeActual);
-			boolean compatible = LookAndFeelSwing.isCompatible(tema.classe());
+			boolean seleccionat = tema.className().equals(classeActual);
+			boolean compatible = LookAndFeelSwing.isCompatible(tema.className());
 
 			JRadioButtonMenuItem item = MenusSwing.radioItem(
-					tema.nom(),
+					tema.name(),
 					seleccionat,
 					() -> aplicarTema(componentActualitzar, tema, accioTemaAplicat)
 					);
 
-			item.setIcon(IconesSwing.carregar(tema.icona()));
+			item.setIcon(IconesSwing.carregar(tema.icon()));
 			item.setEnabled(compatible);
 
 			grupTemes.add(item);
@@ -114,17 +114,17 @@ public final class MenuTemesSwing {
 
 	private static void aplicarTema(
 			Component componentActualitzar,
-			TemaLookAndFeelSwing tema,
+			LookAndFeelThemeSwing tema,
 			Consumer<String> accioTemaAplicat
 			) {
 
-		if(!LookAndFeelSwing.isCompatible(tema.classe())) {
+		if(!LookAndFeelSwing.isCompatible(tema.className())) {
 			return;
 		}
 
-		if(LookAndFeelSwing.apply(tema.classe())) {
+		if(LookAndFeelSwing.apply(tema.className())) {
 			LookAndFeelSwing.update(componentActualitzar);
-			accioTemaAplicat.accept(tema.nom());
+			accioTemaAplicat.accept(tema.name());
 		}
 	}
 
