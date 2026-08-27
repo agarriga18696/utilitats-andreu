@@ -29,17 +29,4 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <sourceDirectory>UtilitatsAndreu/src</sourceDirectory>
-
-        <resources>
-            <resource>
-                <directory>UtilitatsAndreu/src</directory>
-                <includes>
-                    <include>**/*.png</include>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
 </project>
