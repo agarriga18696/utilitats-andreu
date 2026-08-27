@@ -5,13 +5,15 @@
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>local.andreu</groupId>
-    <artifactId>utilitats-andreu</artifactId>
-    <version>5.1.8</version>
+    <groupId>io.github.agarriga18696</groupId>
+    <artifactId>andreu-utils</artifactId>
+    <version>6.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Utilitats Andreu</name>
-    <description>Llibreria d'utilitats per a aplicacions Java de consola i Swing</description>
+    <name>Andreu Utils</name>
+    <description>
+        Java utility library for console and Swing desktop applications.
+    </description>
 
     <properties>
         <maven.compiler.release>25</maven.compiler.release>
