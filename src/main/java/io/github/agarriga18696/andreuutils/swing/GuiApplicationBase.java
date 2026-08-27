@@ -137,7 +137,7 @@ public abstract class GuiApplicationBase {
             );
 
             EdtSwing.runLater(() ->
-                    DialegsSwing.error(
+                    DialogsSwing.error(
                             null,
                             "Unexpected error",
                             "An unexpected error occurred:\n" + exception.getMessage()
