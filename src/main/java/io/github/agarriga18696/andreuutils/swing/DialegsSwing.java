@@ -21,7 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import utilitats.Arrays;
+import io.github.agarriga18696.andreuutils.core.Arrays;
 
 /**
  * Classe d'utilitat per mostrar diàlegs Swing.

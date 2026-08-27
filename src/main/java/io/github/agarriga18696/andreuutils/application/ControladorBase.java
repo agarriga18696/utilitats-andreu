@@ -1,7 +1,7 @@
 package io.github.agarriga18696.andreuutils.application;
 
-import utilitats.Fitxers;
-import utilitats.Missatges;
+import io.github.agarriga18696.andreuutils.core.Fitxers;
+import io.github.agarriga18696.andreuutils.core.Missatges;
 
 /**
  * Classe base per crear la classe Controlador.

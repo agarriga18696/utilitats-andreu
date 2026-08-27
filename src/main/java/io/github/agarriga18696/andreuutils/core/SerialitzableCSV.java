@@ -1,4 +1,4 @@
-package utilitats;
+package io.github.agarriga18696.andreuutils.core;
 
 /**
  * Interfície que permet convertir un objecte serialitzat a format CSV.

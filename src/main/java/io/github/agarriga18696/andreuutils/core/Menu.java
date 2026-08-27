@@ -1,4 +1,4 @@
-package utilitats;
+package io.github.agarriga18696.andreuutils.core;
 
 /**
  * Classe d'utilitat per crear menús per consola.

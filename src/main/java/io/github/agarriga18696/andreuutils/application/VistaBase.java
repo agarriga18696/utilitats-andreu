@@ -1,6 +1,6 @@
 package io.github.agarriga18696.andreuutils.application;
 
-import utilitats.Menu;
+import io.github.agarriga18696.andreuutils.core.Menu;
 
 /**
  * Classe base per crear la classe Vista.

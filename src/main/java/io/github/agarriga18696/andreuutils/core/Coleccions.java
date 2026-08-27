@@ -1,4 +1,4 @@
-package utilitats;
+package io.github.agarriga18696.andreuutils.core;
 
 import java.util.ArrayList;
 import java.util.Collection;
