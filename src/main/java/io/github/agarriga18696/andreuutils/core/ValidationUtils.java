@@ -11,13 +11,31 @@ import java.util.regex.Pattern;
  */
 public final class ValidationUtils {
 
+    /*
+     * Pattern for validating email addresses.
+     *
+     * Local part:
+     * letters, digits, underscores, periods, percent signs,
+     * plus signs and hyphens.
+     *
+     * Domain:
+     * letters, digits, periods and hyphens.
+     *
+     * Top-level domain:
+     * a period followed by at least two letters.
+     */
+    private static final Pattern EMAIL_PATTERN =
+            Pattern.compile("^[\\w._%+\\-]+@[\\w.\\-]+\\.[a-zA-Z]{2,}$");
+
+    // ----------------------------------------
+    // NUMBERS
+    // ----------------------------------------
+
+    private static final String DNI_LETTERS = "TRWAGMYFPDXBNJZSQVHLCKE";
+
     private ValidationUtils() {
         /* This utility class should not be instantiated */
     }
-
-    //-------------------------------
-    // NUMBERS
-    //-------------------------------
 
     /**
      * Checks whether a string represents a valid integer.
@@ -74,6 +92,10 @@ public final class ValidationUtils {
         return value > 0;
     }
 
+    // ----------------------------------------
+    // EMAIL
+    // ----------------------------------------
+
     /**
      * Checks whether an integer is within the specified inclusive range.
      *
@@ -98,25 +120,9 @@ public final class ValidationUtils {
         return value >= min && value <= max;
     }
 
-    //-------------------------------
-    // EMAIL
-    //-------------------------------
-
-    /*
-     * Pattern for validating email addresses.
-     *
-     * Local part:
-     * letters, digits, underscores, periods, percent signs,
-     * plus signs and hyphens.
-     *
-     * Domain:
-     * letters, digits, periods and hyphens.
-     *
-     * Top-level domain:
-     * a period followed by at least two letters.
-     */
-    private static final Pattern EMAIL_PATTERN =
-            Pattern.compile("^[\\w._%+\\-]+@[\\w.\\-]+\\.[a-zA-Z]{2,}$");
+    // ----------------------------------------
+    // PHONE
+    // ----------------------------------------
 
     /**
      * Checks whether a string represents a valid email address.
@@ -129,9 +135,9 @@ public final class ValidationUtils {
         return EMAIL_PATTERN.matcher(value.strip()).matches();
     }
 
-    //-------------------------------
-    // PHONE
-    //-------------------------------
+    // ----------------------------------------
+    // DNI
+    // ----------------------------------------
 
     /**
      * Checks whether a string represents a valid 9-digit Spanish phone number.
@@ -149,15 +155,12 @@ public final class ValidationUtils {
         return value.strip().matches("[679]\\d{8}");
     }
 
-    //-------------------------------
-    // DNI
-    //-------------------------------
-
-    private static final String DNI_LETTERS = "TRWAGMYFPDXBNJZSQVHLCKE";
-
     /**
-     * Checks whether a string represents a valid Spanish DNI,
-     * including both its format and control letter.
+     * Checks whether the specified value is a valid Spanish DNI.
+     *
+     * @param value Value to validate.
+     * @return {@code true} if the value is a valid Spanish DNI;
+     * {@code false} otherwise.
      */
     public static boolean isSpanishDni(String value) {
         if (StringUtils.isNullOrBlank(value)) return false;

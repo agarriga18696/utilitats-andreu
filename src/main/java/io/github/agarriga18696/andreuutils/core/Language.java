@@ -10,8 +10,19 @@ import java.util.Locale;
  */
 public enum Language {
 
+    /**
+     * English language.
+     */
     ENGLISH(Locale.ENGLISH),
+
+    /**
+     * Spanish language.
+     */
     SPANISH(Locale.of("es")),
+
+    /**
+     * Catalan language.
+     */
     CATALAN(Locale.of("ca"));
 
     private final Locale locale;

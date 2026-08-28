@@ -27,21 +27,49 @@ import javax.swing.UIManager;
 public final class LookAndFeelSwing {
 
     // ----------------------------------------
-    // STATIC ATTRIBUTES
-    // ----------------------------------------
-
-    public static final String SYSTEM = UIManager.getSystemLookAndFeelClassName();
-    public static final String METAL = "javax.swing.plaf.metal.MetalLookAndFeel";
-
-    // ----------------------------------------
     // LOOK AND FEEL CONSTANTS
     // ----------------------------------------
+
+    /**
+     * System Look and Feel class name.
+     */
+    public static final String SYSTEM = UIManager.getSystemLookAndFeelClassName();
+
+    /**
+     * Metal Look and Feel class name.
+     */
+    public static final String METAL = "javax.swing.plaf.metal.MetalLookAndFeel";
+
+    /**
+     * Nimbus Look and Feel class name.
+     */
     public static final String NIMBUS = "javax.swing.plaf.nimbus.NimbusLookAndFeel";
+
+    /**
+     * Motif Look and Feel class name.
+     */
     public static final String MOTIF = "com.sun.java.swing.plaf.motif.MotifLookAndFeel";
+
+    /**
+     * Windows Look and Feel class name.
+     */
     public static final String WINDOWS = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
+
+    /**
+     * Windows Classic Look and Feel class name.
+     */
     public static final String WINDOWS_CLASSIC = "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel";
+
+    /**
+     * GTK Look and Feel class name.
+     */
     public static final String GTK = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
+
+    /**
+     * macOS Aqua Look and Feel class name.
+     */
     public static final String MAC_OS = "com.apple.laf.AquaLookAndFeel";
+
     private static final Logger LOGGER = Logger.getLogger(LookAndFeelSwing.class.getName());
     private static final Map<String, Boolean> COMPATIBILITY_CACHE = new ConcurrentHashMap<>();
 

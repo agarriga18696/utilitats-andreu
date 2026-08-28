@@ -7,13 +7,40 @@
 
     <groupId>io.github.agarriga18696</groupId>
     <artifactId>andreu-utils</artifactId>
-    <version>6.0.1</version>
+    <version>6.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Andreu Utils</name>
     <description>
         Java utility library for console and Swing desktop applications.
     </description>
+
+    <url>https://github.com/agarriga18696/utilitats-andreu</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/license/mit</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Andreu Garriga Cendán</name>
+            <url>https://github.com/agarriga18696</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>
+            scm:git:https://github.com/agarriga18696/utilitats-andreu.git
+        </connection>
+        <developerConnection>
+            scm:git:ssh://git@github.com/agarriga18696/utilitats-andreu.git
+        </developerConnection>
+        <url>https://github.com/agarriga18696/utilitats-andreu</url>
+    </scm>
 
     <properties>
         <maven.compiler.release>25</maven.compiler.release>
@@ -28,5 +55,78 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.12.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.11.0</version>
+                <extensions>true</extensions>
+
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.8</version>
+
+                        <configuration>
+                            <keyname>95D230620BC06098</keyname>
+                        </configuration>
+
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
