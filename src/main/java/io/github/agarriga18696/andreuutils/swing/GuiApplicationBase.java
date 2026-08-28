@@ -19,7 +19,7 @@ import javax.swing.SwingUtilities;
  * before initialization.
  *
  * @author Andreu
- * @version 2.1
+ * @version 2.2
  */
 public abstract class GuiApplicationBase {
 
@@ -27,8 +27,14 @@ public abstract class GuiApplicationBase {
     // STATIC ATTRIBUTES
     // ----------------------------------------
 
-    private static final Logger LOGGER =
-            Logger.getLogger(GuiApplicationBase.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(GuiApplicationBase.class.getName());
+
+    /**
+     * Creates a new GUI application base.
+     */
+    public GuiApplicationBase() {
+        // Base constructor
+    }
 
     // ----------------------------------------
     // CONFIGURATION
@@ -163,5 +169,4 @@ public abstract class GuiApplicationBase {
             );
         });
     }
-
 }

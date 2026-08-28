@@ -21,6 +21,7 @@ package io.github.agarriga18696.andreuutils.swing;
  * @see IconsSwing#loadFlag(String)
  * @version 2.0
  */
+@SuppressWarnings("doclint:missing")
 public final class IconsFlags {
 
 	private IconsFlags() {

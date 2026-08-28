@@ -10,6 +10,7 @@ package io.github.agarriga18696.andreuutils.swing;
  * @author Andreu
  * @version 2.0
  */
+@SuppressWarnings("doclint:missing")
 public final class IconsFugue {
 
 	private IconsFugue() {
