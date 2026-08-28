@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 import javax.swing.ButtonGroup;
+import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JRadioButtonMenuItem;
 
@@ -15,7 +16,7 @@ import io.github.agarriga18696.andreuutils.core.LanguageManager;
  * Utility class for creating language selection menus.
  *
  * @author Andreu
- * @version 1.2
+ * @version 1.3
  */
 public final class LanguageMenuSwing {
 
@@ -59,11 +60,14 @@ public final class LanguageMenuSwing {
                 "The language-changed action cannot be null."
         );
 
-        JMenu languageMenu = MenusSwing.menu(
-                I18nSwing.text("menu.language"),
-                null,
-                KeyEvent.VK_L
-        );
+        JMenu languageMenu =
+                MenusSwing.menu(
+                        I18nSwing.text("menu.language"),
+                        IconsSwing.load(
+                                IconsFugue.GLOBE
+                        ),
+                        KeyEvent.VK_L
+                );
 
         ButtonGroup languageGroup =
                 new ButtonGroup();
@@ -73,6 +77,7 @@ public final class LanguageMenuSwing {
             JRadioButtonMenuItem item =
                     MenusSwing.radioItem(
                             getLanguageName(language),
+                            getLanguageIcon(language),
                             language == LanguageManager.getLanguage(),
                             () -> applyLanguage(
                                     language,
@@ -158,12 +163,36 @@ public final class LanguageMenuSwing {
     ) {
 
         return switch (language) {
-            case ENGLISH -> I18nSwing.text("language.english");
+            case ENGLISH -> I18nSwing.text(
+                    "language.english"
+            );
 
-            case SPANISH -> I18nSwing.text("language.spanish");
+            case SPANISH -> I18nSwing.text(
+                    "language.spanish"
+            );
 
-            case CATALAN -> I18nSwing.text("language.catalan");
+            case CATALAN -> I18nSwing.text(
+                    "language.catalan"
+            );
         };
     }
 
+    private static Icon getLanguageIcon(
+            Language language
+    ) {
+
+        return switch (language) {
+            case ENGLISH -> IconsSwing.loadFlag(
+                    IconsFlags.GB
+            );
+
+            case SPANISH -> IconsSwing.loadFlag(
+                    IconsFlags.ES
+            );
+
+            case CATALAN -> IconsSwing.loadFlag(
+                    IconsFlags.CATALONIA
+            );
+        };
+    }
 }
