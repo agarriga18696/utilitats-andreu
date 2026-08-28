@@ -7,7 +7,7 @@
 
     <groupId>io.github.agarriga18696</groupId>
     <artifactId>andreu-utils</artifactId>
-    <version>6.0.1-SNAPSHOT</version>
+    <version>6.0.1</version>
     <packaging>jar</packaging>
 
     <name>Andreu Utils</name>
