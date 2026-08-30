@@ -13,7 +13,7 @@ import javax.swing.KeyStroke;
  * Utility class for creating and configuring Swing menus.
  *
  * @author Andreu
- * @version 2.0
+ * @version 2.1
  */
 public final class MenusSwing {
 
@@ -51,9 +51,13 @@ public final class MenusSwing {
      * @param mnemonic Keyboard mnemonic.
      * @return Created menu.
      */
-    public static JMenu menu(String text, int mnemonic) {
+    public static JMenu menu(
+            String text,
+            int mnemonic
+    ) {
         JMenu menu = new JMenu(text);
         menu.setMnemonic(mnemonic);
+
         return menu;
     }
 
@@ -64,10 +68,14 @@ public final class MenusSwing {
      * @param mnemonic Keyboard mnemonic.
      * @return Created menu.
      */
-    public static JMenu menu(String text, char mnemonic) {
-        JMenu menu = new JMenu(text);
-        menu.setMnemonic(mnemonic);
-        return menu;
+    public static JMenu menu(
+            String text,
+            char mnemonic
+    ) {
+        return menu(
+                text,
+                (int) mnemonic
+        );
     }
 
     /**
@@ -77,9 +85,13 @@ public final class MenusSwing {
      * @param icon Menu icon.
      * @return Created menu.
      */
-    public static JMenu menu(String text, Icon icon) {
+    public static JMenu menu(
+            String text,
+            Icon icon
+    ) {
         JMenu menu = new JMenu(text);
         menu.setIcon(icon);
+
         return menu;
     }
 
@@ -96,8 +108,8 @@ public final class MenusSwing {
             Icon icon,
             int mnemonic
     ) {
-
         JMenu menu = new JMenu(text);
+
         menu.setIcon(icon);
         menu.setMnemonic(mnemonic);
 
@@ -117,12 +129,11 @@ public final class MenusSwing {
             Icon icon,
             char mnemonic
     ) {
-
-        JMenu menu = new JMenu(text);
-        menu.setIcon(icon);
-        menu.setMnemonic(mnemonic);
-
-        return menu;
+        return menu(
+                text,
+                icon,
+                (int) mnemonic
+        );
     }
 
     // ----------------------------------------
@@ -135,8 +146,46 @@ public final class MenusSwing {
      * @param text Menu item text.
      * @return Created menu item.
      */
-    public static JMenuItem item(String text) {
+    public static JMenuItem item(
+            String text
+    ) {
         return new JMenuItem(text);
+    }
+
+    /**
+     * Creates a {@link JMenuItem} with the specified text and mnemonic.
+     *
+     * @param text     Menu item text.
+     * @param mnemonic Keyboard mnemonic.
+     * @return Created menu item.
+     */
+    public static JMenuItem item(
+            String text,
+            int mnemonic
+    ) {
+        JMenuItem item =
+                new JMenuItem(text);
+
+        item.setMnemonic(mnemonic);
+
+        return item;
+    }
+
+    /**
+     * Creates a {@link JMenuItem} with the specified text and mnemonic.
+     *
+     * @param text     Menu item text.
+     * @param mnemonic Keyboard mnemonic.
+     * @return Created menu item.
+     */
+    public static JMenuItem item(
+            String text,
+            char mnemonic
+    ) {
+        return item(
+                text,
+                (int) mnemonic
+        );
     }
 
     /**
@@ -150,20 +199,70 @@ public final class MenusSwing {
             String text,
             Runnable action
     ) {
-
         Objects.requireNonNull(
                 action,
                 "The action cannot be null."
         );
 
-        JMenuItem item = new JMenuItem(text);
-        item.addActionListener(_ -> action.run());
+        JMenuItem item =
+                new JMenuItem(text);
+
+        item.addActionListener(
+                _ -> action.run()
+        );
 
         return item;
     }
 
     /**
-     * Creates a {@link JMenuItem} with the specified text, icon and action.
+     * Creates a {@link JMenuItem} with the specified text,
+     * mnemonic and action.
+     *
+     * @param text     Menu item text.
+     * @param mnemonic Keyboard mnemonic.
+     * @param action   Action executed when the item is selected.
+     * @return Created menu item.
+     */
+    public static JMenuItem item(
+            String text,
+            int mnemonic,
+            Runnable action
+    ) {
+        JMenuItem item =
+                item(
+                        text,
+                        action
+                );
+
+        item.setMnemonic(mnemonic);
+
+        return item;
+    }
+
+    /**
+     * Creates a {@link JMenuItem} with the specified text,
+     * mnemonic and action.
+     *
+     * @param text     Menu item text.
+     * @param mnemonic Keyboard mnemonic.
+     * @param action   Action executed when the item is selected.
+     * @return Created menu item.
+     */
+    public static JMenuItem item(
+            String text,
+            char mnemonic,
+            Runnable action
+    ) {
+        return item(
+                text,
+                (int) mnemonic,
+                action
+        );
+    }
+
+    /**
+     * Creates a {@link JMenuItem} with the specified text,
+     * icon and action.
      *
      * @param text   Menu item text.
      * @param icon   Menu item icon.
@@ -175,21 +274,79 @@ public final class MenusSwing {
             Icon icon,
             Runnable action
     ) {
-
         Objects.requireNonNull(
                 action,
                 "The action cannot be null."
         );
 
-        JMenuItem item = new JMenuItem(text, icon);
-        item.addActionListener(_ -> action.run());
+        JMenuItem item =
+                new JMenuItem(
+                        text,
+                        icon
+                );
+
+        item.addActionListener(
+                _ -> action.run()
+        );
 
         return item;
     }
 
     /**
-     * Creates a {@link JMenuItem} with the specified text, icon, keyboard
-     * accelerator and action.
+     * Creates a {@link JMenuItem} with the specified text,
+     * icon, mnemonic and action.
+     *
+     * @param text     Menu item text.
+     * @param icon     Menu item icon.
+     * @param mnemonic Keyboard mnemonic.
+     * @param action   Action executed when the item is selected.
+     * @return Created menu item.
+     */
+    public static JMenuItem item(
+            String text,
+            Icon icon,
+            int mnemonic,
+            Runnable action
+    ) {
+        JMenuItem item =
+                item(
+                        text,
+                        icon,
+                        action
+                );
+
+        item.setMnemonic(mnemonic);
+
+        return item;
+    }
+
+    /**
+     * Creates a {@link JMenuItem} with the specified text,
+     * icon, mnemonic and action.
+     *
+     * @param text     Menu item text.
+     * @param icon     Menu item icon.
+     * @param mnemonic Keyboard mnemonic.
+     * @param action   Action executed when the item is selected.
+     * @return Created menu item.
+     */
+    public static JMenuItem item(
+            String text,
+            Icon icon,
+            char mnemonic,
+            Runnable action
+    ) {
+        return item(
+                text,
+                icon,
+                (int) mnemonic,
+                action
+        );
+    }
+
+    /**
+     * Creates a {@link JMenuItem} with the specified text, icon,
+     * keyboard accelerator and action.
      *
      * @param text        Menu item text.
      * @param icon        Menu item icon.
@@ -203,11 +360,74 @@ public final class MenusSwing {
             KeyStroke accelerator,
             Runnable action
     ) {
+        JMenuItem item =
+                item(
+                        text,
+                        icon,
+                        action
+                );
 
-        JMenuItem item = item(text, icon, action);
         item.setAccelerator(accelerator);
 
         return item;
+    }
+
+    /**
+     * Creates a {@link JMenuItem} with the specified text, icon,
+     * mnemonic, keyboard accelerator and action.
+     *
+     * @param text        Menu item text.
+     * @param icon        Menu item icon.
+     * @param mnemonic    Keyboard mnemonic.
+     * @param accelerator Keyboard accelerator.
+     * @param action      Action executed when the item is selected.
+     * @return Created menu item.
+     */
+    public static JMenuItem item(
+            String text,
+            Icon icon,
+            int mnemonic,
+            KeyStroke accelerator,
+            Runnable action
+    ) {
+        JMenuItem item =
+                item(
+                        text,
+                        icon,
+                        mnemonic,
+                        action
+                );
+
+        item.setAccelerator(accelerator);
+
+        return item;
+    }
+
+    /**
+     * Creates a {@link JMenuItem} with the specified text, icon,
+     * mnemonic, keyboard accelerator and action.
+     *
+     * @param text        Menu item text.
+     * @param icon        Menu item icon.
+     * @param mnemonic    Keyboard mnemonic.
+     * @param accelerator Keyboard accelerator.
+     * @param action      Action executed when the item is selected.
+     * @return Created menu item.
+     */
+    public static JMenuItem item(
+            String text,
+            Icon icon,
+            char mnemonic,
+            KeyStroke accelerator,
+            Runnable action
+    ) {
+        return item(
+                text,
+                icon,
+                (int) mnemonic,
+                accelerator,
+                action
+        );
     }
 
     // ----------------------------------------
@@ -227,18 +447,72 @@ public final class MenusSwing {
             boolean selected,
             Runnable action
     ) {
-
         Objects.requireNonNull(
                 action,
                 "The action cannot be null."
         );
 
         JRadioButtonMenuItem item =
-                new JRadioButtonMenuItem(text, selected);
+                new JRadioButtonMenuItem(
+                        text,
+                        selected
+                );
 
-        item.addActionListener(_ -> action.run());
+        item.addActionListener(
+                _ -> action.run()
+        );
 
         return item;
+    }
+
+    /**
+     * Creates a {@link JRadioButtonMenuItem} with a mnemonic.
+     *
+     * @param text     Menu item text.
+     * @param mnemonic Keyboard mnemonic.
+     * @param selected Whether the item is initially selected.
+     * @param action   Action executed when the item is selected.
+     * @return Created radio menu item.
+     */
+    public static JRadioButtonMenuItem radioItem(
+            String text,
+            int mnemonic,
+            boolean selected,
+            Runnable action
+    ) {
+        JRadioButtonMenuItem item =
+                radioItem(
+                        text,
+                        selected,
+                        action
+                );
+
+        item.setMnemonic(mnemonic);
+
+        return item;
+    }
+
+    /**
+     * Creates a {@link JRadioButtonMenuItem} with a mnemonic.
+     *
+     * @param text     Menu item text.
+     * @param mnemonic Keyboard mnemonic.
+     * @param selected Whether the item is initially selected.
+     * @param action   Action executed when the item is selected.
+     * @return Created radio menu item.
+     */
+    public static JRadioButtonMenuItem radioItem(
+            String text,
+            char mnemonic,
+            boolean selected,
+            Runnable action
+    ) {
+        return radioItem(
+                text,
+                (int) mnemonic,
+                selected,
+                action
+        );
     }
 
     /**
@@ -256,7 +530,6 @@ public final class MenusSwing {
             boolean selected,
             Runnable action
     ) {
-
         Objects.requireNonNull(
                 action,
                 "The action cannot be null."
@@ -269,9 +542,67 @@ public final class MenusSwing {
                         selected
                 );
 
-        item.addActionListener(_ -> action.run());
+        item.addActionListener(
+                _ -> action.run()
+        );
 
         return item;
+    }
+
+    /**
+     * Creates a {@link JRadioButtonMenuItem} with an icon and mnemonic.
+     *
+     * @param text     Menu item text.
+     * @param icon     Menu item icon.
+     * @param mnemonic Keyboard mnemonic.
+     * @param selected Whether the item is initially selected.
+     * @param action   Action executed when the item is selected.
+     * @return Created radio menu item.
+     */
+    public static JRadioButtonMenuItem radioItem(
+            String text,
+            Icon icon,
+            int mnemonic,
+            boolean selected,
+            Runnable action
+    ) {
+        JRadioButtonMenuItem item =
+                radioItem(
+                        text,
+                        icon,
+                        selected,
+                        action
+                );
+
+        item.setMnemonic(mnemonic);
+
+        return item;
+    }
+
+    /**
+     * Creates a {@link JRadioButtonMenuItem} with an icon and mnemonic.
+     *
+     * @param text     Menu item text.
+     * @param icon     Menu item icon.
+     * @param mnemonic Keyboard mnemonic.
+     * @param selected Whether the item is initially selected.
+     * @param action   Action executed when the item is selected.
+     * @return Created radio menu item.
+     */
+    public static JRadioButtonMenuItem radioItem(
+            String text,
+            Icon icon,
+            char mnemonic,
+            boolean selected,
+            Runnable action
+    ) {
+        return radioItem(
+                text,
+                icon,
+                (int) mnemonic,
+                selected,
+                action
+        );
     }
 
 }

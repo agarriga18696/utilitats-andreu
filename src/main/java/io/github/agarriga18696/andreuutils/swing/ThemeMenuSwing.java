@@ -1,7 +1,6 @@
 package io.github.agarriga18696.andreuutils.swing;
 
 import java.awt.Component;
-import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -14,7 +13,7 @@ import javax.swing.JRadioButtonMenuItem;
  * Utility class for creating Look and Feel theme selection menus.
  *
  * @author Andreu
- * @version 2.2
+ * @version 2.3
  */
 public final class ThemeMenuSwing {
 
@@ -120,11 +119,18 @@ public final class ThemeMenuSwing {
             boolean localizeSystemTheme
     ) {
 
-        JMenu themeMenu = MenusSwing.menu(
-                I18nSwing.text("menu.themes"),
-                IconsSwing.load(IconsFugue.PALETTE),
-                KeyEvent.VK_T
-        );
+        JMenu themeMenu =
+                MenusSwing.menu(
+                        I18nSwing.text(
+                                "menu.themes"
+                        ),
+                        IconsSwing.load(
+                                IconsFugue.PALETTE
+                        ),
+                        mnemonic(
+                                "menu.themes.mnemonic"
+                        )
+                );
 
         ButtonGroup themeGroup =
                 new ButtonGroup();
@@ -135,7 +141,9 @@ public final class ThemeMenuSwing {
         for (LookAndFeelThemeSwing theme : themes) {
 
             boolean selected =
-                    theme.className().equals(currentClassName);
+                    theme.className().equals(
+                            currentClassName
+                    );
 
             boolean compatible =
                     LookAndFeelSwing.isCompatible(
@@ -159,11 +167,15 @@ public final class ThemeMenuSwing {
                     )
             );
 
-            item.setEnabled(compatible);
+            item.setEnabled(
+                    compatible
+            );
 
             if (localizeSystemTheme
                     && theme.name().equals(
-                    I18nSwing.text("theme.system")
+                    I18nSwing.text(
+                            "theme.system"
+                    )
             )) {
 
                 item.putClientProperty(
@@ -172,13 +184,20 @@ public final class ThemeMenuSwing {
                 );
             }
 
-            themeGroup.add(item);
-            themeMenu.add(item);
+            themeGroup.add(
+                    item
+            );
+
+            themeMenu.add(
+                    item
+            );
         }
 
         I18nSwing.bind(
                 themeMenu,
-                (menu, _) -> refreshMenu(menu)
+                (menu, _) -> refreshMenu(
+                        menu
+                )
         );
 
         return themeMenu;
@@ -190,11 +209,15 @@ public final class ThemeMenuSwing {
             Consumer<String> onThemeApplied
     ) {
 
-        if (!LookAndFeelSwing.isCompatible(theme.className())) {
+        if (!LookAndFeelSwing.isCompatible(
+                theme.className()
+        )) {
             return;
         }
 
-        if (LookAndFeelSwing.apply(theme.className())) {
+        if (LookAndFeelSwing.apply(
+                theme.className()
+        )) {
 
             LookAndFeelSwing.update(
                     componentToUpdate
@@ -211,7 +234,15 @@ public final class ThemeMenuSwing {
     ) {
 
         themeMenu.setText(
-                I18nSwing.text("menu.themes")
+                I18nSwing.text(
+                        "menu.themes"
+                )
+        );
+
+        themeMenu.setMnemonic(
+                mnemonic(
+                        "menu.themes.mnemonic"
+                )
         );
 
         for (int index = 0;
@@ -231,10 +262,25 @@ public final class ThemeMenuSwing {
             )) {
 
                 item.setText(
-                        I18nSwing.text("theme.system")
+                        I18nSwing.text(
+                                "theme.system"
+                        )
                 );
             }
         }
     }
 
+    /**
+     * Returns the mnemonic associated with an internationalization key.
+     *
+     * @param key Mnemonic resource key.
+     * @return Mnemonic character.
+     */
+    private static char mnemonic(
+            String key
+    ) {
+        return I18nSwing
+                .text(key)
+                .charAt(0);
+    }
 }
