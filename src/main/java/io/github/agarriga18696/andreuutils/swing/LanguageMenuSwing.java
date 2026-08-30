@@ -1,6 +1,5 @@
 package io.github.agarriga18696.andreuutils.swing;
 
-import java.awt.event.KeyEvent;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -16,7 +15,7 @@ import io.github.agarriga18696.andreuutils.core.LanguageManager;
  * Utility class for creating language selection menus.
  *
  * @author Andreu
- * @version 1.3
+ * @version 1.4
  */
 public final class LanguageMenuSwing {
 
@@ -41,8 +40,10 @@ public final class LanguageMenuSwing {
      * @return Created language menu.
      */
     public static JMenu create() {
-        return create(_ -> {
-        });
+        return create(
+                _ -> {
+                }
+        );
     }
 
     /**
@@ -62,11 +63,15 @@ public final class LanguageMenuSwing {
 
         JMenu languageMenu =
                 MenusSwing.menu(
-                        I18nSwing.text("menu.language"),
+                        I18nSwing.text(
+                                "menu.language"
+                        ),
                         IconsSwing.load(
                                 IconsFugue.GLOBE
                         ),
-                        KeyEvent.VK_L
+                        mnemonic(
+                                "menu.language.mnemonic"
+                        )
                 );
 
         ButtonGroup languageGroup =
@@ -76,9 +81,14 @@ public final class LanguageMenuSwing {
 
             JRadioButtonMenuItem item =
                     MenusSwing.radioItem(
-                            getLanguageName(language),
-                            getLanguageIcon(language),
-                            language == LanguageManager.getLanguage(),
+                            getLanguageName(
+                                    language
+                            ),
+                            getLanguageIcon(
+                                    language
+                            ),
+                            language
+                                    == LanguageManager.getLanguage(),
                             () -> applyLanguage(
                                     language,
                                     onLanguageChanged
@@ -90,8 +100,13 @@ public final class LanguageMenuSwing {
                     language
             );
 
-            languageGroup.add(item);
-            languageMenu.add(item);
+            languageGroup.add(
+                    item
+            );
+
+            languageMenu.add(
+                    item
+            );
         }
 
         I18nSwing.bind(
@@ -111,13 +126,19 @@ public final class LanguageMenuSwing {
             Consumer<Language> onLanguageChanged
     ) {
 
-        if (language == LanguageManager.getLanguage()) {
+        if (language
+                == LanguageManager.getLanguage()) {
+
             return;
         }
 
-        LanguageManager.setLanguage(language);
+        LanguageManager.setLanguage(
+                language
+        );
 
-        onLanguageChanged.accept(language);
+        onLanguageChanged.accept(
+                language
+        );
     }
 
     private static void refreshMenu(
@@ -126,7 +147,15 @@ public final class LanguageMenuSwing {
     ) {
 
         languageMenu.setText(
-                I18nSwing.text("menu.language")
+                I18nSwing.text(
+                        "menu.language"
+                )
+        );
+
+        languageMenu.setMnemonic(
+                mnemonic(
+                        "menu.language.mnemonic"
+                )
         );
 
         for (int index = 0;
@@ -149,11 +178,14 @@ public final class LanguageMenuSwing {
             }
 
             item.setText(
-                    getLanguageName(language)
+                    getLanguageName(
+                            language
+                    )
             );
 
             item.setSelected(
-                    language == currentLanguage
+                    language
+                            == currentLanguage
             );
         }
     }
@@ -194,5 +226,19 @@ public final class LanguageMenuSwing {
                     IconsFlags.CATALONIA
             );
         };
+    }
+
+    /**
+     * Returns the mnemonic associated with an internationalization key.
+     *
+     * @param key Mnemonic resource key.
+     * @return Mnemonic character.
+     */
+    private static char mnemonic(
+            String key
+    ) {
+        return I18nSwing
+                .text(key)
+                .charAt(0);
     }
 }
